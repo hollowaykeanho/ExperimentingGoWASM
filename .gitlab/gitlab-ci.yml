@@ -1,0 +1,38 @@
+image:
+  name: debian:latest
+  entrypoint: [ "" ]
+
+variables:
+  MONTEUR_CONFIG: ".monteurFS/config/main"
+
+stages:
+  - setup
+  - test
+  - build
+  - docs
+
+cache:
+  - key: "MonteurFS"
+    paths:
+      - ".monteurFS/"
+
+pages:
+  stage: docs
+  tags:
+    - debian-any
+  environment:
+    name: production
+  only:
+    refs:
+      - gh-pages
+  cache: []
+  artifacts:
+    paths:
+      - public
+    expire_in: 1 day
+  before_script:
+    - mkdir -p public
+    - shopt -s extglob
+    - mv !(public|.*) public
+  script:
+    - printf "[ DONE ] Nothing to implement.\n"

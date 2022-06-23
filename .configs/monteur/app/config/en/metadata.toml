@@ -1,0 +1,45 @@
+[Software]
+Name = "(Holloway) Chew, Kean Ho's GoWASM Experiment"
+Command = 'hollowayGoWASM'
+ID = 'hollowaygowasm'
+Version = 'v0.0.1' # version number
+Category = 'web' # software category
+Suite = ''         # software suite (e.g. MSFT Office for MSFT Word)
+Abstract = 'experiment desired implementations of pure Go web app'
+Description = """
+The single experimental repository developed by (Holloway) Chew, Kean Ho to
+select the right tools and develop necessary Go library for using pure Go
+to develop PWA offline-capable web app via WASM path.
+"""
+Website = 'https://www.hollowaykeanho.com/'
+
+[Software.Contact]
+Name = '"Holloway" Chew Kean Ho'
+Email = [ 'email@hollowaykeanho.com' ]
+
+
+
+
+[Software.Maintainers.holloway]
+Name = '"Holloway" Chew Kean Ho'
+Email = [ 'email@hollowaykeanho.com' ]
+[Software.Maintainers.holloway.JointTime]
+Year = '2022'
+
+
+
+
+[Software.Contributors.holloway]
+Name = '"Holloway" Chew Kean Ho'
+Email = [ 'email@hollowaykeanho.com' ]
+[Software.Contributors.holloway.JointTime]
+Year = '2022'
+
+
+
+
+[Software.Sponsors.holloway]
+Name = '"Holloway" Chew Kean Ho'
+Email = [ 'email@hollowaykeanho.com' ]
+[Software.Sponsors.holloway.JointTime]
+Year = '2022'

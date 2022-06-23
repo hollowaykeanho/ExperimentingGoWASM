@@ -1,0 +1,38 @@
+baseURL = "https://gowasm.hollowaykeanho.com/"
+canonifyURLs = true
+buildDrafts = false
+buildExpired = false
+buildFuture = false
+theme = [ "Presento" ]
+metaDataFormat = "toml"
+paginate = 10
+summaryLength = 70
+sectionPagesMenu = "sections"
+enableEmoji = true
+pluralizeListTitles = false
+enableGitInfo = true
+enableRobotsTXT = true
+
+archetypeDir = "archetypes"
+assetDir = "../../docs/.assets"
+dataDir = "../../docs/.data"
+staticDir = [ "static", "../../wasm", "../../docs/.static" ]
+layoutDir = "../../docs/.layouts"
+themesDir = "../../docs/.themes"
+publishDir = "../../public"
+i18nDir = "../../docs/.lang"
+
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = false
+hasCJKLanguage = true
+
+
+# Hugo injected generator as first line and broke HTML spec. Therefore, Bissetii
+# disables it and inject the generator statement in baseOf layout instead.
+disableHugoGeneratorInject = true
+
+
+# AMP disallowed javascript loading. Also, Hugo injects it as second line and
+# broke the HTML spec. Therefore, Bissetii disables it and inject the liveReload
+# in appropriate output.
+disableLiveReload = true

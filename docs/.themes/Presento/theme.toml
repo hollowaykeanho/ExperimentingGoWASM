@@ -1,0 +1,21 @@
+name = "ZORALab's Presento"
+license = "Apache-2.0"
+licenselink = "https://presento.zoralab.com/en/license/"
+description = """
+Presento is an "All-in-One" ZORALab's Web User Interface Module dedicated to
+rapid construction of a static website or a web application. Designed with
+minimalist direction and keeping things simple and nice to use.
+"""
+homepage = "https://presento.zoralab.com/"
+tags = ["zoralab", "presento", "themes", "web", "ui", "design", "components"]
+features = ["CSS-Only",
+	"W3C Compliant HTML",
+	"Sass Design Module",
+	"Go Compatible Template Module",
+	"Configurable Theme"]
+min_version = "0.87.0"
+
+authors = [
+	{name = "ZORALab Enterprise", homepage = "https://www.zoralab.com"},
+	{name = "Holloway Chew Kean Ho", homepage = "https://www.hollowaykeanho.com"},
+]
