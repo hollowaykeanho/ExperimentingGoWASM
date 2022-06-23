@@ -16,8 +16,11 @@ low implementations due to little efforts. That's why the primary goal is to:
 
 1. Develop the foundational Go library so that the customers (Go web developer)
    to deploy web app.
-   1. **[ DOING ]** - Power on with `ExperimentingGoWASM` workspace.
-   2. Explore and conclude the necessity of using [TinyGo](https://tinygo.org/).
+   1. **[ DOING ]** - Power on with `ExperimentingGoWASM` Go workspace with
+      `vendor/hestiaGo` and `vendor/presentoGo` packages.
+   2. Develop Monteur's test, build, package, and release recipes for GoWASM.
+   3. Develop baseline foundation for using GoWASM.
+   4. Explore and conclude the necessity of using [TinyGo](https://tinygo.org/).
 2. Develop client-side rendering capability using [Hugo](https://gohugo.io/) for
    cost reduction between the server sides and the end-user sides.
    1. **[ DONE ]** - Power on with Presento Theme with NoCSS but rendering
