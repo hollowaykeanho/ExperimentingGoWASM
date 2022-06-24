@@ -18,10 +18,11 @@ low implementations due to little efforts. That's why the primary goal is to:
    to deploy web app.
    1. **[ DONE ]** - Power on with `ExperimentingGoWASM` Go workspace with
       `vendor/hestiaGo` and `vendor/presentoGo` packages.
-   2. **[ DOING ]** - Develop Monteur's test, build, package, and release
+   2. **[ DONE ]** - Develop Monteur's test, build, package, and release
       recipes for GoWASM.
    3. Develop baseline foundation for using GoWASM.
-   4. Develop `<body>` manipulations directly in GoWASM (output).
+   4. **[ DOING ]** - Develop `<body>` manipulations directly in GoWASM
+      (output).
    5. Develop `<body>` manipulations directly in GoWASM (input).
    6. Develop `<body>` manipulations directly in GoWASM (event-driven).
    7. Explore and conclude the necessity of using [TinyGo](https://tinygo.org/).
@@ -29,11 +30,13 @@ low implementations due to little efforts. That's why the primary goal is to:
    cost reduction between the server sides and the end-user sides.
    1. **[ DONE ]** - Power on with Presento Theme with NoCSS but rendering
       capabilities.
-   2. Develop necessary partial functions to isolate Hugo functions (prevent
-      vendor locked-in).
-   3. Develop plain HTML+Javascript pages necessary to bring up Go-WASM.
-   4. Power on Go-WASM+HTML+Javascript on Hugo.
-   5. Deploy Gunzip against Go-WASM to reduce its size with Monteur.
+   2. **[ DOING ]** - Develop necessary partial functions to isolate Hugo
+      functions (prevent vendor locked-in).
+   3. **[ DOING ]** - Develop plain HTML+Javascript pages necessary to bring up
+      Go-WASM.
+   4. **[ DOING ]** - Power on Go-WASM+HTML+Javascript on Hugo.
+   5. **[ DOING ]** - Deploy Gunzip against Go-WASM to reduce its size with
+      Monteur.
    6. Develop necessary foundation for Go-WASM client-side rendering.
 3. Develop the necessary CSS/Sass frontend rendering libraries to keep the
    foundation reasonably and visually appealing at minimum.
@@ -276,6 +279,48 @@ is:
 ```
 $ monteur package
 ```
+
+
+
+
+## (8) Release to Hugo
+With Monteur Release CI Job made available, given the correct recipe, Monteur
+can peform proper manage the Go WASM systematically. All the user needs to do
+is:
+
+```
+$ monteur release
+```
+
+At this point, Go development is considered completed.
+
+
+
+
+## (9) Compose Static Site Generations
+With Monteur Compose CI Job made available, given the correct recipe, Monteur
+can properly compose Hugo's website artifact for web publications. All the user
+needs to do is:
+
+```
+$ monteur compose
+```
+
+At this point, Hugo development is considered completed.
+
+
+
+
+## (10) Publish the Static Site Artifact
+With Monteur Publish CI Job made available, given the correct recipe, Monteur
+can properly publish the composed website artifact to the public. All the user
+needs to do is:
+
+```
+$ monteur publish
+```
+
+At this point, the development is considered deployed.
 
 
 
