@@ -21,6 +21,7 @@ ReportPath = '{{- .BaseDir -}}/{{- .GoPackage -}}'
 ProfileFilepath = '{{- .WorkingDir -}}/{{- .ProfileDataFile -}}'
 CoverageFilepath = '{{- .BaseDir -}}/{{- .GoPackage -}}/{{- .CoverageReportFilename -}}.html'
 TestPackage = '{{- .BaseDir -}}/{{- .GoPackage -}}{{- if .Recursive -}}/...{{- end -}}'
+ConstraintTags = '' # seprated by comma
 TestCoverage = '' # will be overwritten by [CMD]
 TestVerdict = '' # will be overwritten by [CMD]
 
@@ -48,6 +49,7 @@ Type = 'command'
 Condition = [ 'all-all' ]
 Location = '{{- .TestPath -}}'
 Source = """go test -timeout "{{ .Timeout }}" \
+{{- if .ConstraintTags }} -tags {{ .ConstraintTags -}} {{- end }} \
 -coverprofile "{{- .ProfileFilepath -}}" \
 -race \
 -v \
@@ -70,7 +72,9 @@ Name = 'Process Go Test Coverage Overall Percentage'
 Type = 'command'
 Condition = [ 'all-all' ]
 Location = '{{- .TestPath -}}'
-Source = 'go tool cover -func "{{- .ProfileFilepath -}}"'
+Source = """go tool cover \
+-func "{{- .ProfileFilepath -}}"
+"""
 Save = 'TestCoverage'
 SaveRegex = 'total:\s{1,}\(statements\)\s{1,}(\d+.\d+)%'
 ToSTDOUT = 'TOTAL TEST COVERAGE: {{ .TestCoverage -}}%%'
