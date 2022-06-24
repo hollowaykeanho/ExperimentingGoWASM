@@ -1,0 +1,49 @@
+[Metadata]
+Name = 'Archive'
+Description = """
+Monteur's internal archive system consolidating all releases into a directory.
+"""
+Type = 'archive'
+
+
+
+
+[Variables]
+
+[FMTVariables]
+
+
+
+
+[[Dependencies]]
+
+
+
+
+[Releases]
+Target = '{{- .RootDir -}}/docs/.static/wasm'
+Checksum = 'sha512'
+
+[Releases.Data]
+Path = '{{- .RootDir -}}/docs/.data/releases/archives'
+Format = 'toml'
+
+[Releases.Packages.wasmExpGo]
+OS = [ "js" ]
+Arch = [ "wasm" ]
+Source = '{{- .PackageDir -}}/wasmExpGo.wasm.gz'
+
+[Releases.Packages.wasmExecJS]
+OS = [ "js" ]
+Arch = [ "wasm" ]
+Source = '{{- .PackageDir -}}/wasm_exec.js.gz'
+
+
+
+
+[[CMD]]
+Name = "Placeholder"
+Type = 'placeholder'
+Condition = [ 'all-all' ]
+Source = ''
+Target = ''
