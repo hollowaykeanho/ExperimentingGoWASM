@@ -9,7 +9,7 @@ Type = 'https-download'
 
 
 [Variables]
-Version = '0.91.2'
+Version = '0.101.0'
 BaseURL = 'https://github.com/gohugoio/hugo/releases/download'
 
 [FMTVariables]
@@ -33,82 +33,82 @@ Format = 'hex'
 [Sources.dragonfly-amd64]
 Archive = 'hugo_{{- .Version -}}_DragonFlyBSD-64bit.{{- .Format -}}'
 [Sources.dragonfly-amd64.Checksum]
-Value = 'e62467c78a69824776d12e02f5237727fe2ed162d50f964373af406a83742be9'
+Value = 'cd12d7e35f714e9ff2b78b77e31ce8a87945260ca43e392ffa75dbece6ccc878'
 
 [Sources.freebsd-amd64]
 Archive = 'hugo_{{- .Version -}}_FreeBSD-64bit.{{- .Format -}}'
 [Sources.freebsd-amd64.Checksum]
-Value = '04499e654e4bc41f23155f8aee901b14c16211764a71c9a3903ec6c1edf0e465'
+Value = '8aa4c786b55d9a39d72983e49dec95eeb8f047998f2efa38218dd20a3dd46f78'
 
 [Sources.linux-386]
 Archive = 'hugo_{{- .Version -}}_Linux-32bit.{{- .Format -}}'
 [Sources.linux-386.Checksum]
-Value = '1771f0fb9e9791f2295c75c56a8619b505100312774c520b203f2d7a46d70acc'
+Value = '9ae794edd86415a611cae15fc72382ee6f2b729754e15319c144057a5457eaed'
 
 [Sources.linux-amd64]
 Archive = 'hugo_{{- .Version -}}_Linux-64bit.{{- .Format -}}'
 [Sources.linux-amd64.Checksum]
-Value = '3c768eef5b472c23f036defd07c67caf4ff8bf7a101e32bfad276b177eba0262'
+Value = '3a22bf2b467b861afa62bd0cd1c0bbd18e2c95cac0e0b61f3c7c8459c2b313eb'
 
 [Sources.linux-arm]
 Archive = 'hugo_{{- .Version -}}_Linux-ARM.{{- .Format -}}'
 [Sources.linux-arm.Checksum]
-Value = 'fd67670bb1ee9f018da7878ef605d89b9a8ef8d227253ee2043b02524d289fae'
+Value = '86a0b8b71d41d0a7ec7cac6690c0be39799192899d3e477970f1f9a233746080'
 
 [Sources.linux-arm64]
 Archive = 'hugo_{{- .Version -}}_Linux-ARM64.{{- .Format -}}'
 [Sources.linux-arm64.Checksum]
-Value = '648e981b3a0422f5ad3b87eadc381905d9ddd26ce34c22aaed4194c0af61a632'
+Value = '02787420d516c9db2040cbc2926586cd9198c2e4dde15731196ccc2d9796df92'
 
 [Sources.darwin-amd64]
 Archive = 'hugo_{{- .Version -}}_macOS-64bit.{{- .Format -}}'
 [Sources.darwin-amd64.Checksum]
-Value = '24a6c8e518affce09a65f3ae0540498d3b0dfcacd2c7c408c60d7bb12bf19efb'
+Value = '812f3826f2509e18e33e27be742fb6361754544b776be8e30f9143a6eb54b36f'
 
 [Sources.darwin-arm64]
 Archive = 'hugo_{{- .Version -}}_macOS-ARM64.{{- .Format -}}'
 [Sources.darwin-arm64.Checksum]
-Value = '40c6f561c59aedb6420ac650f7acdc1e637f18e59b7bb03067eb9fe2f3fff64f'
+Value = '59e39000f29690d2fa800100e9c98483215f99ff4e1af8071ac1f0fc04888c3b'
 
 [Sources.netbsd-amd64]
 Archive = 'hugo_{{- .Version -}}_NetBSD-64bit.{{- .Format -}}'
 [Sources.netbsd-amd64.Checksum]
-Value = 'c34ac286aab2aaa4b6ad025a20f6134c955db4594f985f77ab110229b87c8c07'
+Value = '880e74869a383322cfa4e29b7b941440cf001b106f5df4c558ab6aa0b4f7016c'
 
 [Sources.openbsd-amd64]
 Archive = 'hugo_{{- .Version -}}_OpenBSD-64bit.{{- .Format -}}'
 [Sources.openbsd-amd64.Checksum]
-Value = 'c6a141749249122625e295f7fd3ce511ef56bbaeeb57a581696cbcf37ca196f5'
+Value = '0f266bafba73a8e211ff9f62a76a1311f78adf4fa7137e6615b418fb293ab192'
 
 [Sources.windows-386]
 Format = 'zip'
 Archive = 'hugo_{{- .Version -}}_Windows-32bit.{{- .Format -}}'
 [Sources.windows-386.Checksum]
-Value = '56cb033283648fb085faa74e85d57b9c6858f091c0d8a5ed6cba904673f1b358'
+Value = '56d47716de0a87aa0d74e11fdc83393124f64bcc745ee1ab8836daa263b9d566'
 
 [Sources.windows-amd64]
 Format = 'zip'
 Archive = 'hugo_{{- .Version -}}_Windows-64bit.{{- .Format -}}'
 [Sources.windows-amd64.Checksum]
-Value = '83942ad89e7eb9d2ed050a7e6b80c334bd12fac1d4e4511a474d66d0b4e016f2'
+Value = '149908ea5eb554d77e4ad53a92d6d712582ebc9bde95ae9fa06f62a7c0b4f0b5'
 
 [Sources.windows-arm]
 Format = 'zip'
 Archive = 'hugo_{{- .Version -}}_Windows-ARM.{{- .Format -}}'
 [Sources.windows-arm.Checksum]
-Value = '059a83436e864fd1cf56516f6f126cc875d3a67e47e46f93e35c840307b5bdc5'
+Value = '705a123b4a3cdf2bad13680907a8d4fc93dd87c83ff34ef3976e42a0b2d9015f'
 
 [Sources.windows-armv7]
 Format = 'zip'
 Archive = 'hugo_{{- .Version -}}_Windows-ARM.{{- .Format -}}'
 [Sources.windows-armv7.Checksum]
-Value = '059a83436e864fd1cf56516f6f126cc875d3a67e47e46f93e35c840307b5bdc5'
+Value = '705a123b4a3cdf2bad13680907a8d4fc93dd87c83ff34ef3976e42a0b2d9015f'
 
 [Sources.windows-arm64]
 Format = 'zip'
 Archive = 'hugo_{{- .Version -}}_Windows-ARM64.{{- .Format -}}'
 [Sources.windows-arm64.Checksum]
-Value = '01ca4ae6b34cebf5eaa0aca1cc524727d54c287592b5229796fc35a0279d64a3'
+Value = '5a1cf7ce18487f08e3f4324dfed5cf769f9a4f4b690899bd74572e956c9b0cc3'
 
 
 
