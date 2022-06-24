@@ -240,5 +240,33 @@ replace (
 
 
 
+
+## (5) Testing Go Workspace
+With Monteur Test CI Job made available, given the correct recipe, Monteur
+can perform either pinpoint or recursive testing against Go packges. All the
+user needs to do is:
+
+```
+$ monteur test
+```
+
+And then all the necessary result data files are generated into the package
+directory itself.
+
+
+
+
+## (6) Building Go WASM
+With Monteur Build CI Job made available, given the correct recipe, Monteur
+can peform percise Go build in a reproducible manner. All the user needs to do
+is:
+
+```
+$ monteur build
+```
+
+
+
+
 ## License
 The repository is licensed under MIT License.
