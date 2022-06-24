@@ -1,0 +1,81 @@
+[Metadata]
+Name = 'Gunzip - WASM JS'
+Description = """
+Package a build output by compressing it with GZip (.gz).
+"""
+Type = 'manual'
+
+
+
+
+[Variables]
+SourceFilename = "wasm_exec.js"
+TargetFilename = "wasm_exec.js.gz"
+CompressionLevel = 1   # 1-9 in digit format
+
+[FMTVariables]
+# DO NOT EDIT BELOW - internal use variables
+Level = """
+{{- if eq .CompressionLevel 1 -}}
+-1
+{{- else if eq .CompressionLevel 2 -}}
+-2
+{{- else if eq .CompressionLevel 3 -}}
+-3
+{{- else if eq .CompressionLevel 4 -}}
+-4
+{{- else if eq .CompressionLevel 5 -}}
+-5
+{{- else if eq .CompressionLevel 6 -}}
+-6
+{{- else if eq .CompressionLevel 7 -}}
+-7
+{{- else if eq .CompressionLevel 8 -}}
+-8
+{{- else if eq .CompressionLevel 9 -}}
+-9
+{{- else -}}
+-9
+{{- end -}}
+"""
+# DO NOT EDIT ABOVE - internal use variables
+
+
+
+
+[[Dependencies]]
+Name = 'Gzip'
+Condition = 'all-all'
+Type = 'command'
+Command = 'gzip'
+
+
+
+
+[Packages.js-wasm]
+OS = [ 'js' ]
+Arch = [ 'wasm' ]
+
+[Packages.js-wasm.Files]
+"{{- .PackageDir -}}/{{- .TargetFilename -}}" = "{{- .BuildDir -}}{{- .SourceFilename -}}"
+
+
+
+
+[[CMD]]
+Name = 'Quietly Delete Target'
+Type = 'delete-quiet'
+Condition = [ 'all-all' ]
+Location = '{{- .PackageDir -}}'
+Source = '{{ .TargetFilename -}}'
+
+
+[[CMD]]
+Name = 'Gunzip the Source File to Target'
+Type = 'command'
+Condition = [ 'all-all' ]
+Location = '{{- .PackageDir -}}'
+Source = """gzip --stdout --keep --recursive {{ .Level }} \
+"{{- .BuildDir -}}/{{- .SourceFilename -}}" \
+> "{{ .TargetFilename -}}"
+"""

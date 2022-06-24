@@ -268,5 +268,17 @@ $ monteur build
 
 
 
+## (7) Package Go WASM
+With Monteur Package CI Job made available, given the correct recipe, Monteur
+can peform proper packaging in a reproducible manner. All the user needs to do
+is:
+
+```
+$ monteur package
+```
+
+
+
+
 ## License
 The repository is licensed under MIT License.
