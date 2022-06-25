@@ -1,0 +1,36 @@
+{{- /* INPUT PARAMETERS */ -}}
+{{- /* .context  = Page data in Presento Structure  */ -}}
+
+
+
+
+{{- /* prepare working variables for this function */ -}}
+{{- $dataList := dict -}}
+{{- $ret := false -}}
+
+
+
+
+{{- /* process Title.Page */ -}}
+{{- $dataList = merge $dataList (dict "Page" .context.Page.Title) -}}
+
+
+
+
+{{- /* process Title.Site */ -}}
+{{- $ret = .context.Page.Lang -}}
+{{- range $v := .context.Site.Languages -}}
+	{{- if eq $v.Lang $ret -}}
+		{{- $ret = $v.Title -}}
+	{{- end -}}
+{{- end -}}
+{{- if eq $ret .context.Page.Lang -}}
+	{{- $ret = .Site.Title -}}
+{{- end -}}
+{{- $dataList = merge $dataList (dict "Site" $ret) -}}
+
+
+
+
+{{- /* render output */ -}}
+{{- return $dataList -}}

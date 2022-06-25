@@ -1,0 +1,7 @@
+{{- $Page := partial "Presento/functions/data/Page" . -}}
+
+<html {{ $Page.Languages.Current.Code }}>
+{{- partial "Presento/functions/render/Head.html" $Page -}}
+{{- partial "Presento/functions/render/Body.html" $Page -}}
+{{- partial "Presento/functions/render/List.html" $Page -}}
+</html>

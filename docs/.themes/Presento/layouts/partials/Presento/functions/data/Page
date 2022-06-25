@@ -1,0 +1,42 @@
+{{- /* INPUT PARAMETERS */ -}}
+{{- /* .    = hugo page data context */ -}}
+
+
+
+
+{{- /* prepare working variables for this function */ -}}
+{{- $dataList := dict "IsPresento" true -}}
+{{- $ret := false -}}
+
+
+
+{{- /* prepare Presento .Page.context */ -}}
+{{- $ret = partial "Presento/functions/data/hugo/Init" . -}}
+{{- $dataList = merge $dataList $ret -}}
+
+
+
+
+{{- /* prepare Presento .Page.Format */ -}}
+{{- $ret = partial "Presento/functions/data/format/Init" $dataList -}}
+{{- $dataList = merge $dataList (dict "Format" $ret) -}}
+
+
+
+
+{{- /* prepare Presento .Page.Languages */ -}}
+{{- $ret = partial "Presento/functions/data/languages/Init" $dataList -}}
+{{- $dataList = merge $dataList (dict "Languages" $ret) -}}
+
+
+
+
+{{- /* prepare Presento .Page.Titles */ -}}
+{{- $ret = partial "Presento/functions/data/metadata/ParseTitle" $dataList -}}
+{{- $dataList = merge $dataList (dict "Titles" $ret) -}}
+
+
+
+
+{{- /* render output */ -}}
+{{- return $dataList -}}
