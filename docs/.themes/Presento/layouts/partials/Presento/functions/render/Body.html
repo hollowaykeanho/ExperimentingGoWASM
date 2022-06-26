@@ -1,5 +1,10 @@
 <body>
 	<main>
-		{{- printf "%#v" . -}}
+		{{- .Content.Rendered -}}
+
+		<section id="debug">
+			<h2>Debug</h2>
+			<p>{{- printf "%#v" . -}}</p>
+		</section>
 	</main>
 </body>

@@ -38,5 +38,12 @@
 
 
 
+{{- /* prepare Presento .Page.Content */ -}}
+{{- $ret = partial "Presento/functions/data/metadata/ParseContent" $dataList -}}
+{{- $dataList = merge $dataList (dict "Content" $ret) -}}
+
+
+
+
 {{- /* render output */ -}}
 {{- return $dataList -}}
