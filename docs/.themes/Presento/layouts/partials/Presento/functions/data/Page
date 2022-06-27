@@ -38,6 +38,13 @@
 
 
 
+{{- /* prepare Presento .Page.URL */ -}}
+{{- $ret = partial "Presento/functions/data/metadata/ParseURL" $dataList -}}
+{{- $dataList = merge $dataList (dict "URL" $ret) -}}
+
+
+
+
 {{- /* prepare Presento .Page.Content */ -}}
 {{- $ret = partial "Presento/functions/data/metadata/ParseContent" $dataList -}}
 {{- $dataList = merge $dataList (dict "Content" $ret) -}}

@@ -1,0 +1,47 @@
+{{- /* INPUT PARAMETERS */ -}}
+{{- /* .context  = Page data in Presento Structure  */ -}}
+
+
+
+
+{{- /* prepare working variables for this function */ -}}
+{{- $dataList := dict -}}
+{{- $list := dict -}}
+{{- $ret := false -}}
+
+
+
+
+{{- /* process URL.Base */ -}}
+{{- $dataList = merge $dataList (dict "Base" .context.Site.BaseURL) -}}
+
+
+
+
+{{- /* process URL.Current */ -}}
+{{- $list = dict -}}
+{{- $list = merge $list (dict "Absolute" .context.Page.Permalink) -}}
+
+{{- $ret = strings.TrimPrefix $dataList.Base $list.Absolute -}}
+{{- if not $ret -}}
+	{{- $ret = "/" -}}
+{{- end -}}
+{{- $list = merge $list (dict "Relative" $ret) -}}
+
+{{- $dataList = merge $dataList (dict "Current" $list) -}}
+
+
+
+
+{{- /* process URL.Languages */ -}}
+{{- $list = dict -}}
+{{- range $v := .context.Page.AlternativeOutputFormats -}}
+	{{- $list = merge $list (dict (upper $v.Name) $v.Permalink) -}}
+{{- end -}}
+{{- $dataList = merge $dataList (dict "Languages" $list) -}}
+
+
+
+
+{{- /* render output */ -}}
+{{- return $dataList -}}
