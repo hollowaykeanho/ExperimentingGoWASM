@@ -1,0 +1,45 @@
+{{- /* INPUT PARAMETERS */ -}}
+{{- /* . = content to be rendered */ -}}
+
+
+{{- /* GLOBAL CONSTANTS */ -}}
+{{- $RAWTag := "[[ PresentoRaw ]]" -}}
+{{- $MARKDOWNTag := "[[ PresentoMarkdown ]]" -}}
+{{- $HTMLTag := "[[ PresentoHTML ]]" -}}
+{{- $Whitespace := " \n\t" -}}
+
+
+
+
+{{- /* prepare working variables for this function */ -}}
+{{- $ret := false -}}
+{{- $inlineHTML := "<!-- raw HTML omitted -->" -}}
+
+
+
+
+{{- /* attempting to render the content */ -}}
+{{- $ret = strings.TrimLeft $Whitespace . -}}
+{{- if hasPrefix $ret $RAWTag -}}
+	{{- $ret = strings.TrimLeft $RAWTag $ret -}}
+	{{- $ret = strings.TrimLeft $Whitespace $ret -}}
+{{- else if hasPrefix $ret $MARKDOWNTag -}}
+	{{- $ret = strings.TrimLeft $MARKDOWNTag $ret -}}
+	{{- $ret = strings.TrimLeft $Whitespace $ret -}}
+	{{- $ret = markdownify $ret -}}
+{{- else if hasPrefix $ret $HTMLTag -}}
+	{{- $ret = strings.TrimLeft $HTMLTag $ret -}}
+	{{- $ret = strings.TrimLeft $Whitespace $ret -}}
+	{{- $ret = safeHTML $ret -}}
+{{- else -}}
+	{{- $ret = markdownify $ret -}}
+	{{- if or (eq $ret $inlineHTML) (gt (len (split $ret $inlineHTML)) 1) -}}
+		{{- $ret = safeHTML $ret -}}
+	{{- end -}}
+{{- end -}}
+
+
+
+
+{{- /* render output */ -}}
+{{- $ret -}}
