@@ -27,7 +27,7 @@
 
 
 	{{- /* save into list */ -}}
-	{{- $list = merge $list (dict $v.Lang $ret) -}}
+	{{- $list = merge $list (dict (upper $v.Lang) $ret) -}}
 {{- end -}}
 {{- $dataList = merge $dataList (dict "List" $list) -}}
 {{- $dataList = merge $dataList (dict "Current" $current) -}}

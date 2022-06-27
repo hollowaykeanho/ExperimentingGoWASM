@@ -25,7 +25,7 @@
 
 
 {{- /* prepare Presento .Page.Languages */ -}}
-{{- $ret = partial "Presento/functions/data/languages/Init" $dataList -}}
+{{- $ret = partial "Presento/functions/data/metadata/ParseLanguage" $dataList -}}
 {{- $dataList = merge $dataList (dict "Languages" $ret) -}}
 
 
