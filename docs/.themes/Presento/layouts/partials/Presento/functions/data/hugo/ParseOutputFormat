@@ -23,6 +23,13 @@
 
 
 
+{{- /* process Format.Filename */ -}}
+{{- $ret = .Format.BaseName -}}
+{{- $dataList = merge $dataList (dict "Filename" $ret) -}}
+
+
+
+
 {{- /* process Format.Ext */ -}}
 {{- $ret = .Format.MediaType.FirstSuffix.FullSuffix -}}
 {{- $dataList = merge $dataList (dict "Extension" $ret) -}}
