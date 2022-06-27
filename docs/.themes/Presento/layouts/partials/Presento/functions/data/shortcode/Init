@@ -1,0 +1,29 @@
+{{- /* INPUT PARAMETERS */ -}}
+{{- /* .    = hugo shortcode data context */ -}}
+
+
+
+
+{{- /* prepare working variables for this function */ -}}
+{{- $dataList := dict "IsShortcode" true -}}
+{{- $ret := false -}}
+
+
+
+
+{{- /* prepare Presento .Page */ -}}
+{{- $ret = partial "Presento/functions/data/Page" . -}}
+{{- $dataList = merge $dataList $ret -}}
+
+
+
+
+{{- /* prepare Presento .Input */ -}}
+{{- $ret = partial "Presento/functions/data/shortcode/ParseInputs" $dataList -}}
+{{- $dataList = merge $dataList (dict "Input" $ret) -}}
+
+
+
+
+{{- /* render output */ -}}
+{{- return $dataList -}}
