@@ -1,0 +1,9 @@
+{{- /* activate .Inner to standardize all Presento shortcodes */ -}}
+{{- $dataList := .Inner -}}
+
+
+
+
+{{- /* parse and render Presento Shortcode */ -}}
+{{- $dataList = partial "Presento/functions/data/shortcode/Init" . -}}
+{{- partial "Presento/shortcodes/url" $dataList -}}
