@@ -264,7 +264,7 @@
 		{{- $ret = .Format.Current -}}
 	{{- end -}}
 
-	{{- if eq (upper $ret.Name) .context.Site.Data.Presento.Internal.Format.HTML.ID -}}
+	{{- if eq (upper $ret.Name) .Data.Config.Format.HTML.ID -}}
 		{{- partial "Presento/components/url.html" $dataList -}}
 	{{- else -}}
 		{{- errorf "Unknown format for: %s" (safeHTML $dataList.URL) -}}
