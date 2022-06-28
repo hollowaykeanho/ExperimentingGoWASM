@@ -25,35 +25,35 @@
 
 
 {{- /* prepare Presento .Page.Languages */ -}}
-{{- $ret = partial "Presento/functions/data/metadata/ParseLanguage" $dataList -}}
+{{- $ret = partial "Presento/functions/data/meta/ParseLanguage" $dataList -}}
 {{- $dataList = merge $dataList (dict "Languages" $ret) -}}
 
 
 
 
 {{- /* prepare Presento .Page.Titles */ -}}
-{{- $ret = partial "Presento/functions/data/metadata/ParseTitle" $dataList -}}
+{{- $ret = partial "Presento/functions/data/meta/ParseTitle" $dataList -}}
 {{- $dataList = merge $dataList (dict "Titles" $ret) -}}
 
 
 
 
 {{- /* prepare Presento .Page.URL */ -}}
-{{- $ret = partial "Presento/functions/data/metadata/ParseURL" $dataList -}}
+{{- $ret = partial "Presento/functions/data/meta/ParseURL" $dataList -}}
 {{- $dataList = merge $dataList (dict "URL" $ret) -}}
 
 
 
 
 {{- /* prepare Presento .Page.Content */ -}}
-{{- $ret = partial "Presento/functions/data/metadata/ParseContent" $dataList -}}
+{{- $ret = partial "Presento/functions/data/meta/ParseContent" $dataList -}}
 {{- $dataList = merge $dataList (dict "Content" $ret) -}}
 
 
 
 
 {{- /* prepare Presento .Page.Data */ -}}
-{{- $ret = partial "Presento/functions/data/metadata/ParseDatastore" $dataList -}}
+{{- $ret = partial "Presento/functions/data/meta/ParseDatastore" $dataList -}}
 {{- $dataList = merge $dataList (dict "Data" $ret) -}}
 
 
