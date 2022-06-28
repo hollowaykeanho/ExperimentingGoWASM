@@ -52,5 +52,12 @@
 
 
 
+{{- /* prepare Presento .Page.Data */ -}}
+{{- $ret = partial "Presento/functions/data/metadata/ParseDatastore" $dataList -}}
+{{- $dataList = merge $dataList (dict "Data" $ret) -}}
+
+
+
+
 {{- /* render output */ -}}
 {{- return $dataList -}}

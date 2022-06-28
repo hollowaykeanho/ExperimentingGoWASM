@@ -1,0 +1,33 @@
+{{- /* INPUT PARAMETERS */ -}}
+{{- /* .context  = Page data in Presento Structure  */ -}}
+
+
+
+
+{{- /* prepare working variables for this function */ -}}
+{{- $dataList := dict -}}
+{{- $ret := false -}}
+
+
+
+
+{{- /* process .Data.Store */ -}}
+{{- $dataList = merge $dataList (dict "Store" .context.Site.Data) -}}
+
+
+
+
+{{- /* process .Data.Config */ -}}
+{{- $dataList = merge $dataList (dict "Config" .context.Site.Data.Presento.Internal) -}}
+
+
+
+
+{{- /* process .Data.Presento */ -}}
+{{- $dataList = merge $dataList (dict "Presento" .context.Site.Data.Presento) -}}
+
+
+
+
+{{- /* render output */ -}}
+{{- return $dataList -}}
