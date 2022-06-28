@@ -1,7 +1,12 @@
 {{- $Page := partial "Presento/functions/data/Page" . -}}
 
 <html {{ $Page.Languages.Current.Code }}>
-{{- partial "Presento/functions/render/Head.html" $Page -}}
-{{- partial "Presento/functions/render/Body.html" $Page -}}
-{{- partial "Presento/functions/render/List.html" $Page -}}
+<head>
+	<title>{{- $Page.Title.Page -}} | {{- $Page.Title.Site -}}</title>
+</head>
+<body>
+	<main>
+		{{- $Page.Content.Rendered -}}
+	</main>
+</body>
 </html>
