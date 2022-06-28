@@ -23,7 +23,7 @@ publishDir = "../../public"
 i18nDir = "../../docs/.lang"
 
 defaultContentLanguage = "en"
-defaultContentLanguageInSubdir = false
+defaultContentLanguageInSubdir = true
 hasCJKLanguage = true
 
 
