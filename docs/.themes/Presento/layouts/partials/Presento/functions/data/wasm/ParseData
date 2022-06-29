@@ -1,0 +1,47 @@
+{{- /* INPUT PARAMETERS */ -}}
+{{- /* . = Page data in Presento Structure  */ -}}
+{{- /* .Input = WASM raw data for processing */ -}}
+
+
+
+
+{{- /* prepare working variables for this function */ -}}
+{{- $dataList := dict -}}
+{{- $list := dict -}}
+{{- $ret := false -}}
+
+
+
+
+{{- /* process .JS */ -}}
+{{- /* process .JS.URL */ -}}
+{{- $list = dict -}}
+{{- $ret = dict "URL" .Input.JS.URL -}}
+{{- $ret = dict "Input" $ret -}}
+{{- $ret := merge . $ret -}}
+{{- $ret = partial "Presento/shortcodes/url" $ret -}}
+{{- $list = merge $list (dict "URL" $ret) -}}
+
+
+{{- $dataList = merge $dataList (dict "JS" $list) -}}
+
+
+
+
+{{- /* process .Source */ -}}
+{{- /* process .Source.URL */ -}}
+{{- $list = dict -}}
+{{- $ret = dict "URL" .Input.JS.URL -}}
+{{- $ret = dict "Input" $ret -}}
+{{- $ret := merge . $ret -}}
+{{- $ret = partial "Presento/shortcodes/url" $ret -}}
+{{- $list = merge $list (dict "URL" $ret) -}}
+
+
+{{- $dataList = merge $dataList (dict "Source" $list) -}}
+
+
+
+
+{{- /* render output */ -}}
+{{- return $dataList -}}
