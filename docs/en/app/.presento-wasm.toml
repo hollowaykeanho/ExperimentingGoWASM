@@ -1,0 +1,5 @@
+[WASM.Source]
+URL = "/wasm/v0-0-1/wasmExpGo.wasm"
+
+[WASM.JS]
+URL = "/wasm/v0-0-1/wasm_exec.js"

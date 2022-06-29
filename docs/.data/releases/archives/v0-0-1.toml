@@ -1,14 +1,14 @@
 [0]
-Filename = 'wasm_exec.js.gz'
-Hash = '061f81b5dfed3b47ef871d3a427da8a875bfc89b55655a4a0c3b3546161be65021085d55eee51e8cb22affad82a0d8b8f6b16b475b872fd3611bfacd3b414282'
+Filename = 'wasm_exec.js'
+Hash = 'f9f58cf720b2a814367886b1be3327deff03b09b3322e9410a076179ab0cc192ec57ad58c9cf5b23984591cd9b22d174e13e60803372b697acc86a8dfcd67b93'
 Format = 'Hex'
-URL = 'v0-0-1/wasm_exec.js.gz'
+URL = 'v0-0-1/wasm_exec.js'
 
 
 
 
 [1]
-Filename = 'wasmExpGo.wasm.gz'
-Hash = 'f7cb5c90b878f6dba88f6ad8e63819d0148bfa5f7077724fccd81614fbdf805ad36824fe0aa73cebbded6a7f685e33eb7b92604f99a9a02e12512ff73f55caa3'
+Filename = 'wasmExpGo.wasm'
+Hash = '410d2695029359358709cf0327d22f5f2a6e27bd5f26d224147795f6b92151c074d69902b3a7462e4c8ac3a63b2c86586589878fcb4cecd1e3a99fd6f9ce2c49'
 Format = 'Hex'
-URL = 'v0-0-1/wasmExpGo.wasm.gz'
+URL = 'v0-0-1/wasmExpGo.wasm'
