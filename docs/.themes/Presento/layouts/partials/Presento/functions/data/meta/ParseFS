@@ -22,16 +22,16 @@
 
 
 
-	{{- /* get Page directory path */ -}}
-	{{- $ret = path.Clean $file.Dir -}}
-	{{- $dataList = merge $dataList (dict "Directory" $ret) -}}
-
-
-
-
 	{{- /* get Page filename */ -}}
 	{{- $ret = path.Clean $file.LogicalName -}}
 	{{- $dataList = merge $dataList (dict "Filename" $ret) -}}
+
+
+
+
+	{{- /* get Page directory path */ -}}
+	{{- $ret = path.Dir $file.Path -}}
+	{{- $dataList = merge $dataList (dict "Directory" $ret) -}}
 
 
 
