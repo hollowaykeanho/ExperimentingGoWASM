@@ -11,8 +11,8 @@ Using Go test to test out all the Go codes in this repository.
 Timeout = '14400s'
 GoPackage = 'wasmExpGo'
 Recursive = false
-TestReportFilename = 'test-report'
-CoverageReportFilename = 'test-coverage'
+TestReportFilename = 'go-test-report'
+CoverageReportFilename = 'go-test-coverage'
 ProfileDataFile = 'go-profile.txt'  # with extension
 
 [FMTVariables]
