@@ -10,7 +10,7 @@ Type = 'manual'
 
 [Variables]
 SourceFilename = "tinygo-wasm_exec.js"
-TargetFilename = "tinygo-wasm_exec.js.gz"
+TargetFilename = "tinygo-wasm_exec.js"
 CompressionLevel = 1   # 1-9 in digit format
 
 [FMTVariables]

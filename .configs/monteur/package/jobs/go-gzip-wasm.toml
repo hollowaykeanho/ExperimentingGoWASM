@@ -10,7 +10,7 @@ Type = 'manual'
 
 [Variables]
 SourceFilename = "go-js-wasm.wasm"
-TargetFilename = "go-wasmExpGo.wasm.gz"
+TargetFilename = "go-wasmExpGo.wasm"
 CompressionLevel = 1   # 1-9 in digit format
 
 [FMTVariables]

@@ -31,22 +31,22 @@ Format = 'toml'
 [Releases.Packages.wasmExpGo-Go]
 OS = [ "js" ]
 Arch = [ "wasm" ]
-Source = '{{- .PackageDir -}}/go-wasmExpGo.wasm.gz'
+Source = '{{- .PackageDir -}}/go-wasmExpGo.wasm'
 
 [Releases.Packages.wasmExecJS-Go]
 OS = [ "js" ]
 Arch = [ "wasm" ]
-Source = '{{- .PackageDir -}}/go-wasm_exec.js.gz'
+Source = '{{- .PackageDir -}}/go-wasm_exec.js'
 
 [Releases.Packages.wasmExpGo-TinyGo]
 OS = [ "js" ]
 Arch = [ "wasm" ]
-Source = '{{- .PackageDir -}}/tinygo-wasmExpGo.wasm.gz'
+Source = '{{- .PackageDir -}}/tinygo-wasmExpGo.wasm'
 
 [Releases.Packages.wasmExecJS-TinyGo]
 OS = [ "js" ]
 Arch = [ "wasm" ]
-Source = '{{- .PackageDir -}}/tinygo-wasm_exec.js.gz'
+Source = '{{- .PackageDir -}}/tinygo-wasm_exec.js'
 
 
 

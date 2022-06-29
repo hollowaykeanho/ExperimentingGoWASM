@@ -10,7 +10,7 @@ Type = 'manual'
 
 [Variables]
 SourceFilename = "tinygo-wasm.wasm"
-TargetFilename = "tinygo-wasmExpGo.wasm.gz"
+TargetFilename = "tinygo-wasmExpGo.wasm"
 CompressionLevel = 1   # 1-9 in digit format
 
 [FMTVariables]
