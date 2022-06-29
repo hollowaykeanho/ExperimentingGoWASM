@@ -14,7 +14,7 @@
 
 {{- /* start with baseline data */ -}}
 {{- $ret := .context.Site.Data -}}
-{{- range $v := (split .Input.Query ".") -}}
+{{- range $v := (split (strings.TrimPrefix "." .Input.Query) ".") -}}
 	{{- if $ret -}}
 		{{- $ret = index $ret $v -}}
 	{{- end -}}
