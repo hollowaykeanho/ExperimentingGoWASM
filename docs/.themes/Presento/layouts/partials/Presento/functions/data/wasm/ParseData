@@ -28,6 +28,7 @@
 
 {{- $ret = partial "Presento/functions/data/trim/Whitespace" .Input.JS.Content -}}
 {{- $ret = replace $ret .Data.Config.WASM.Constants.Placeholder.URL $list.URL -}}
+{{- $ret = partial "Presento/functions/data/minify/JS" $ret -}}
 {{- $ret = safeJS $ret -}}
 {{- $list = merge $list (dict "Content" $ret) -}}
 
@@ -56,6 +57,7 @@
 {{- /* process .Source.Content */ -}}
 {{- $ret = partial "Presento/functions/data/trim/Whitespace" .Input.Source.Content -}}
 {{- $ret = replace $ret .Data.Config.WASM.Constants.Placeholder.URL $list.URL -}}
+{{- $ret = partial "Presento/functions/data/minify/JS" $ret -}}
 {{- $ret = safeJS $ret -}}
 {{- if not $ret -}}
 	{{- errorf "WASM .Source.Content data is not empty or available." -}}
