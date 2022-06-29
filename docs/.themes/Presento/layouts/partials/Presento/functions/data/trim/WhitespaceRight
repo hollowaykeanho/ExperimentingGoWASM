@@ -1,0 +1,8 @@
+{{- /* INPUT PARAMETERS */ -}}
+{{- /* . = string for trimming */ -}}
+
+
+
+
+{{- /* render output */ -}}
+{{- return strings.TrimRight " \n\r\t" . -}}
