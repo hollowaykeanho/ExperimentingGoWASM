@@ -20,7 +20,15 @@
 {{- $ret = dict "Input" $ret -}}
 {{- $ret := merge . $ret -}}
 {{- $ret = partial "Presento/shortcodes/url" $ret -}}
+{{- if not $ret -}}
+	{{- errorf "WASM .JS.URL data is not empty or available." -}}
+{{- end -}}
 {{- $list = merge $list (dict "URL" $ret) -}}
+
+{{- $ret = .Input.JS.Content -}}
+{{- $ret = replace $ret .Data.Config.WASM.Constants.Placeholder.URL $list.URL -}}
+{{- $ret = safeJS $ret -}}
+{{- $list = merge $list (dict "Content" $ret) -}}
 
 
 {{- $dataList = merge $dataList (dict "JS" $list) -}}

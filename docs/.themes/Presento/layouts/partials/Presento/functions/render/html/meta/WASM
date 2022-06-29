@@ -29,12 +29,10 @@
 
 {{- /* verify .JS is available */ -}}
 {{- if .JS -}}
-	{{- if not .JS.URL -}}
-		{{- errorf "WASM .JS.URL data is not available." -}}
+	{{- if and (not .JS.URL) (not .JS.Content) -}}
 		{{- $render = false -}}
 	{{- end -}}
 {{- else -}}
-	{{- errorf "WASM .JS data is not available." -}}
 	{{- $render = false -}}
 {{- end -}}
 
@@ -43,6 +41,10 @@
 
 {{- /* render output */ -}}
 {{- if $render -}}
-	<script src="{{- .JS.URL -}}"></script>
+	{{- if .JS.Content -}}
+		<script>{{- .JS.Content -}}</script>
+	{{- else -}}
+		<script src="{{- .JS.URL -}}"></script>
+	{{- end -}}
 	<script>{{- .Source.Content -}}</script>
 {{- end -}}

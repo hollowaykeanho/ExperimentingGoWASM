@@ -13,3 +13,5 @@ WebAssembly.instantiateStreaming(fetch("[[< .URL >]]"),
 
 [WASM.JS]
 URL = "/wasm/v0-0-1/wasm_exec.js"
+Content = """
+"""
