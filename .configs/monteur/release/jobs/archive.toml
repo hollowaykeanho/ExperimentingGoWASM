@@ -28,15 +28,25 @@ Checksum = 'sha512'
 Path = '{{- .RootDir -}}/docs/.data/releases/archives'
 Format = 'toml'
 
-[Releases.Packages.wasmExpGo]
+[Releases.Packages.wasmExpGo-Go]
 OS = [ "js" ]
 Arch = [ "wasm" ]
-Source = '{{- .PackageDir -}}/go-wasmExpGo.wasm'
+Source = '{{- .PackageDir -}}/go-wasmExpGo.wasm.gz'
 
-[Releases.Packages.wasmExecJS]
+[Releases.Packages.wasmExecJS-Go]
 OS = [ "js" ]
 Arch = [ "wasm" ]
-Source = '{{- .PackageDir -}}/wasm_exec.js'
+Source = '{{- .PackageDir -}}/go-wasm_exec.js.gz'
+
+[Releases.Packages.wasmExpGo-TinyGo]
+OS = [ "js" ]
+Arch = [ "wasm" ]
+Source = '{{- .PackageDir -}}/tinygo-wasmExpGo.wasm.gz'
+
+[Releases.Packages.wasmExecJS-TinyGo]
+OS = [ "js" ]
+Arch = [ "wasm" ]
+Source = '{{- .PackageDir -}}/tinygo-wasm_exec.js.gz'
 
 
 
