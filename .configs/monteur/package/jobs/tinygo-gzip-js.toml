@@ -1,5 +1,5 @@
 [Metadata]
-Name = 'Gzip - Go WASM'
+Name = 'Gzip - TinyGo WASM JS'
 Description = """
 Package a build output with GZip (.gz) compression.
 """
@@ -9,8 +9,8 @@ Type = 'manual'
 
 
 [Variables]
-SourceFilename = "go-js-wasm.wasm"
-TargetFilename = "go-wasmExpGo.wasm.gz"
+SourceFilename = "tinygo-wasm_exec.js"
+TargetFilename = "tinygo-wasm_exec.js.gz"
 CompressionLevel = 1   # 1-9 in digit format
 
 [FMTVariables]
@@ -52,11 +52,11 @@ Command = 'gzip'
 
 
 
-[Packages.js-wasm]
+[Packages.wasm]
 OS = [ 'js' ]
 Arch = [ 'wasm' ]
 
-[Packages.js-wasm.Files]
+[Packages.wasm.Files]
 "{{- .PackageDir -}}/{{- .TargetFilename -}}" = "{{- .BuildDir -}}{{- .SourceFilename -}}"
 
 
@@ -79,7 +79,7 @@ Target = '{{- .PackageDir -}}/{{ .TargetFilename -}}'
 
 
 [[CMD]]
-Name = 'Gzip the Source File to Target'
+Name = 'Gunzip the Source File to Target'
 Type = 'placeholder'
 Condition = [ 'all-all' ]
 Location = '{{- .PackageDir -}}'
