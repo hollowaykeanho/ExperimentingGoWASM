@@ -25,13 +25,15 @@ low implementations due to little efforts. That's why the primary goal is to:
       (output).
    5. Develop `<body>` manipulations directly in GoWASM (input).
    6. Develop `<body>` manipulations directly in GoWASM (event-driven).
-   7. Explore and conclude the necessity of using [TinyGo](https://tinygo.org/).
+   7. **[ DOING ]** Explore and conclude the necessity of using
+      [TinyGo](https://tinygo.org/).
 2. Develop client-side rendering capability using [Hugo](https://gohugo.io/) for
    cost reduction between the server sides and the end-user sides.
    1. **[ DONE ]** - Power on with Presento Theme with NoCSS but rendering
       capabilities.
-   2. **[ DOING ]** - Develop necessary partial functions to isolate Hugo
-      functions (prevent vendor locked-in).
+   2. **[ DONE ]** - Develop necessary partial functions to isolate Hugo's risky
+      functions and also to prevent supply-chain vendor locked-in whenever
+      possible.
    3. **[ DONE ]** - Develop plain HTML+Javascript pages necessary to bring up
       Go-WASM.
    4. **[ DONE ]** - Power on Go-WASM+HTML+Javascript on Hugo.
