@@ -31,12 +31,12 @@ Format = 'toml'
 [Releases.Packages.wasmExpGo]
 OS = [ "js" ]
 Arch = [ "wasm" ]
-Source = '{{- .PackageDir -}}/wasmExpGo.wasm.gz'
+Source = '{{- .PackageDir -}}/wasmExpGo.wasm'
 
 [Releases.Packages.wasmExecJS]
 OS = [ "js" ]
 Arch = [ "wasm" ]
-Source = '{{- .PackageDir -}}/wasm_exec.js.gz'
+Source = '{{- .PackageDir -}}/wasm_exec.js'
 
 
 

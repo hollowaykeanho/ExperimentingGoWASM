@@ -10,7 +10,7 @@ Type = 'manual'
 
 [Variables]
 SourceFilename = "wasm_exec.js"
-TargetFilename = "wasm_exec.js.gz"
+TargetFilename = "wasm_exec.js"
 CompressionLevel = 1   # 1-9 in digit format
 
 [FMTVariables]
@@ -71,8 +71,16 @@ Source = '{{ .TargetFilename -}}'
 
 
 [[CMD]]
+Name = '**WORKAROUND**: Copy the Source File to Target'
+Type = 'copy'
+Condition = [ 'all-all' ]
+Source = '{{- .BuildDir -}}/{{- .SourceFilename -}}'
+Target = '{{- .PackageDir -}}/{{ .TargetFilename -}}'
+
+
+[[CMD]]
 Name = 'Gunzip the Source File to Target'
-Type = 'command'
+Type = 'placeholder'
 Condition = [ 'all-all' ]
 Location = '{{- .PackageDir -}}'
 Source = """gzip --stdout --keep --recursive {{ .Level }} \
