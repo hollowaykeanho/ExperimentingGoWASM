@@ -1,27 +1,22 @@
 [Metadata]
-Name = 'Go'
+Name = 'TinyGo'
 Description = """
-Using Go test to test out one or all the Go package(s) in this repository.
+Using TinyGo test to test out one or all the Go package(s) in this repository.
 """
 
 
 
 
 [Variables]
-Timeout = '14400s'
 GoPackage = 'wasmExpGo'
 Recursive = false
-TestReportFilename = 'go-test-report'
-CoverageReportFilename = 'go-test-coverage'
-ProfileDataFile = 'go-profile.txt'  # with extension
+TestReportFilename = 'tinygo-test-report'
 
 [FMTVariables]
 TestPath = '{{- .BaseDir -}}/{{- .GoPackage -}}'
 ReportPath = '{{- .BaseDir -}}/{{- .GoPackage -}}'
-ProfileFilepath = '{{- .WorkingDir -}}/{{- .ProfileDataFile -}}'
-CoverageFilepath = '{{- .BaseDir -}}/{{- .GoPackage -}}/{{- .CoverageReportFilename -}}.html'
 TestPackage = '{{- .BaseDir -}}/{{- .GoPackage -}}{{- if .Recursive -}}/...{{- end -}}'
-ConstraintTags = '' # seprated by comma
+ConstraintTags = 'whatever core' # seprated by space
 TestCoverage = '???' # will be overwritten by [CMD]
 TestVerdict = '' # will be overwritten by [CMD]
 
@@ -29,10 +24,10 @@ TestVerdict = '' # will be overwritten by [CMD]
 
 
 [[Dependencies]]
-Name = 'Go'
+Name = 'TinyGo'
 Condition = 'all-all'
 Type = 'command'
-Command = 'go'
+Command = 'tinygo'
 
 
 
@@ -44,14 +39,13 @@ Condition = [ 'all-all' ]
 Source = '{{- .WorkingDir -}}'
 
 [[CMD]]
-Name = "Run Go Test Against Base Directory"
+Name = "Run TinyGo Test Against Base Directory"
 Type = 'command'
 Condition = [ 'all-all' ]
 Location = '{{- .TestPath -}}'
-Source = """go test -timeout "{{ .Timeout }}" \
-{{- if .ConstraintTags }} -tags {{ .ConstraintTags -}} {{- end }} \
--coverprofile "{{- .ProfileFilepath -}}" \
--race \
+Source = """tinygo test \
+{{- if .ConstraintTags }} -tags "{{- .ConstraintTags -}}" {{- end }} \
+-print-allocs=. \
 -v \
 "{{- .TestPackage -}}"
 """
@@ -59,34 +53,13 @@ Save = 'TestVerdict'
 SaveRegex = '(FAIL)\s*$'
 
 [[CMD]]
-Name = "Process Go Test Coverage Profiles"
-Type = 'command'
-Condition = [ 'all-all' ]
-Location = '{{- .TestPath -}}'
-Source = """go tool cover -html="{{- .ProfileFilepath -}}" \
-	-o "{{- .CoverageFilepath -}}"
-"""
-
-[[CMD]]
-Name = 'Process Go Test Coverage Overall Percentage'
-Type = 'command'
-Condition = [ 'all-all' ]
-Location = '{{- .TestPath -}}'
-Source = """go tool cover \
--func "{{- .ProfileFilepath -}}"
-"""
-Save = 'TestCoverage'
-SaveRegex = 'total:\s*\(statements\)\s*(\d+.\d+)%*'
-ToSTDOUT = 'TOTAL TEST COVERAGE: {{ .TestCoverage -}}%%'
-
-[[CMD]]
-Name = 'Delete Go Test Report TOML Data File'
+Name = 'Delete TinyGo Test Report TOML Data File'
 Type = 'delete-quiet'
 Condition = [ 'all-all' ]
 Source = '{{- .ReportPath -}}/{{- .TestReportFilename -}}.toml'
 
 [[CMD]]
-Name = 'Script Go Test Report TOML Data File'
+Name = 'Script TinyGo Test Report TOML Data File'
 Type = 'script'
 Condition = [ 'all-all' ]
 Location = '{{- .TestPath -}}'
@@ -101,7 +74,7 @@ Passed = {{ eq .TestVerdict "" }}
 Target = '{{- .ReportPath -}}/{{- .TestReportFilename -}}.toml'
 
 [[CMD]]
-Name = 'Delete Go Test Report JSON Data File'
+Name = 'Delete TinyGo Test Report JSON Data File'
 Type = 'delete-quiet'
 Condition = [ 'all-all' ]
 Source = '{{- .ReportPath -}}/{{- .TestReportFilename -}}.json'
@@ -125,13 +98,13 @@ Source = """
 Target = '{{- .ReportPath -}}/{{- .TestReportFilename -}}.json'
 
 [[CMD]]
-Name = 'Delete Go Test Report YAML Data File'
+Name = 'Delete TinyGo Test Report YAML Data File'
 Type = 'delete-quiet'
 Condition = [ 'all-all' ]
 Source = '{{- .ReportPath -}}/{{- .TestReportFilename -}}.yaml'
 
 [[CMD]]
-Name = 'Script Go Test Report YAML Data File'
+Name = 'Script TinyGo Test Report YAML Data File'
 Type = 'script'
 Condition = [ 'all-all' ]
 Location = '{{- .TestPath -}}'
