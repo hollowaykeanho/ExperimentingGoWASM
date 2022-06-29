@@ -32,9 +32,9 @@ low implementations due to little efforts. That's why the primary goal is to:
       capabilities.
    2. **[ DOING ]** - Develop necessary partial functions to isolate Hugo
       functions (prevent vendor locked-in).
-   3. **[ DOING ]** - Develop plain HTML+Javascript pages necessary to bring up
+   3. **[ DONE ]** - Develop plain HTML+Javascript pages necessary to bring up
       Go-WASM.
-   4. **[ DOING ]** - Power on Go-WASM+HTML+Javascript on Hugo.
+   4. **[ DONE ]** - Power on Go-WASM+HTML+Javascript on Hugo.
    5. **[ DOING ]** - Deploy Gunzip against Go-WASM to reduce its size with
       Monteur.
    6. Develop necessary foundation for Go-WASM client-side rendering.
