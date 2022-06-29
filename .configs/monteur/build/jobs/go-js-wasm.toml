@@ -44,7 +44,7 @@ BuildFlags = """
 
 
 {{- /* PROCESS -ldflags */ -}}
-{{- if not (eq .LDFlags "") -}} -ldflags="{{- .LDFlags -}}" {{- end -}}
+{{- if not (eq .LDFlags "") }} -ldflags="{{- .LDFlags -}}" {{- end -}}
 
 
 {{- /* PROCESS -buildmode */ -}}
@@ -134,7 +134,7 @@ Condition = [ 'all-all' ]
 Location = '{{- .SourceDir -}}'
 Source = """
 {{- .BuildConditions }} \
-go build {{ .BuildFlags }} \
+go build {{- .BuildFlags }} \
 -o "{{- .OutputDir -}}/{{- .OutputName -}}" \
 "{{- .SourcePath -}}"
 """
@@ -144,4 +144,4 @@ Name = "Copy Go WASM Javascript"
 Type = 'copy-quiet'
 Condition = [ 'all-all' ]
 Source = "{{- .BuildWASMJS -}}"
-Target = "{{- .OutputDir -}}/wasm_exec.js"
+Target = "{{- .OutputDir -}}/go-wasm_exec.js"
