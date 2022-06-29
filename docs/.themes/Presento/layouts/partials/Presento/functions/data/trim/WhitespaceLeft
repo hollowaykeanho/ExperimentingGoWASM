@@ -4,5 +4,11 @@
 
 
 
+{{- /* prepare working variables for this function */ -}}
+{{- $constants := partial "Presento/functions/data/trim/_constants" -}}
+
+
+
+
 {{- /* render output */ -}}
-{{- return strings.TrimLeft " \n\r\t" . -}}
+{{- return strings.TrimLeft $constants.Charset . -}}
