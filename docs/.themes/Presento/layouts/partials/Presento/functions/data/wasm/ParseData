@@ -31,7 +31,7 @@
 {{- /* process .Source */ -}}
 {{- /* process .Source.URL */ -}}
 {{- $list = dict -}}
-{{- $ret = dict "URL" .Input.JS.URL -}}
+{{- $ret = dict "URL" .Input.Source.URL -}}
 {{- $ret = dict "Input" $ret -}}
 {{- $ret := merge . $ret -}}
 {{- $ret = partial "Presento/shortcodes/url" $ret -}}
