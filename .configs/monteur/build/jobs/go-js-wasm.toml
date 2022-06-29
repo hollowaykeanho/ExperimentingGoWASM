@@ -29,7 +29,7 @@ BuildTags = [
 SourceDir = '{{- .RootDir -}}/wasmExpGo'
 SourcePath = '{{- .RootDir -}}/wasmExpGo/app/wasm/main.go'
 OutputDir = '{{- .WorkingDir -}}'
-OutputName = '{{- .TargetOS -}}-{{- .TargetCPU -}}{{- .TargetExt -}}'
+OutputName = 'go-{{- .TargetOS -}}-{{- .TargetCPU -}}{{- .TargetExt -}}'
 # **DO NOT EDIT BELOW** - internal use variables for proper Go compilations
 BuildConditions = """
 CGO_ENABLED={{- if .CGO -}} 1 {{- else -}} 0 {{- end }} \

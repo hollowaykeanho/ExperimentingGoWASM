@@ -31,7 +31,7 @@ Format = 'toml'
 [Releases.Packages.wasmExpGo]
 OS = [ "js" ]
 Arch = [ "wasm" ]
-Source = '{{- .PackageDir -}}/wasmExpGo.wasm'
+Source = '{{- .PackageDir -}}/go-wasmExpGo.wasm'
 
 [Releases.Packages.wasmExecJS]
 OS = [ "js" ]

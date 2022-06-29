@@ -8,7 +8,7 @@ URL = 'v0-0-1/wasm_exec.js'
 
 
 [1]
-Filename = 'wasmExpGo.wasm'
+Filename = 'go-wasmExpGo.wasm'
 Hash = '410d2695029359358709cf0327d22f5f2a6e27bd5f26d224147795f6b92151c074d69902b3a7462e4c8ac3a63b2c86586589878fcb4cecd1e3a99fd6f9ce2c49'
 Format = 'Hex'
-URL = 'v0-0-1/wasmExpGo.wasm'
+URL = 'v0-0-1/go-wasmExpGo.wasm'

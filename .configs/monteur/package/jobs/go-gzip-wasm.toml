@@ -1,5 +1,5 @@
 [Metadata]
-Name = 'Gunzip WASM'
+Name = 'Gzip Go WASM'
 Description = """
 Package a build output by compressing it with GZip (.gz).
 """
@@ -9,8 +9,8 @@ Type = 'manual'
 
 
 [Variables]
-SourceFilename = "js-wasm.wasm"
-TargetFilename = "wasmExpGo.wasm"
+SourceFilename = "go-js-wasm.wasm"
+TargetFilename = "go-wasmExpGo.wasm"
 CompressionLevel = 1   # 1-9 in digit format
 
 [FMTVariables]
@@ -79,7 +79,7 @@ Target = '{{- .PackageDir -}}/{{ .TargetFilename -}}'
 
 
 [[CMD]]
-Name = 'Gunzip the Source File to Target'
+Name = 'Gzip the Source File to Target'
 Type = 'placeholder'
 Condition = [ 'all-all' ]
 Location = '{{- .PackageDir -}}'
