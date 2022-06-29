@@ -6,7 +6,6 @@
 {{- $RAWTag := "[[ PresentoRaw ]]" -}}
 {{- $MARKDOWNTag := "[[ PresentoMarkdown ]]" -}}
 {{- $HTMLTag := "[[ PresentoHTML ]]" -}}
-{{- $Whitespace := " \n\t" -}}
 
 
 
@@ -19,17 +18,17 @@
 
 
 {{- /* attempting to render the content */ -}}
-{{- $ret = strings.TrimLeft $Whitespace . -}}
+{{- $ret = partial "Presento/functions/data/trim/WhitespaceLeft" . -}}
 {{- if hasPrefix $ret $RAWTag -}}
 	{{- $ret = strings.TrimLeft $RAWTag $ret -}}
-	{{- $ret = strings.TrimLeft $Whitespace $ret -}}
+	{{- $ret = partial "Presento/functions/data/trim/WhitespaceLeft" $ret -}}
 {{- else if hasPrefix $ret $MARKDOWNTag -}}
 	{{- $ret = strings.TrimLeft $MARKDOWNTag $ret -}}
-	{{- $ret = strings.TrimLeft $Whitespace $ret -}}
+	{{- $ret = partial "Presento/functions/data/trim/WhitespaceLeft" $ret -}}
 	{{- $ret = markdownify $ret -}}
 {{- else if hasPrefix $ret $HTMLTag -}}
 	{{- $ret = strings.TrimLeft $HTMLTag $ret -}}
-	{{- $ret = strings.TrimLeft $Whitespace $ret -}}
+	{{- $ret = partial "Presento/functions/data/trim/WhitespaceLeft" $ret -}}
 	{{- $ret = safeHTML $ret -}}
 {{- else -}}
 	{{- $ret = markdownify $ret -}}
@@ -37,6 +36,7 @@
 		{{- $ret = safeHTML $ret -}}
 	{{- end -}}
 {{- end -}}
+{{- $ret = partial "Presento/functions/data/trim/WhitespaceRight" $ret -}}
 
 
 

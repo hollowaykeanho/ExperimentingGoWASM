@@ -12,7 +12,8 @@
 
 
 {{- /* process Title.Page */ -}}
-{{- $dataList = merge $dataList (dict "Page" .context.Page.Title) -}}
+{{- $ret = partial "Presento/functions/data/trim/Whitespace" .context.Page.Title -}}
+{{- $dataList = merge $dataList (dict "Page" $ret) -}}
 
 
 
@@ -27,6 +28,7 @@
 {{- if eq $ret .context.Page.Lang -}}
 	{{- $ret = .Site.Title -}}
 {{- end -}}
+{{- $ret = partial "Presento/functions/data/trim/Whitespace" $ret -}}
 {{- $dataList = merge $dataList (dict "Site" $ret) -}}
 
 
