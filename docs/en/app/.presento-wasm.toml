@@ -1,5 +1,15 @@
 [WASM.Source]
 URL = "/wasm/v0-0-1/wasmExpGo.wasm"
+Content = """
+const go = new Go();
+WebAssembly.instantiateStreaming(fetch("[[< .URL >]]"),
+	go.importObject
+).then(
+	(result) => {
+		go.run(result.instance);
+	}
+);
+"""
 
 [WASM.JS]
 URL = "/wasm/v0-0-1/wasm_exec.js"

@@ -29,13 +29,28 @@
 
 
 {{- /* process .Source */ -}}
-{{- /* process .Source.URL */ -}}
 {{- $list = dict -}}
+
+
+{{- /* process .Source.URL */ -}}
 {{- $ret = dict "URL" .Input.Source.URL -}}
 {{- $ret = dict "Input" $ret -}}
 {{- $ret := merge . $ret -}}
 {{- $ret = partial "Presento/shortcodes/url" $ret -}}
+{{- if not $ret -}}
+	{{- errorf "WASM .Source.URL data is not empty or available." -}}
+{{- end -}}
 {{- $list = merge $list (dict "URL" $ret) -}}
+
+
+{{- /* process .Source.Content */ -}}
+{{- $ret = .Input.Source.Content -}}
+{{- $ret = replace $ret .Data.Config.WASM.Constants.Placeholder.URL $list.URL -}}
+{{- $ret = safeJS $ret -}}
+{{- if not $ret -}}
+	{{- errorf "WASM .Source.Content data is not empty or available." -}}
+{{- end -}}
+{{- $list = merge $list (dict "Content" $ret) -}}
 
 
 {{- $dataList = merge $dataList (dict "Source" $list) -}}

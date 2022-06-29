@@ -14,11 +14,13 @@
 {{- /* verify .Source is available */ -}}
 {{- if .Source -}}
 	{{- if not .Source.URL -}}
-		{{- errorf "WASM .Source.URL data is not available." -}}
+		{{- $render = false -}}
+	{{- end -}}
+
+	{{- if not .Source.Content -}}
 		{{- $render = false -}}
 	{{- end -}}
 {{- else -}}
-	{{- errorf "WASM .Source data is not available." -}}
 	{{- $render = false -}}
 {{- end -}}
 
@@ -42,11 +44,5 @@
 {{- /* render output */ -}}
 {{- if $render -}}
 	<script src="{{- .JS.URL -}}"></script>
-	<script>
-		const go = new Go();
-		WebAssembly.instantiateStreaming(fetch({{- .Source.URL -}}),
-			go.importObject).then((result) => {
-			go.run(result.instance);
-		});
-	</script>
+	<script>{{- .Source.Content -}}</script>
 {{- end -}}
