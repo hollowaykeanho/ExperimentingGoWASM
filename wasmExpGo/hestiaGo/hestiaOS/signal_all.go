@@ -50,16 +50,6 @@ func _signalSend(sig *Signal, data uint16) hestiaError.Error {
 	return hestiaError.OK
 }
 
-func _signalStop(sig *Signal) hestiaError.Error {
-	if sig == nil {
-		return hestiaError.ENOENT
-	}
-
-	sig.channel <- SIGNAL_SIGSTOP
-
-	return hestiaError.OK
-}
-
 func _signalWait(sig *Signal) (value uint16) {
 	var ok bool
 	var osSig os.Signal

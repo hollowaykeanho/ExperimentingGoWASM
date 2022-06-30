@@ -24,12 +24,43 @@ import (
 	"hestiaGo/hestiaError"
 )
 
-// Known Signal Values
+// Known Signal Values from syscall package
 const (
-	SIGNAL_SIGINT  = uint16(0x02) // from syscall.SIGINT via os/signal
-	SIGNAL_SIGKILL = uint16(0x09) // from syscall.SIGKILL via os/signal
-	SIGNAL_SIGSTOP = uint16(0x13) // from syscall.SIGSTOP
-	SIGNAL_SIGTERM = uint16(0x0f) // from syscall.SIGTERM
+	SIGNAL_SIGABRT   = uint16(0x06)
+	SIGNAL_SIGALRM   = uint16(0x0e)
+	SIGNAL_SIGBUS    = uint16(0x07)
+	SIGNAL_SIGCHLD   = uint16(0x11)
+	SIGNAL_SIGCLD    = uint16(0x11)
+	SIGNAL_SIGCONT   = uint16(0x12)
+	SIGNAL_SIGFPE    = uint16(0x08)
+	SIGNAL_SIGHUP    = uint16(0x01)
+	SIGNAL_SIGILL    = uint16(0x04)
+	SIGNAL_SIGINT    = uint16(0x02)
+	SIGNAL_SIGIO     = uint16(0x1d)
+	SIGNAL_SIGIOT    = uint16(0x06)
+	SIGNAL_SIGKILL   = uint16(0x09)
+	SIGNAL_SIGPIPE   = uint16(0x0d)
+	SIGNAL_SIGPOLL   = uint16(0x1d)
+	SIGNAL_SIGPROF   = uint16(0x1b)
+	SIGNAL_SIGPWR    = uint16(0x1e)
+	SIGNAL_SIGQUIT   = uint16(0x03)
+	SIGNAL_SIGSEGV   = uint16(0x0b)
+	SIGNAL_SIGSTKFLT = uint16(0x10)
+	SIGNAL_SIGSTOP   = uint16(0x13)
+	SIGNAL_SIGSYS    = uint16(0x1f)
+	SIGNAL_SIGTERM   = uint16(0x0f)
+	SIGNAL_SIGTRAP   = uint16(0x05)
+	SIGNAL_SIGTSTP   = uint16(0x14)
+	SIGNAL_SIGTTIN   = uint16(0x15)
+	SIGNAL_SIGTTOU   = uint16(0x16)
+	SIGNAL_SIGUNUSED = uint16(0x1f)
+	SIGNAL_SIGURG    = uint16(0x17)
+	SIGNAL_SIGUSR1   = uint16(0x0a)
+	SIGNAL_SIGUSR2   = uint16(0x0c)
+	SIGNAL_SIGVTALRM = uint16(0x1a)
+	SIGNAL_SIGWINCH  = uint16(0x1c)
+	SIGNAL_SIGXCPU   = uint16(0x18)
+	SIGNAL_SIGXFSZ   = uint16(0x19)
 )
 
 // Signal is for event-driven trigger independent on platform OS.
@@ -65,15 +96,6 @@ func SignalInit(sig *Signal) hestiaError.Error {
 // signal values (e.g. `syscall.Signal` constant list).
 func SignalWait(sig *Signal) uint16 {
 	return _signalWait(sig)
-}
-
-// SignalStop sends SIGNAL_SIGSTOP into the hestiaOS.Signal object.
-//
-// It shall returns:
-//   1. `hestiaError.OK` | `0` = Successful
-//   2. `hestiaError.ENOENT` | `2` = given parameter is `nil`.
-func SignalStop(sig *Signal) hestiaError.Error {
-	return _signalStop(sig)
 }
 
 // SignalSend sends a given signal into the hestiaOS.Signal object.
