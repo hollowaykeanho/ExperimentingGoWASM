@@ -130,7 +130,7 @@ const (
 	ERROR_EDEADLK = "deadlock occured"
 
 	ENAMETOOLONG       = 36
-	ERROR_ENAMETOOLONG = "filename too long"
+	ERROR_ENAMETOOLONG = "name is too long"
 
 	ENOLOCK       = 37
 	ERROR_ENOLOCK = "no such lock"
@@ -142,7 +142,7 @@ const (
 	ERROR_ENOTEMPTY = "directory not empty"
 
 	ELOOP       = 40
-	ERROR_ELOOP = "too many symbolic link encountered"
+	ERROR_ELOOP = "too many looping encountered"
 
 	EWOULDBLOCK       = 41
 	ERROR_EWOULDBLOCK = "operation would block"
@@ -159,16 +159,16 @@ const (
 	// Skip unrelated Linux-specific error codes
 
 	EBFONT       = 59
-	ERROR_EBFONT = "error bad font"
+	ERROR_EBFONT = "bad font"
 
 	ENOSTR       = 60
-	ERROR_ENOSTR = "operation would block"
+	ERROR_ENOSTR = "not a stream entity"
 
 	ENODATA       = 61
 	ERROR_ENODATA = "no data available"
 
 	ETIME       = 62
-	ERROR_ETIME = "time expired"
+	ERROR_ETIME = "timer expired"
 
 	ENOSR       = 63
 	ERROR_ENOSR = "out of stream resources"
@@ -192,7 +192,7 @@ const (
 	ERROR_ESRMNT = "surmount error"
 
 	ECOMM       = 70
-	ERROR_ECOMM = "error on send communication"
+	ERROR_ECOMM = "error on communication"
 
 	EPROTO       = 71
 	ERROR_EPROTO = "protocol error"
@@ -216,22 +216,22 @@ const (
 	ERROR_EBADFD = "file descriptor in bad state"
 
 	EREMCHG       = 78
-	ERROR_EREMCHG = "remote address changed"
+	ERROR_EREMCHG = "remote has changed"
 
 	ELIBACC       = 79
-	ERROR_ELIBACC = "cannot access shared library"
+	ERROR_ELIBACC = "unaccessible library"
 
 	ELIBBAD       = 80
-	ERROR_ELIBBAD = "bad shared library"
+	ERROR_ELIBBAD = "bad library"
 
 	ELIBSCN       = 81
-	ERROR_ELIBSCN = "shared library corrupted"
+	ERROR_ELIBSCN = "library corrupted"
 
 	ELIBMAX       = 82
-	ERROR_ELIBMAX = "too many shared libraries"
+	ERROR_ELIBMAX = "too many libraries"
 
 	ELIBEXEC       = 83
-	ERROR_ELIBEXEC = "cannot exec shared library"
+	ERROR_ELIBEXEC = "cannot execute library"
 
 	EILSEQ       = 84
 	ERROR_EILSEQ = "Illegal byte sequence"
@@ -255,16 +255,16 @@ const (
 	ERROR_EMSGSIZE = "message too long"
 
 	EPROTOTYPE       = 91
-	ERROR_EPROTOTYPE = "wrong protocol"
+	ERROR_EPROTOTYPE = "wrong protocol type"
 
 	ENOPROTOOPT       = 92
-	ERROR_ENOPROTOOPT = "unavailable protocol"
+	ERROR_ENOPROTOOPT = "missing protocol"
 
 	EPROTONOSUPPORT       = 93
 	ERROR_EPROTONOSUPPORT = "unsupported protocol"
 
 	ESOCKTNOSUPPORT       = 94
-	ERROR_ESOCKTNOSUPPORT = "unsupported socket"
+	ERROR_ESOCKTNOSUPPORT = "unsupported socket type"
 
 	EOPNOTSUPP       = 95
 	ERROR_EOPNOTSUPP = "unsupported operation"
@@ -282,25 +282,25 @@ const (
 	ERROR_EADDRNOTAVAIL = "cannot assign requested address"
 
 	ENETDOWN       = 100
-	ERROR_ENETDOWN = "network down"
+	ERROR_ENETDOWN = "network is down"
 
 	ENETUNREACH       = 101
-	ERROR_ENETUNREACH = "network unreachable"
+	ERROR_ENETUNREACH = "network is unreachable"
 
 	ENETRESET       = 102
-	ERROR_ENETRESET = "network reset"
+	ERROR_ENETRESET = "network got reset"
 
 	ECONNABORTED       = 103
-	ERROR_ECONNABORTED = "network aborted"
+	ERROR_ECONNABORTED = "connection aborted"
 
 	ECONNRESET       = 104
 	ERROR_ECONNRESET = "connection reset by peer"
 
 	ENOBUFS       = 105
-	ERROR_ENOBUFS = "not buffer space available"
+	ERROR_ENOBUFS = "no buffer space available"
 
 	EISCONN       = 106
-	ERROR_EISCONN = "is already connected"
+	ERROR_EISCONN = "is connected"
 
 	ENOTCONN       = 107
 	ERROR_ENOTCONN = "not connected"
@@ -324,13 +324,13 @@ const (
 	ERROR_EHOSTUNREACH = "host is unreachable"
 
 	EALREADY       = 114
-	ERROR_EALREADY = "operations is already in progress"
+	ERROR_EALREADY = "operation is already in progress"
 
 	EINPROGRESS       = 115
-	ERROR_EINPROGRESS = "operations is now in progress"
+	ERROR_EINPROGRESS = "operation is now in progress"
 
 	ESTALE       = 116
-	ERROR_ESTALE = "operations is stalled"
+	ERROR_ESTALE = "operation is stalled"
 
 	EUCLEAN       = 117
 	ERROR_EUCLEAN = "cleaning is required"
@@ -343,13 +343,17 @@ const (
 	EDQUOT       = 122
 	ERROR_EDQUOT = "quota exceeded"
 
-	// skip linux specific error codes
+	ENOMEDIUM       = 123
+	ERROR_ENOMEDIUM = "missing medium"
+
+	EMEDIUMTYPE       = 124
+	ERROR_EMEDIUMTYPE = "invalid medium type"
 
 	ECANCELED       = 125
-	ERROR_ECANCELED = "opreation cancelled"
+	ERROR_ECANCELED = "opreation is cancelled"
 
 	ENOKEY       = 126
-	ERROR_ENOKEY = "required key not available"
+	ERROR_ENOKEY = "required key is unavailable"
 
 	EKEYEXPIRED       = 127
 	ERROR_EKEYEXPIRED = "required key has expired"
@@ -364,11 +368,11 @@ const (
 	ERROR_EOWNERDEAD = "owner died"
 
 	ENOTRECOVERABLE       = 131
-	ERROR_ENOTRECOVERABLE = "current state is unrecoverable"
+	ERROR_ENOTRECOVERABLE = "operation is unrecoverable"
 
 	ERFKILL       = 132
-	ERROR_ERFKILL = "operations not possible due to RF-kill"
+	ERROR_ERFKILL = "operations is not possible due to RF-kill"
 
 	EHWPOISON       = 133
-	ERROR_EHWPOISON = "hardware error"
+	ERROR_EHWPOISON = "hardware error or is tainted/poisoned"
 )
