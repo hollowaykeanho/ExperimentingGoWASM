@@ -39,7 +39,7 @@ func _appRun(app *App, state interface{}) (err hestiaError.Error) {
 
 	// initialize key variables
 	app.signaler = &hestiaOS.Signal{}
-	err = hestiaOS.SignalInit(app.signaler)
+	err = hestiaOS.SignalInit(app.signaler, 3)
 	if err != hestiaError.OK {
 		return err
 	}

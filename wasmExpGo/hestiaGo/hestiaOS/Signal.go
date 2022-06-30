@@ -80,11 +80,14 @@ type Signal struct {
 
 // SignalInit initializes the hestiaOS.Signal object.
 //
+// It accepts:
+//   1. `bufferSize` = the size of the channel buffer (default: 3).
+//
 // It shall returns:
 //   1. `hestiaError.OK` | `0` = Successful
 //   2. `hestiaError.ENOENT` | `2` = given parameter is `nil`.
-func SignalInit(sig *Signal) hestiaError.Error {
-	return _signalInit(sig)
+func SignalInit(sig *Signal, bufferSize int) hestiaError.Error {
+	return _signalInit(sig, bufferSize)
 }
 
 // SignalWait sets the hestiaOS.Signal object to wait for a signal.

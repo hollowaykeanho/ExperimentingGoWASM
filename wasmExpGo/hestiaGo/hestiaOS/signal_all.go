@@ -30,12 +30,16 @@ import (
 	"syscall"
 )
 
-func _signalInit(sig *Signal) hestiaError.Error {
+func _signalInit(sig *Signal, bufferSize int) hestiaError.Error {
 	if sig == nil {
 		return hestiaError.ENOENT
 	}
 
-	sig.channel = make(chan uint16, 1)
+	if bufferSize == 0 {
+		bufferSize = 3
+	}
+
+	sig.channel = make(chan uint16, bufferSize)
 
 	return hestiaError.OK
 }
