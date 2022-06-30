@@ -21,13 +21,14 @@
 package hestiaError
 
 const (
-	OK = 0
+	OK       = 0
+	ERROR_OK = ""
 
 	EPERM       = 1
 	ERROR_EPERM = "operation not permitted"
 
 	ENOENT       = 2
-	ERROR_ENOENT = "no such file or directory"
+	ERROR_ENOENT = "no such entity like data, file, or directory"
 
 	ESRCH       = 3
 	ERROR_ESRCH = "no such process"
@@ -137,8 +138,8 @@ const (
 	ENOSYS       = 38
 	ERROR_ENOSYS = "invalid system call number"
 
-	ENOTEMPTY         = 39
-	ERROR_EWOULDBLOCK = "directory not empty"
+	ENOTEMPTY       = 39
+	ERROR_ENOTEMPTY = "directory not empty"
 
 	ELOOP       = 40
 	ERROR_ELOOP = "too many symbolic link encountered"
@@ -160,8 +161,8 @@ const (
 	EBFONT       = 59
 	ERROR_EBFONT = "error bad font"
 
-	ENOSTR            = 60
-	ERROR_EWOULDBLOCK = "operation would block"
+	ENOSTR       = 60
+	ERROR_ENOSTR = "operation would block"
 
 	ENODATA       = 61
 	ERROR_ENODATA = "no data available"
@@ -325,8 +326,8 @@ const (
 	EALREADY       = 114
 	ERROR_EALREADY = "operations is already in progress"
 
-	EINPROGRESS    = 115
-	ERROR_EALREADY = "operations is now in progress"
+	EINPROGRESS       = 115
+	ERROR_EINPROGRESS = "operations is now in progress"
 
 	ESTALE       = 116
 	ERROR_ESTALE = "operations is stalled"
