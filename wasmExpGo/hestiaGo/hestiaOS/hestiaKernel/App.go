@@ -118,8 +118,23 @@ func AppResume(app *App) (err hestiaError.Error) {
 }
 
 // AppRun executes a given app from create to destroy.
-func AppRun(app *App, state interface{}) (err hestiaError.Error) {
-	return _appRun(app, state)
+//
+// It accepts 3 parameters:
+//   1. `app` - the App Kernel Data Structure object
+//   2. `state` - the input state object for `OnCreate(...)` function.
+//   3. `buffer` - the size of the signal buffer. Default is 3.
+//
+// It returns:
+//   1. `OK` | `0` - fully executed.
+//   2. `ENOENT` | `2` - `app` parameter is missing.
+//   3. `ENOPROTOOPT` | `92` - either `OnStop` or `OnStart` or both are missing.
+//   4. all hestiaOS.SignalInit error codes.
+func AppRun(app *App, state interface{}, buffer int) (err hestiaError.Error) {
+	if buffer == 0 {
+		buffer = 3
+	}
+
+	return _appRun(app, state, buffer)
 }
 
 func appSignal(app *App, value uint16) (err hestiaError.Error) {

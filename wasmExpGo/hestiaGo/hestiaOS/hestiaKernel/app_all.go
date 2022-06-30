@@ -28,7 +28,7 @@ import (
 	"hestiaGo/hestiaOS"
 )
 
-func _appRun(app *App, state interface{}) (err hestiaError.Error) {
+func _appRun(app *App, state interface{}, buffer int) (err hestiaError.Error) {
 	var signal uint16
 
 	// validate all inputs
@@ -39,7 +39,7 @@ func _appRun(app *App, state interface{}) (err hestiaError.Error) {
 
 	// initialize key variables
 	app.signaler = &hestiaOS.Signal{}
-	err = hestiaOS.SignalInit(app.signaler, 3)
+	err = hestiaOS.SignalInit(app.signaler, buffer)
 	if err != hestiaError.OK {
 		return err
 	}
