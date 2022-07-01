@@ -75,3 +75,20 @@ func AppendChild(parent *Object, child *Object) hestiaError.Error {
 func SetHTML(element *Object, html *[]byte) hestiaError.Error {
 	return _setHTML(element, html)
 }
+
+// IsObjectOK checks a hestiaWASM.Object is a stub or is operable.
+//
+// It accepts the following parameters:
+//   1. `element` - the hestiaWASM.Object to inspect
+//
+// It shall returns:
+//   1. hestiaError.EOWNERDEAD - given `element` object is `nil`.
+//   2. hestiaError.OK | `0` - [GOOD] the object is operable.
+//   3. hestiaError.Error - [BAD] the object is not operable.
+func IsObjectOK(element *Object) hestiaError.Error {
+	if element == nil {
+		return hestiaError.EOWNERDEAD
+	}
+
+	return _isObjectOK(element)
+}

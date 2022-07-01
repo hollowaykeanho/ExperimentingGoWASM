@@ -48,7 +48,7 @@ func _get(parent *Object, query string) *Object {
 		return nil
 	}
 
-	if parent == nil {
+	if IsObjectOK(parent) != hestiaError.OK {
 		return nil
 	}
 
@@ -74,11 +74,11 @@ func _createElement(name string) (child *Object, err hestiaError.Error) {
 }
 
 func _appendChild(parent *Object, child *Object) hestiaError.Error {
-	if parent == nil {
+	if IsObjectOK(parent) != hestiaError.OK {
 		return hestiaError.EOWNERDEAD
 	}
 
-	if child == nil {
+	if IsObjectOK(child) != hestiaError.OK {
 		return hestiaError.ENOENT
 	}
 
@@ -92,11 +92,22 @@ func _setHTML(element *Object, html *[]byte) hestiaError.Error {
 		return hestiaError.ENODATA
 	}
 
-	if element == nil {
+	if IsObjectOK(element) != hestiaError.OK {
 		return hestiaError.EOWNERDEAD
 	}
 
 	element.value.Set("innerHTML", string(*html))
+
+	return hestiaError.OK
+}
+
+// NOTE: all functions below are sub-functions. Please use the global version
+// since it has proper guarding like `nil` object checking.
+
+func _isObjectOK(element *Object) hestiaError.Error {
+	if element.value == nil {
+		return hestiaError.ENOENT
+	}
 
 	return hestiaError.OK
 }

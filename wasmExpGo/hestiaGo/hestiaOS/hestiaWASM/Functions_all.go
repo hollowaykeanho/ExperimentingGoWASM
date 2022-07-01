@@ -49,3 +49,7 @@ func _appendChild(parent *Object, child *Object) hestiaError.Error {
 func _setHTML(element *Object, html *[]byte) hestiaError.Error {
 	return hestiaError.EPROTONOSUPPORT
 }
+
+func _isObjectOK(element *Object) hestiaError.Error {
+	return hestiaError.EPROTONOSUPPORT
+}
