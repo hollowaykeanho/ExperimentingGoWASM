@@ -21,11 +21,12 @@ low implementations due to little efforts. That's why the primary goal is to:
    2. **[ DONE ]** - Develop Monteur's test, build, package, and release
       recipes for GoWASM.
    3. Develop baseline foundation for using GoWASM.
-   4. **[ DOING ]** - Develop `<body>` manipulations directly in GoWASM
+   4. **[ DONE ]** - Develop `<body>` manipulations directly in GoWASM
       (output).
-   5. Develop `<body>` manipulations directly in GoWASM (input).
-   6. Develop `<body>` manipulations directly in GoWASM (event-driven).
-   7. **[ DOING ]** Explore and conclude the necessity of using
+   5. **[ DOING ]** - Develop `<body>` manipulations directly in GoWASM (input).
+   6. **[ DOING ]** - Develop `<body>` manipulations directly in GoWASM
+      (event-driven).
+   7. **[ DONE ]** Explore and conclude the necessity of using
       [TinyGo](https://tinygo.org/).
 2. Develop client-side rendering capability using [Hugo](https://gohugo.io/) for
    cost reduction between the server sides and the end-user sides.
