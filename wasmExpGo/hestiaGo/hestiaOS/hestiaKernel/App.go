@@ -95,6 +95,16 @@ type App struct {
 	OnStop func()
 
 	signaler *hestiaOS.Signal
+
+	// ServerMode is to set the Application into a server behavior.
+	//
+	// Setting this to `true` shall stop it from emitting an automated
+	// signal similar to `AppKill(...)`, allowing the appplication close
+	// after the execution. This means you're entirely responsible for
+	// terminating the app by calling `AppKill(...)` function.
+	//
+	// Default is `false` to behave like a common program.
+	ServerMode bool
 }
 
 // AppKill signals a running app to stop running and destroy itself.

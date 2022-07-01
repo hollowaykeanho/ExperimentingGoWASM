@@ -18,9 +18,6 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-//go:build !wasm
-// +build !wasm
-
 package hestiaKernel
 
 import (
@@ -51,6 +48,11 @@ func _appRun(app *App, state interface{}, buffer int) (err hestiaError.Error) {
 
 	// start the app
 	app.OnStart()
+
+	// execute non-server mode if not flagged
+	if !app.ServerMode {
+		_appKill(app)
+	}
 
 	// wait for interrupt signal
 	for {
