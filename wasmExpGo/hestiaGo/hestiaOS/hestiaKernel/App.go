@@ -42,7 +42,7 @@ type App struct {
 	// contains the saved state of the App.
 	//
 	// This function is **OPTIONAL**.
-	OnCreate func(interface{})
+	OnCreate func(any)
 
 	// OnDestroy is for exiting the application.
 	//
@@ -139,7 +139,7 @@ func AppResume(app *App) (err hestiaError.Error) {
 //   2. `ENOENT` | `2` - `app` parameter is missing.
 //   3. `ENOPROTOOPT` | `92` - either `OnStop` or `OnStart` or both are missing.
 //   4. all hestiaOS.SignalInit error codes.
-func AppRun(app *App, state interface{}, buffer int) (err hestiaError.Error) {
+func AppRun(app *App, state any, buffer int) (err hestiaError.Error) {
 	if buffer == 0 {
 		buffer = 3
 	}
@@ -162,6 +162,7 @@ func appSignal(app *App, value uint16) (err hestiaError.Error) {
 	}
 
 	hestiaOS.SignalSend(app.signaler, value)
+
 	return hestiaError.OK
 }
 

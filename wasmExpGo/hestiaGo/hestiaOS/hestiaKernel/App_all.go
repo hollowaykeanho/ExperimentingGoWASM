@@ -25,7 +25,7 @@ import (
 	"hestiaGo/hestiaOS"
 )
 
-func _appRun(app *App, state interface{}, buffer int) (err hestiaError.Error) {
+func _appRun(app *App, state any, buffer int) (err hestiaError.Error) {
 	var signal uint16
 
 	// validate all inputs
@@ -55,34 +55,38 @@ func _appRun(app *App, state interface{}, buffer int) (err hestiaError.Error) {
 	}
 
 	// wait for interrupt signal
-	for {
-		signal = hestiaOS.SignalWait(app.signaler)
+listen:
+	signal = hestiaOS.SignalWait(app.signaler)
 
-		switch {
-		case signal == 0x00:
-			continue
-		case signal == app.SignalRestart:
-			if app.OnRestart != nil {
-				app.OnRestart()
-			}
-			app.OnStop()
-			app.OnStart()
-		case signal == hestiaOS.SIGNAL_SIGSTOP:
-			if app.OnPause != nil {
-				app.OnPause()
-			}
-		case signal == hestiaOS.SIGNAL_SIGCONT:
-			if app.OnResume != nil {
-				app.OnResume()
-			}
-		case signal == hestiaOS.SIGNAL_SIGINT:
-			goto end
-		case signal == hestiaOS.SIGNAL_SIGTERM:
-			goto end
-		case signal == hestiaOS.SIGNAL_SIGKILL:
-			goto end
-		default:
+	switch {
+	case signal == 0x00:
+		goto listen
+	case signal == app.SignalRestart:
+		if app.OnRestart != nil {
+			app.OnRestart()
 		}
+		app.OnStop()
+		app.OnStart()
+
+		goto listen
+	case signal == hestiaOS.SIGNAL_SIGSTOP:
+		if app.OnPause != nil {
+			app.OnPause()
+		}
+
+		goto listen
+	case signal == hestiaOS.SIGNAL_SIGCONT:
+		if app.OnResume != nil {
+			app.OnResume()
+		}
+
+		goto listen
+	case signal == hestiaOS.SIGNAL_SIGINT:
+		goto end
+	case signal == hestiaOS.SIGNAL_SIGTERM:
+		goto end
+	case signal == hestiaOS.SIGNAL_SIGKILL:
+		goto end
 	}
 
 end:
