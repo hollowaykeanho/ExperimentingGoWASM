@@ -1,4 +1,6 @@
 // Copyright 2022 "Holloway" Chew, Kean Ho <hollowaykeanho@gmail.com>
+// Copyright 2021 Chan Wen Xu <chan@wenxu.dev>
+// Copyright 2020 Alessandro Segala <twitter: @ItalyPaleAle>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to
@@ -25,6 +27,13 @@ package hestiaWASM
 
 import (
 	"hestiaGo/hestiaError"
+	"syscall/js"
+)
+
+const (
+	id_JS_PROMISE = "Promise"
+
+	hestiaERROR_OK = 0
 )
 
 // RETURN ERROR CODES
@@ -103,6 +112,72 @@ func _setHTML(element *Object, html *[]byte) hestiaError.Error {
 
 // NOTE: all functions below are sub-functions. Please use the global version
 // since it has proper guarding like `nil` object checking.
+
+func _goPromise(promise *Promise) (err hestiaError.Error) {
+	jsFunc := js.FuncOf(func(this js.Value, args []js.Value) any {
+		handler := __newJSPromise(promise)
+
+		promise.object = Get(Global(), id_JS_PROMISE)
+		return promise.object.value.New(handler)
+	})
+
+	Global().value.Set(promise.Name, jsFunc)
+
+	return hestiaError.OK
+}
+
+func __newJSPromise(promise *Promise) (handler js.Func) {
+	handler = js.FuncOf(func(this js.Value, args []js.Value) any {
+		switch {
+		case len(args) < 2:
+			promise.Reject(hestiaError.ENOTRECOVERABLE)
+			return nil
+		case args[0].Type() != js.TypeFunction,
+			args[1].Type() != js.TypeFunction:
+			promise.Reject(hestiaError.ENOTRECOVERABLE)
+			return nil
+		default:
+		}
+
+		go func() {
+			ret := promise.Func()
+
+			if ret == hestiaERROR_OK {
+				// resolve
+				args[0].Invoke(js.ValueOf(promise.Resolve()))
+			} else {
+				//reject
+				args[1].Invoke(js.ValueOf(promise.Reject(hestiaError.OK)))
+			}
+
+			handler.Release()
+		}()
+
+		return nil
+	})
+
+	return handler
+}
+
+func _isPromiseOK(element *Promise) hestiaError.Error {
+	if element.Name == "" {
+		return hestiaError.EBADF
+	}
+
+	if element.Func == nil {
+		return hestiaError.ENOENT
+	}
+
+	if element.Resolve == nil {
+		return hestiaError.ENOPROTOOPT
+	}
+
+	if element.Reject == nil {
+		return hestiaError.ENOMEDIUM
+	}
+
+	return hestiaError.OK
+}
 
 func _isObjectOK(element *Object) hestiaError.Error {
 	if element.value == nil {

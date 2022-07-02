@@ -63,6 +63,28 @@ func AppendChild(parent *Object, child *Object) hestiaError.Error {
 	return _appendChild(parent, child)
 }
 
+// GoPromise registers a given Promise into Javascript function.
+//
+// This function only registers the given Promise into Javascript domain making
+// it readily to be called and executed.
+//
+// Its return value here is meant to report the registration status only.
+//
+// It accepts the following parameters:
+//   1. `promise` - the hestiaWASM.Promise to execute.
+//
+// It shall returns:
+//   1. hestiaError.OK | `0` - scheduling was successful.
+//   2. All hestiaErrors from `IsPromiseOK()` - failed usability test.
+func GoPromise(promise *Promise) (err hestiaError.Error) {
+	err = IsPromiseOK(promise)
+	if err != hestiaError.OK {
+		return err
+	}
+
+	return _goPromise(promise)
+}
+
 // SetHTML applies a given HTML codes into a given element's InnerHTML.
 //
 // It accepts the following parameters:
@@ -74,6 +96,27 @@ func AppendChild(parent *Object, child *Object) hestiaError.Error {
 //   2. hestiaError.OK - operation successful.
 func SetHTML(element *Object, html *[]byte) hestiaError.Error {
 	return _setHTML(element, html)
+}
+
+// IsPromiseOK checks a hestiaWASM.Promise is a stub or is operable.
+//
+// It accepts the following parameters:
+//   1. `element` - the hestiaWASM.Promise to inspect
+//
+// It shall returns:
+//   1. hestiaError.OK | `0` - The Promise object is operable.
+//   2. hestiaError.EOWNERDEAD - The given Promise object is `nil`.
+//   3. hestiaError.ENOENT - The Promise.Func property is `nil`.
+//   4. hestiaError.ENOPROTOOPT - The Promise.Resolve property is `nil`.
+//   5. hestiaError.ENOMEDIUM - The Promise.Reject property is `nil`.
+//   6. hestiaError.EBADF - The Promise.Name property is empty (`""`).
+//   7. hestiaError.EPROTONOSUPPORT - operating in a non-WASM CPU.
+func IsPromiseOK(element *Promise) hestiaError.Error {
+	if element == nil {
+		return hestiaError.EOWNERDEAD
+	}
+
+	return _isPromiseOK(element)
 }
 
 // IsObjectOK checks a hestiaWASM.Object is a stub or is operable.
