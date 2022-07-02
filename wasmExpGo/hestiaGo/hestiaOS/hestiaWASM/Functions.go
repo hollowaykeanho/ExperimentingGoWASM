@@ -89,6 +89,24 @@ func GoPromise(promise *Promise) (err hestiaError.Error) {
 	return _goPromise(promise)
 }
 
+// IsObjectOK checks a hestiaWASM.Object is a stub or is operable.
+//
+// It accepts the following parameters:
+//   1. `element` - the hestiaWASM.Object to inspect
+//
+// It shall returns:
+//   1. hestiaError.EOWNERDEAD - given `element` object is `nil`.
+//   2. hestiaError.OK | `0` - [GOOD] the object is operable.
+//   3. hestiaError.Error - [BAD] the object is not operable.
+//   4. hestiaError.EPROTONOSUPPORT - operating in a non-WASM CPU.
+func IsObjectOK(element *Object) hestiaError.Error {
+	if element == nil {
+		return hestiaError.EOWNERDEAD
+	}
+
+	return _isObjectOK(element)
+}
+
 // IsPromiseOK checks a hestiaWASM.Promise is a stub or is operable.
 //
 // It accepts the following parameters:
@@ -110,25 +128,7 @@ func IsPromiseOK(element *Promise) hestiaError.Error {
 	return _isPromiseOK(element)
 }
 
-// IsObjectOK checks a hestiaWASM.Object is a stub or is operable.
-//
-// It accepts the following parameters:
-//   1. `element` - the hestiaWASM.Object to inspect
-//
-// It shall returns:
-//   1. hestiaError.EOWNERDEAD - given `element` object is `nil`.
-//   2. hestiaError.OK | `0` - [GOOD] the object is operable.
-//   3. hestiaError.Error - [BAD] the object is not operable.
-//   4. hestiaError.EPROTONOSUPPORT - operating in a non-WASM CPU.
-func IsObjectOK(element *Object) hestiaError.Error {
-	if element == nil {
-		return hestiaError.EOWNERDEAD
-	}
-
-	return _isObjectOK(element)
-}
-
-// IsValueOK checks a Go value is convertable to Javascript Object.
+// IsTypeConvertable checks a Go value is convertable to Javascript Object.
 //
 // This function is made available to safely check a compatible Go return value
 // that can be converted into Javascript Object before use. The original
@@ -142,8 +142,8 @@ func IsObjectOK(element *Object) hestiaError.Error {
 //   1. hestiaError.OK | `0` - [GOOD] the object is convertable.
 //   2. hestiaError.EPROTONOSUPPORT - operating in a non-WASM CPU.
 //   3. hestiaError.EPROTOTYPE | `91` - [BAD] the object is not convertable.
-func IsValueOK(element any) hestiaError.Error {
-	return _isValueOK(element)
+func IsTypeConvertable(element any) hestiaError.Error {
+	return _isTypeConvertable(element)
 }
 
 // SetHTML applies a given HTML codes into a given element's InnerHTML.

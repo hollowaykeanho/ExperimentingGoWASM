@@ -124,53 +124,6 @@ func _goPromise(promise *Promise) (err hestiaError.Error) {
 	return hestiaError.OK
 }
 
-func _isPromiseOK(element *Promise) hestiaError.Error {
-	if element.Name == "" {
-		return hestiaError.EBADF
-	}
-
-	if element.Func == nil {
-		return hestiaError.ENOENT
-	}
-
-	if element.Resolve == nil {
-		return hestiaError.ENOPROTOOPT
-	}
-
-	if element.Reject == nil {
-		return hestiaError.ENOMEDIUM
-	}
-
-	return hestiaError.OK
-}
-
-func _isObjectOK(element *Object) hestiaError.Error {
-	if element.value == nil {
-		return hestiaError.ENOENT
-	}
-
-	return hestiaError.OK
-}
-
-func _isValueOK(element any) hestiaError.Error {
-	switch element.(type) {
-	case js.Value:
-	case js.Func:
-	case nil:
-	case bool:
-	case int, int8, int16, int32, int64:
-	case uint, uint8, uint16, uint32, uint64:
-	case float32, float64:
-	case string:
-	case []any:
-	case map[string]any:
-	default:
-		return hestiaError.EPROTOTYPE
-	}
-
-	return hestiaError.OK
-}
-
 func __newJSPromise(promise *Promise) (handler js.Func) {
 	handler = js.FuncOf(func(this js.Value, args []js.Value) any {
 		switch {
@@ -202,4 +155,51 @@ func __newJSPromise(promise *Promise) (handler js.Func) {
 	})
 
 	return handler
+}
+
+func _isObjectOK(element *Object) hestiaError.Error {
+	if element.value == nil {
+		return hestiaError.ENOENT
+	}
+
+	return hestiaError.OK
+}
+
+func _isPromiseOK(element *Promise) hestiaError.Error {
+	if element.Name == "" {
+		return hestiaError.EBADF
+	}
+
+	if element.Func == nil {
+		return hestiaError.ENOENT
+	}
+
+	if element.Resolve == nil {
+		return hestiaError.ENOPROTOOPT
+	}
+
+	if element.Reject == nil {
+		return hestiaError.ENOMEDIUM
+	}
+
+	return hestiaError.OK
+}
+
+func _isTypeConvertable(element any) hestiaError.Error {
+	switch element.(type) {
+	case js.Value:
+	case js.Func:
+	case nil:
+	case bool:
+	case int, int8, int16, int32, int64:
+	case uint, uint8, uint16, uint32, uint64:
+	case float32, float64:
+	case string:
+	case []any:
+	case map[string]any:
+	default:
+		return hestiaError.EPROTOTYPE
+	}
+
+	return hestiaError.OK
 }
