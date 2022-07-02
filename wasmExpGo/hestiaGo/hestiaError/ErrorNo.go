@@ -34,25 +34,25 @@ const (
 	ERROR_ESRCH = "no such process"
 
 	EINTR       = 4
-	ERROR_EINTR = "interrupted system call"
+	ERROR_EINTR = "interrupted call"
 
 	EIO       = 5
 	ERROR_EIO = "I/O error"
 
 	ENXIO       = 6
-	ERROR_ENXIO = "no such device or address"
+	ERROR_ENXIO = "no such I/O"
 
 	E2BIG       = 7
-	ERROR_E2BIG = "argument list too long"
+	ERROR_E2BIG = "list is too big"
 
 	ENOEXEC       = 8
 	ERROR_ENOEXEC = "exec format error"
 
 	EBADF       = 9
-	ERROR_EBADF = "bad file number"
+	ERROR_EBADF = "bad file"
 
 	ECHILD       = 10
-	ERROR_ECHILD = "no child processes"
+	ERROR_ECHILD = "no child entity"
 
 	EAGAIN       = 11
 	ERROR_EAGAIN = "try again"
@@ -64,13 +64,13 @@ const (
 	ERROR_EACCES = "permission denied"
 
 	EFAULT       = 14
-	ERROR_EFAULT = "bad address"
+	ERROR_EFAULT = "faulty entity"
 
 	ENOTBLK       = 15
 	ERROR_ENOTBLK = "block device required"
 
 	EBUSY       = 16
-	ERROR_EBUSY = "device or resource busy"
+	ERROR_EBUSY = "entity is busy"
 
 	EEXIST       = 17
 	ERROR_EEXIST = "target exists"
@@ -100,10 +100,10 @@ const (
 	ERROR_ENOTTY = "not a typewriter"
 
 	ETXTBSY       = 26
-	ERROR_ETXTBSY = "text file busy"
+	ERROR_ETXTBSY = "text file is busy"
 
 	EFBIG       = 27
-	ERROR_EFBIG = "file too large"
+	ERROR_EFBIG = "file is too big"
 
 	ENOSPC       = 28
 	ERROR_ENOSPC = "no space left"
@@ -118,13 +118,13 @@ const (
 	ERROR_EMLINK = "too many links"
 
 	EPIPE       = 32
-	ERROR_EPIPE = "broken pipe"
+	ERROR_EPIPE = "bad pipe"
 
 	EDOM       = 33
-	ERROR_EDOM = "math argument out of domain of function"
+	ERROR_EDOM = "out of domain"
 
 	ERANGE       = 34
-	ERROR_ERANGE = "math result not representable"
+	ERROR_ERANGE = "out of range"
 
 	EDEADLK       = 35
 	ERROR_EDEADLK = "deadlock occured"
@@ -136,13 +136,13 @@ const (
 	ERROR_ENOLOCK = "no such lock"
 
 	ENOSYS       = 38
-	ERROR_ENOSYS = "invalid system call number"
+	ERROR_ENOSYS = "invalid system"
 
 	ENOTEMPTY       = 39
-	ERROR_ENOTEMPTY = "directory not empty"
+	ERROR_ENOTEMPTY = "directory is not empty"
 
 	ELOOP       = 40
-	ERROR_ELOOP = "too many looping encountered"
+	ERROR_ELOOP = "too many looping"
 
 	EWOULDBLOCK       = 41
 	ERROR_EWOULDBLOCK = "operation would block"
@@ -151,12 +151,52 @@ const (
 	ERROR_ENOMSG = "no message found"
 
 	EIDRM       = 43
-	ERROR_EIDRM = "identifier removed"
+	ERROR_EIDRM = "id removed"
 
 	ECHRNG       = 44
 	ERROR_ECHRNG = "channel out of range"
 
-	// Skip unrelated Linux-specific error codes
+	EL2NSYNC       = 45
+	ERROR_EL2NSYNC = "level 2 is not sync"
+
+	EL3HLT       = 46
+	ERROR_EL3HLT = "level 3 is halted"
+
+	EL3RST       = 47
+	ERROR_EL3RST = "level 3 got reset"
+
+	ELNRNG       = 48
+	ERROR_ELNRNG = "link is out of range"
+
+	EUNATCH       = 49
+	ERROR_EUNATCH = "entity unattached"
+
+	ENOCSI       = 50
+	ERROR_ENOCSI = "CSI structure is unavailable"
+
+	EL2HLT       = 51
+	ERROR_EL2HLT = "level 2 got reset"
+
+	EBADE       = 52
+	ERROR_EBADE = "bad exchange"
+
+	EBADR       = 53
+	ERROR_EBADR = "bad request descriptor"
+
+	EXFULL       = 54
+	ERROR_EXFULL = "exchange is full"
+
+	ENOANO       = 55
+	ERROR_ENOANO = "no anode"
+
+	EBADRQC       = 56
+	ERROR_EBADRQC = "bad request code"
+
+	EBADSLT       = 57
+	ERROR_EBADSLT = "bad slot"
+
+	EDEADLOCK       = 58
+	ERROR_EDEADLOCK = "deadlock occured"
 
 	EBFONT       = 59
 	ERROR_EBFONT = "bad font"
@@ -171,7 +211,7 @@ const (
 	ERROR_ETIME = "timer expired"
 
 	ENOSR       = 63
-	ERROR_ENOSR = "out of stream resources"
+	ERROR_ENOSR = "no streaming resources"
 
 	ENONET       = 64
 	ERROR_ENONET = "not on network"
@@ -207,7 +247,7 @@ const (
 	ERROR_EBADMSG = "not a data message"
 
 	EOVERFLOW       = 75
-	ERROR_EOVERFLOW = "value too large for defined data type"
+	ERROR_EOVERFLOW = "value too large for a defined data type"
 
 	ENOTUNIQ       = 76
 	ERROR_ENOTUNIQ = "value is not unique"
@@ -219,13 +259,13 @@ const (
 	ERROR_EREMCHG = "remote has changed"
 
 	ELIBACC       = 79
-	ERROR_ELIBACC = "unaccessible library"
+	ERROR_ELIBACC = "library is not accessible"
 
 	ELIBBAD       = 80
-	ERROR_ELIBBAD = "bad library"
+	ERROR_ELIBBAD = "library is bad and faulty"
 
 	ELIBSCN       = 81
-	ERROR_ELIBSCN = "library corrupted"
+	ERROR_ELIBSCN = "library is corrupted"
 
 	ELIBMAX       = 82
 	ERROR_ELIBMAX = "too many libraries"
@@ -335,7 +375,14 @@ const (
 	EUCLEAN       = 117
 	ERROR_EUCLEAN = "cleaning is required"
 
-	// skip linux specific error codes
+	ENOTNAM       = 118
+	ERROR_ENOTNAM = "missing name"
+
+	ENAVAIL       = 119
+	ERROR_ENAVAIL = "entity is not available"
+
+	EISNAM       = 120
+	ERROR_EISNAM = "name already exists"
 
 	EREMOTEIO       = 121
 	ERROR_EREMOTEIO = "remote I/O error"
@@ -374,5 +421,5 @@ const (
 	ERROR_ERFKILL = "operations is not possible due to RF-kill"
 
 	EHWPOISON       = 133
-	ERROR_EHWPOISON = "hardware error or is tainted/poisoned"
+	ERROR_EHWPOISON = "hardware is faulty, tainted, or poisoned"
 )

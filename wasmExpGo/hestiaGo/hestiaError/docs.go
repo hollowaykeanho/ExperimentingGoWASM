@@ -22,20 +22,22 @@
 //
 // The sole purpose for package is to enable Go and TinyGo to operate in-sync
 // when communicating an error. This is done by re-visiting Linux error numbers
-// list to ensure memory-size constrained environment for TinyGo can operate
+// list to ensure a memory-size constrained environment for TinyGo can operate
 // properly without being overburden-ed by Go's string error approach.
 //
 //
-// WHY LINUX ERROR CODE?
+// WHY LINUX ERROR CODES?
 //
 // Since most server systems in the world are using Linux kernel system and
-// TinyGo is also used to build kernel and operating system for
-// microcontrollers, Linux kernel system thus becomes the best reference for
-// this type of requirement.
+// TinyGo is using Linux kernel and it deployed operating system for many of
+// their respective applications, it is the best reference point. Besides,
+// microcontrollers implementation is a baremetal (non-OS) approach so the
+// kernel-level insight is best suited.
 //
-// Some mild wording were smartly applied to the text intepretations for
-// flexible reusability in different aspects and domains instead of a fixed
-// one.
+// Some mild wording were smartly applied to the text representations of the
+// error code for flexible reusability in different aspects and domains instead
+// to the original one. When used, you should prepare your own intepretation
+// with association as close to this list as possible.
 //
 //
 // NOT ALL ERROR CODES ARE AVAILABLE
@@ -51,16 +53,31 @@
 // POSITIVE OR NEGATIVE NUMBER
 //
 // Entirely your choice. Using positive number allows you to expand greater
-// numbers away from this list.
+// numbers away from this list. HestiaError recommends `uint16` to consider
+// your custom codes (beyond this list).
+//
+// `uint8` is not recommended due to the consideration of `int8`, where the
+// maximum number is 124. The list already exceeded that capacity.
+//
+// `int` or `uint` is **strongly not recommended** since HestiaGo supports
+// various bit-size CPU architecture (e.g. 8-bit microcontroller to 64-bit
+// x86 CPU).
 //
 //
 // WHY ALL CONSTANTS?
 //
-// Mainly to allow Go and TinyGo compilers to shed unused codes.
+// Mainly to allow Go and TinyGo compilers to shed unused ones to reduce your
+// compiled binary size.
+//
+// This compiler "code shedding" ability is also the reason why the
+// `Interpret(...)` function idea was seriously considered but ultimately
+// disposed of due to the function itself is fat and you're likely going to have
+// your interpretation function anyway.
 //
 //
 // WHY NOT Go.Error TYPE?
 //
-// Same reason with TinyGo operations. You can always create the error object
-// in Go using the associated string constant (by prefixing `ERROR_` ) .
+// Same reason with TinyGo operations. However, you can always create the Go
+// error object in Go using the associated string constant (by prefixing
+// `ERROR_`) or your own message based on the error code.
 package hestiaError
