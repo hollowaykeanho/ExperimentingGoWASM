@@ -128,6 +128,24 @@ func IsObjectOK(element *Object) hestiaError.Error {
 	return _isObjectOK(element)
 }
 
+// IsValueOK checks a Go value is convertable to Javascript Object.
+//
+// This function is made available to safely check a compatible Go return value
+// that can be converted into Javascript Object before use. The original
+// `js.ValueOf` currently cannot be used for checking due to its panicking
+// responses.
+//
+// It accepts the following parameters:
+//   1. `element` - the object to inspect.
+//
+// It shall returns:
+//   1. hestiaError.OK | `0` - [GOOD] the object is convertable.
+//   2. hestiaError.EPROTONOSUPPORT - operating in a non-WASM CPU.
+//   3. hestiaError.EPROTOTYPE | `91` - [BAD] the object is not convertable.
+func IsValueOK(element any) hestiaError.Error {
+	return _isValueOK(element)
+}
+
 // SetHTML applies a given HTML codes into a given element's InnerHTML.
 //
 // It accepts the following parameters:

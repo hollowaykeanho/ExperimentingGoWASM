@@ -58,6 +58,10 @@ func _isPromiseOK(element *Promise) hestiaError.Error {
 	return hestiaError.EPROTONOSUPPORT
 }
 
+func _isValueOK(element any) hestiaError.Error {
+	return hestiaError.EPROTONOSUPPORT
+}
+
 func _setHTML(element *Object, html *[]byte) hestiaError.Error {
 	return hestiaError.EPROTONOSUPPORT
 }
