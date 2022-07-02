@@ -73,25 +73,24 @@ func _signalWait(sig *Signal) (value uint16) {
 		syscall.SIGSTOP,
 	)
 
-	for {
-		select {
-		case value, ok = <-sig.channel:
-			if !ok {
-				continue
-			}
-
-			signal.Stop(chOS)
-			goto done
-		case osSig, ok = <-chOS:
-			if !ok {
-				continue
-			}
-
-			sysSignal = osSig.(syscall.Signal)
-
-			sig.channel <- uint16(sysSignal)
-		default:
+listen:
+	select {
+	case value, ok = <-sig.channel:
+		if !ok {
+			goto listen
 		}
+
+		signal.Stop(chOS)
+		goto done
+	case osSig, ok = <-chOS:
+		if !ok {
+			goto listen
+		}
+
+		sysSignal = osSig.(syscall.Signal)
+
+		sig.channel <- uint16(sysSignal)
+		goto listen
 	}
 
 done:

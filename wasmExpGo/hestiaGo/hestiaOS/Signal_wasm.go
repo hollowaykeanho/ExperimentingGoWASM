@@ -52,21 +52,10 @@ func _signalSend(sig *Signal, data uint16) hestiaError.Error {
 }
 
 func _signalWait(sig *Signal) (value uint16) {
-	var ok bool
-
 	if sig == nil {
-		goto done
+		return value
 	}
 
-	for {
-		select {
-		case value, ok = <-sig.channel:
-			if ok {
-				goto done
-			}
-		default:
-		}
-	}
-done:
+	value = <-sig.channel
 	return value
 }
