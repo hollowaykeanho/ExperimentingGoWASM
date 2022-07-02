@@ -28,6 +28,7 @@ package hestiaWASM
 import (
 	"hestiaGo/hestiaError"
 	"syscall/js"
+	"unsafe"
 )
 
 const (
@@ -193,6 +194,8 @@ func _isTypeConvertable(element any) hestiaError.Error {
 	case bool:
 	case int, int8, int16, int32, int64:
 	case uint, uint8, uint16, uint32, uint64:
+	case uintptr:
+	case unsafe.Pointer:
 	case float32, float64:
 	case string:
 	case []any:
