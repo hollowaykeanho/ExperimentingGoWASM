@@ -32,8 +32,6 @@ import (
 
 const (
 	id_JS_PROMISE = "Promise"
-
-	hestiaERROR_OK = 0
 )
 
 // RETURN ERROR CODES
@@ -52,20 +50,18 @@ const (
 //   7. if output == unsupported { return hestiaError.EPROTONOSUPPORT }
 //   7. if output == ok { return hestiaError.OK }
 
-func _get(parent *Object, query string) *Object {
-	if query == "" {
-		return nil
-	}
-
+func _appendChild(parent *Object, child *Object) hestiaError.Error {
 	if IsObjectOK(parent) != hestiaError.OK {
-		return nil
+		return hestiaError.EOWNERDEAD
 	}
 
-	ret := parent.value.Get(query)
-
-	return &Object{
-		value: &ret,
+	if IsObjectOK(child) != hestiaError.OK {
+		return hestiaError.ENOENT
 	}
+
+	parent.value.Call("appendChild", *(child.value))
+
+	return hestiaError.OK
 }
 
 func _createElement(name string) (child *Object, err hestiaError.Error) {
@@ -82,18 +78,20 @@ func _createElement(name string) (child *Object, err hestiaError.Error) {
 	}, hestiaError.OK
 }
 
-func _appendChild(parent *Object, child *Object) hestiaError.Error {
+func _get(parent *Object, query string) *Object {
+	if query == "" {
+		return nil
+	}
+
 	if IsObjectOK(parent) != hestiaError.OK {
-		return hestiaError.EOWNERDEAD
+		return nil
 	}
 
-	if IsObjectOK(child) != hestiaError.OK {
-		return hestiaError.ENOENT
+	ret := parent.value.Get(query)
+
+	return &Object{
+		value: &ret,
 	}
-
-	parent.value.Call("appendChild", *(child.value))
-
-	return hestiaError.OK
 }
 
 func _setHTML(element *Object, html *[]byte) hestiaError.Error {
@@ -126,39 +124,6 @@ func _goPromise(promise *Promise) (err hestiaError.Error) {
 	return hestiaError.OK
 }
 
-func __newJSPromise(promise *Promise) (handler js.Func) {
-	handler = js.FuncOf(func(this js.Value, args []js.Value) any {
-		switch {
-		case len(args) < 2:
-			promise.Reject(hestiaError.ENOTRECOVERABLE)
-			return nil
-		case args[0].Type() != js.TypeFunction,
-			args[1].Type() != js.TypeFunction:
-			promise.Reject(hestiaError.ENOTRECOVERABLE)
-			return nil
-		default:
-		}
-
-		go func() {
-			ret := promise.Func()
-
-			if ret == hestiaERROR_OK {
-				// resolve
-				args[0].Invoke(js.ValueOf(promise.Resolve()))
-			} else {
-				//reject
-				args[1].Invoke(js.ValueOf(promise.Reject(hestiaError.OK)))
-			}
-
-			handler.Release()
-		}()
-
-		return nil
-	})
-
-	return handler
-}
-
 func _isPromiseOK(element *Promise) hestiaError.Error {
 	if element.Name == "" {
 		return hestiaError.EBADF
@@ -185,4 +150,37 @@ func _isObjectOK(element *Object) hestiaError.Error {
 	}
 
 	return hestiaError.OK
+}
+
+func __newJSPromise(promise *Promise) (handler js.Func) {
+	handler = js.FuncOf(func(this js.Value, args []js.Value) any {
+		switch {
+		case len(args) < 2:
+			promise.Reject(hestiaError.ENOTRECOVERABLE)
+			return nil
+		case args[0].Type() != js.TypeFunction,
+			args[1].Type() != js.TypeFunction:
+			promise.Reject(hestiaError.ENOTRECOVERABLE)
+			return nil
+		default:
+		}
+
+		go func() {
+			ret := promise.Func()
+
+			if ret == hestiaError.OK {
+				// resolve
+				args[0].Invoke(js.ValueOf(promise.Resolve()))
+			} else {
+				//reject
+				args[1].Invoke(js.ValueOf(promise.Reject(hestiaError.OK)))
+			}
+
+			handler.Release()
+		}()
+
+		return nil
+	})
+
+	return handler
 }

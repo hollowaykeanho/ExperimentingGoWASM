@@ -24,6 +24,21 @@ import (
 	"hestiaGo/hestiaError"
 )
 
+// Body() returns the DOM `<body>` Object got from Document().
+func Body() *Object {
+	return _body()
+}
+
+// Document() returns the DOM Document Object got from Global.
+func Document() *Object {
+	return _document()
+}
+
+// Global() returns the DOM global Object.
+func Global() *Object {
+	return _global()
+}
+
 // Object is the hestiaWASM adapter to syscall/js.Value object.
 //
 // The purpose is to ensure most of hestiaWASM is built on a stable environment
@@ -87,19 +102,4 @@ type Promise struct {
 	Reject func(hestiaError.Error) any
 
 	object *Object
-}
-
-// Global() returns the DOM global Object.
-func Global() *Object {
-	return _global()
-}
-
-// Document() returns the DOM Document Object got from Global.
-func Document() *Object {
-	return _document()
-}
-
-// Body() returns the DOM `<body>` Object got from Document().
-func Body() *Object {
-	return _body()
 }

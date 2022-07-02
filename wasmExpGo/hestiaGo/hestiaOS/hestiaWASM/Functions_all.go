@@ -34,23 +34,19 @@ import (
 //   1. output == unsupported { return hestiaError.EPFNOSUPPORT }
 //   2. output == missing { return `nil` object }
 
-func _get(parent *Object, query string) *Object {
-	return nil
+func _appendChild(parent *Object, child *Object) hestiaError.Error {
+	return hestiaError.EPROTONOSUPPORT
 }
 
 func _createElement(name string) (child *Object, err hestiaError.Error) {
 	return nil, hestiaError.EPROTONOSUPPORT
 }
 
-func _appendChild(parent *Object, child *Object) hestiaError.Error {
-	return hestiaError.EPROTONOSUPPORT
+func _get(parent *Object, query string) *Object {
+	return nil
 }
 
 func _goPromise(promise *Promise) hestiaError.Error {
-	return hestiaError.EPROTONOSUPPORT
-}
-
-func _setHTML(element *Object, html *[]byte) hestiaError.Error {
 	return hestiaError.EPROTONOSUPPORT
 }
 
@@ -59,5 +55,9 @@ func _isObjectOK(element *Object) hestiaError.Error {
 }
 
 func _isPromiseOK(element *Promise) hestiaError.Error {
+	return hestiaError.EPROTONOSUPPORT
+}
+
+func _setHTML(element *Object, html *[]byte) hestiaError.Error {
 	return hestiaError.EPROTONOSUPPORT
 }

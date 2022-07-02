@@ -31,12 +31,10 @@ type adapter struct {
 	value *js.Value
 }
 
-func _global() *Object {
-	ret := js.Global()
+func _body() *Object {
+	parent := Document()
 
-	return &Object{
-		value: &ret,
-	}
+	return Get(parent, "body")
 }
 
 func _document() *Object {
@@ -45,8 +43,10 @@ func _document() *Object {
 	return Get(parent, "document")
 }
 
-func _body() *Object {
-	parent := Document()
+func _global() *Object {
+	ret := js.Global()
 
-	return Get(parent, "body")
+	return &Object{
+		value: &ret,
+	}
 }

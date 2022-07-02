@@ -34,7 +34,7 @@ type adapter struct {
 	value *adapter
 }
 
-func _global() *Object {
+func _body() *Object {
 	return &Object{}
 }
 
@@ -42,6 +42,6 @@ func _document() *Object {
 	return &Object{}
 }
 
-func _body() *Object {
+func _global() *Object {
 	return &Object{}
 }

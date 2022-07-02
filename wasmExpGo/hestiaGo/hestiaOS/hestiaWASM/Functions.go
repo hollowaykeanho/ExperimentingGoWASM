@@ -24,18 +24,18 @@ import (
 	"hestiaGo/hestiaError"
 )
 
-// Get obtains a child element from a given parent element.
+// AppendChild appends a child element to a parent element.
 //
 // It accepts the following parameters:
-//   1. `parent` - the parent hestiaWASM.Object (e.g. highest is Global)
-//   2. `query` - the name of your request.
+//   1. `parent` - the element to receive new element.
+//   2. `child` - the element for appending.
 //
 // It shall returns:
-//   1. `nil` - any parameters that are missing or empty
-//   2. hestiaWASM.Object - a queried child element object including its `null`
-//                          or `nil` Javascript nature.
-func Get(parent *Object, query string) *Object {
-	return _get(parent, query)
+//   1. hestiaError.Error - any parameters that are missing or empty
+//   2. hestiaError.OK - operation successful.
+//   3. hestiaError.EPROTONOSUPPORT - operating in a non-WASM CPU.
+func AppendChild(parent *Object, child *Object) hestiaError.Error {
+	return _appendChild(parent, child)
 }
 
 // CreateElement creates a new Javascript element from Document object.
@@ -46,21 +46,24 @@ func Get(parent *Object, query string) *Object {
 // It shall returns:
 //   1. `nil`, hestiaError.Error - any parameters that are missing or empty
 //   2. hestiaWASM.Object, `hestiaError.OK` - a created element
+//   3. hestiaError.EPROTONOSUPPORT - operating in a non-WASM CPU.
 func CreateElement(name string) (*Object, hestiaError.Error) {
 	return _createElement(name)
 }
 
-// AppendChild appends a child element to a parent element.
+// Get obtains a child element from a given parent element.
 //
 // It accepts the following parameters:
-//   1. `parent` - the element to receive new element.
-//   2. `child` - the element for appending.
+//   1. `parent` - the parent hestiaWASM.Object (e.g. highest is Global)
+//   2. `query` - the name of your request.
 //
 // It shall returns:
-//   1. hestiaError.Error - any parameters that are missing or empty
-//   2. hestiaError.OK - operation successful.
-func AppendChild(parent *Object, child *Object) hestiaError.Error {
-	return _appendChild(parent, child)
+//   1. `nil` - any parameters that are missing or empty
+//   2. hestiaWASM.Object - a queried child element object including its `null`
+//                          or `nil` Javascript nature.
+//   3. hestiaError.EPROTONOSUPPORT - operating in a non-WASM CPU.
+func Get(parent *Object, query string) *Object {
+	return _get(parent, query)
 }
 
 // GoPromise registers a given Promise into Javascript function.
@@ -76,6 +79,7 @@ func AppendChild(parent *Object, child *Object) hestiaError.Error {
 // It shall returns:
 //   1. hestiaError.OK | `0` - scheduling was successful.
 //   2. All hestiaErrors from `IsPromiseOK()` - failed usability test.
+//   3. hestiaError.EPROTONOSUPPORT - operating in a non-WASM CPU.
 func GoPromise(promise *Promise) (err hestiaError.Error) {
 	err = IsPromiseOK(promise)
 	if err != hestiaError.OK {
@@ -83,19 +87,6 @@ func GoPromise(promise *Promise) (err hestiaError.Error) {
 	}
 
 	return _goPromise(promise)
-}
-
-// SetHTML applies a given HTML codes into a given element's InnerHTML.
-//
-// It accepts the following parameters:
-//   1. `element` - the element to receive the HTML codes.
-//   2. `html` - the pointer of the byte slice containing the HTML codes.
-//
-// It shall returns:
-//   1. hestiaError.Error - any parameters that are missing or empty
-//   2. hestiaError.OK - operation successful.
-func SetHTML(element *Object, html *[]byte) hestiaError.Error {
-	return _setHTML(element, html)
 }
 
 // IsPromiseOK checks a hestiaWASM.Promise is a stub or is operable.
@@ -128,10 +119,25 @@ func IsPromiseOK(element *Promise) hestiaError.Error {
 //   1. hestiaError.EOWNERDEAD - given `element` object is `nil`.
 //   2. hestiaError.OK | `0` - [GOOD] the object is operable.
 //   3. hestiaError.Error - [BAD] the object is not operable.
+//   4. hestiaError.EPROTONOSUPPORT - operating in a non-WASM CPU.
 func IsObjectOK(element *Object) hestiaError.Error {
 	if element == nil {
 		return hestiaError.EOWNERDEAD
 	}
 
 	return _isObjectOK(element)
+}
+
+// SetHTML applies a given HTML codes into a given element's InnerHTML.
+//
+// It accepts the following parameters:
+//   1. `element` - the element to receive the HTML codes.
+//   2. `html` - the pointer of the byte slice containing the HTML codes.
+//
+// It shall returns:
+//   1. hestiaError.Error - any parameters that are missing or empty
+//   2. hestiaError.OK - operation successful.
+//   3. hestiaError.EPROTONOSUPPORT - operating in a non-WASM CPU.
+func SetHTML(element *Object, html *[]byte) hestiaError.Error {
+	return _setHTML(element, html)
 }
