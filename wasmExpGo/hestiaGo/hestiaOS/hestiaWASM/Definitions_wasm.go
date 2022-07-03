@@ -28,7 +28,8 @@ import (
 )
 
 type adapter struct {
-	value *js.Value
+	value    *js.Value
+	function *js.Func
 }
 
 func _body() *Object {

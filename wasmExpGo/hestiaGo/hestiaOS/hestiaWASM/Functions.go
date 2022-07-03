@@ -24,7 +24,7 @@ import (
 	"hestiaGo/hestiaError"
 )
 
-// AppendChild appends a child element to a parent element.
+// Append appends a child element to a parent element using JS `object.append`.
 //
 // It accepts the following parameters:
 //   1. `parent` - the element to receive new element.
@@ -33,9 +33,9 @@ import (
 // It shall returns:
 //   1. hestiaError.Error - any parameters that are missing or empty
 //   2. hestiaError.OK - operation successful.
-//   3. hestiaError.EPROTONOSUPPORT - operating in a non-WASM CPU.
-func AppendChild(parent *Object, child *Object) hestiaError.Error {
-	return _appendChild(parent, child)
+//   3. hestiaError.EPFNOSUPPORT | `96` - operating in a non-WASM CPU.
+func Append(parent *Object, child *Object) hestiaError.Error {
+	return _append(parent, child)
 }
 
 // CreateElement creates a new Javascript element from Document object.
@@ -46,7 +46,7 @@ func AppendChild(parent *Object, child *Object) hestiaError.Error {
 // It shall returns:
 //   1. `nil`, hestiaError.Error - any parameters that are missing or empty
 //   2. hestiaWASM.Object, `hestiaError.OK` - a created element
-//   3. hestiaError.EPROTONOSUPPORT - operating in a non-WASM CPU.
+//   3. hestiaError.EPFNOSUPPORT | `96` - operating in a non-WASM CPU.
 func CreateElement(name string) (*Object, hestiaError.Error) {
 	return _createElement(name)
 }
@@ -61,7 +61,7 @@ func CreateElement(name string) (*Object, hestiaError.Error) {
 //   1. `nil` - any parameters that are missing or empty
 //   2. hestiaWASM.Object - a queried child element object including its `null`
 //                          or `nil` Javascript nature.
-//   3. hestiaError.EPROTONOSUPPORT - operating in a non-WASM CPU.
+//   3. hestiaError.EPFNOSUPPORT | `96` - operating in a non-WASM CPU.
 func Get(parent *Object, query string) *Object {
 	return _get(parent, query)
 }
@@ -79,7 +79,7 @@ func Get(parent *Object, query string) *Object {
 // It shall returns:
 //   1. hestiaError.OK | `0` - scheduling was successful.
 //   2. All hestiaErrors from `IsPromiseOK()` - failed usability test.
-//   3. hestiaError.EPROTONOSUPPORT - operating in a non-WASM CPU.
+//   3. hestiaError.EPFNOSUPPORT | `96` - operating in a non-WASM CPU.
 func GoPromise(promise *Promise) (err hestiaError.Error) {
 	err = IsPromiseOK(promise)
 	if err != hestiaError.OK {
@@ -98,7 +98,7 @@ func GoPromise(promise *Promise) (err hestiaError.Error) {
 //   1. hestiaError.EOWNERDEAD - given `element` object is `nil`.
 //   2. hestiaError.OK | `0` - [GOOD] the object is operable.
 //   3. hestiaError.Error - [BAD] the object is not operable.
-//   4. hestiaError.EPROTONOSUPPORT - operating in a non-WASM CPU.
+//   4. hestiaError.EPFNOSUPPORT | `96` - operating in a non-WASM CPU.
 func IsObjectOK(element *Object) hestiaError.Error {
 	if element == nil {
 		return hestiaError.EOWNERDEAD
@@ -119,7 +119,7 @@ func IsObjectOK(element *Object) hestiaError.Error {
 //   4. hestiaError.ENOPROTOOPT - The Promise.Resolve property is `nil`.
 //   5. hestiaError.ENOMEDIUM - The Promise.Reject property is `nil`.
 //   6. hestiaError.EBADF - The Promise.Name property is empty (`""`).
-//   7. hestiaError.EPROTONOSUPPORT - operating in a non-WASM CPU.
+//   7. hestiaError.EPFNOSUPPORT | `96` - operating in a non-WASM CPU.
 func IsPromiseOK(element *Promise) hestiaError.Error {
 	if element == nil {
 		return hestiaError.EOWNERDEAD
@@ -142,6 +142,7 @@ func IsPromiseOK(element *Promise) hestiaError.Error {
 //   1. hestiaError.OK | `0` - [GOOD] the object is convertable.
 //   2. hestiaError.EPROTONOSUPPORT - operating in a non-WASM CPU.
 //   3. hestiaError.EPROTOTYPE | `91` - [BAD] the object is not convertable.
+//   4. hestiaError.EPFNOSUPPORT | `96` - operating in a non-WASM CPU.
 func IsTypeConvertable(element any) hestiaError.Error {
 	return _isTypeConvertable(element)
 }
@@ -155,7 +156,7 @@ func IsTypeConvertable(element any) hestiaError.Error {
 // It shall returns:
 //   1. hestiaError.Error - any parameters that are missing or empty
 //   2. hestiaError.OK - operation successful.
-//   3. hestiaError.EPROTONOSUPPORT - operating in a non-WASM CPU.
+//   3. hestiaError.EPFNOSUPPORT | `96` - operating in a non-WASM CPU.
 func SetHTML(element *Object, html *[]byte) hestiaError.Error {
 	return _setHTML(element, html)
 }

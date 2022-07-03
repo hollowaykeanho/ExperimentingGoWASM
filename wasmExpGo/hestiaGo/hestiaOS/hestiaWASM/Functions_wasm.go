@@ -32,7 +32,10 @@ import (
 )
 
 const (
-	id_JS_PROMISE = "Promise"
+	id_JS_APPEND         = "append"
+	id_JS_CREATE_ELEMENT = "createElement"
+	id_JS_HTML           = "innerHTML"
+	id_JS_PROMISE        = "Promise"
 )
 
 // RETURN ERROR CODES
@@ -51,7 +54,7 @@ const (
 //   7. if output == unsupported { return hestiaError.EPROTONOSUPPORT }
 //   7. if output == ok { return hestiaError.OK }
 
-func _appendChild(parent *Object, child *Object) hestiaError.Error {
+func _append(parent *Object, child *Object) hestiaError.Error {
 	if IsObjectOK(parent) != hestiaError.OK {
 		return hestiaError.EOWNERDEAD
 	}
@@ -60,7 +63,7 @@ func _appendChild(parent *Object, child *Object) hestiaError.Error {
 		return hestiaError.ENOENT
 	}
 
-	parent.value.Call("appendChild", *(child.value))
+	parent.value.Call(id_JS_APPEND, *(child.value))
 
 	return hestiaError.OK
 }
@@ -72,7 +75,7 @@ func _createElement(name string) (child *Object, err hestiaError.Error) {
 
 	parent := Document()
 
-	ret := parent.value.Call("createElement", name)
+	ret := parent.value.Call(id_JS_CREATE_ELEMENT, name)
 
 	return &Object{
 		value: &ret,
@@ -104,7 +107,7 @@ func _setHTML(element *Object, html *[]byte) hestiaError.Error {
 		return hestiaError.EOWNERDEAD
 	}
 
-	element.value.Set("innerHTML", string(*html))
+	element.value.Set(id_JS_HTML, string(*html))
 
 	return hestiaError.OK
 }
@@ -113,19 +116,16 @@ func _setHTML(element *Object, html *[]byte) hestiaError.Error {
 // since it has proper guarding like `nil` object checking.
 
 func _goPromise(promise *Promise) (err hestiaError.Error) {
-	jsFunc := js.FuncOf(func(this js.Value, args []js.Value) any {
-		handler := __newJSPromise(promise)
-
-		promise.object = Get(Global(), id_JS_PROMISE)
-		return promise.object.value.New(handler)
-	})
-
-	Global().value.Set(promise.Name, jsFunc)
+	promise.object = Get(Global(), id_JS_PROMISE)
+	__newGenericJSPromiseHandler(promise)
+	Global().value.Set(promise.Name, *(promise.object.function))
 
 	return hestiaError.OK
 }
 
-func __newJSPromise(promise *Promise) (handler js.Func) {
+func __newGenericJSPromiseHandler(promise *Promise) {
+	var jsFunc, handler js.Func
+
 	handler = js.FuncOf(func(this js.Value, args []js.Value) any {
 		switch {
 		case len(args) < 2:
@@ -155,7 +155,11 @@ func __newJSPromise(promise *Promise) (handler js.Func) {
 		return nil
 	})
 
-	return handler
+	jsFunc = js.FuncOf(func(this js.Value, args []js.Value) any {
+		return promise.object.value.New(handler)
+	})
+
+	promise.object.function = &jsFunc
 }
 
 func _isObjectOK(element *Object) hestiaError.Error {

@@ -34,12 +34,12 @@ import (
 //   1. output == unsupported { return hestiaError.EPFNOSUPPORT }
 //   2. output == missing { return `nil` object }
 
-func _appendChild(parent *Object, child *Object) hestiaError.Error {
-	return hestiaError.EPROTONOSUPPORT
+func _append(parent *Object, child *Object) hestiaError.Error {
+	return hestiaError.EPFNOSUPPORT
 }
 
 func _createElement(name string) (child *Object, err hestiaError.Error) {
-	return nil, hestiaError.EPROTONOSUPPORT
+	return nil, hestiaError.EPFNOSUPPORT
 }
 
 func _get(parent *Object, query string) *Object {
@@ -47,21 +47,21 @@ func _get(parent *Object, query string) *Object {
 }
 
 func _goPromise(promise *Promise) hestiaError.Error {
-	return hestiaError.EPROTONOSUPPORT
+	return hestiaError.EPFNOSUPPORT
 }
 
 func _isObjectOK(element *Object) hestiaError.Error {
-	return hestiaError.EPROTONOSUPPORT
+	return hestiaError.EPFNOSUPPORT
 }
 
 func _isPromiseOK(element *Promise) hestiaError.Error {
-	return hestiaError.EPROTONOSUPPORT
+	return hestiaError.EPFNOSUPPORT
 }
 
 func _isTypeConvertable(element any) hestiaError.Error {
-	return hestiaError.EPROTONOSUPPORT
+	return hestiaError.EPFNOSUPPORT
 }
 
 func _setHTML(element *Object, html *[]byte) hestiaError.Error {
-	return hestiaError.EPROTONOSUPPORT
+	return hestiaError.EPFNOSUPPORT
 }
