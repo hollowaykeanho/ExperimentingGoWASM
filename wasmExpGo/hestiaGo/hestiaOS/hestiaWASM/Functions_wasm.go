@@ -82,6 +82,56 @@ func _createElement(name string) (child *Object, err hestiaError.Error) {
 	}, hestiaError.OK
 }
 
+func _execJSFunc(withRet bool, name string, args []any) (out any, err hestiaError.Error) {
+	var ret js.Value
+	var global *Object
+
+	// validate all args are convertable to prevent possible panics
+	for arg := range args {
+		if IsTypeConvertable(arg) != hestiaError.OK {
+			return nil, hestiaError.EINVAL
+		}
+	}
+
+	// get Javascript function
+	global = Global()
+	ret = global.value.Get(name)
+	if ret.Type() != js.TypeFunction {
+		return nil, hestiaError.EPROTOTYPE
+	}
+
+	// Invoke Javascript function
+	ret = ret.Invoke(args...)
+	err = hestiaError.OK
+	if !withRet {
+		out = nil
+		goto done
+	}
+
+	// Convert return value to compatible Go format
+	switch ret.Type() {
+	case js.TypeBoolean:
+		out = ret.Bool()
+	case js.TypeNumber:
+		out = ret.Float()
+	case js.TypeNull:
+		out = nil
+	case js.TypeUndefined:
+		out = nil
+	case js.TypeObject:
+		out = "<Javascript Object>"
+	case js.TypeFunction:
+		out = "<Javascript Function>"
+	case js.TypeString:
+		fallthrough
+	default:
+		out = ret.String()
+	}
+
+done:
+	return out, err
+}
+
 func _get(parent *Object, query string) *Object {
 	if query == "" {
 		return nil

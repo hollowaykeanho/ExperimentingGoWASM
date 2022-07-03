@@ -42,6 +42,10 @@ func _createElement(name string) (child *Object, err hestiaError.Error) {
 	return nil, hestiaError.EPFNOSUPPORT
 }
 
+func _execJSFunc(withRet bool, name string, args []any) (out any, err hestiaError.Error) {
+	return nil, hestiaError.EPFNOSUPPORT
+}
+
 func _get(parent *Object, query string) *Object {
 	return nil
 }

@@ -51,6 +51,40 @@ func CreateElement(name string) (*Object, hestiaError.Error) {
 	return _createElement(name)
 }
 
+// ExecJSFunc executes a Javascript function synchonously using JS.Invoke.
+//
+// It accepts the following parameters:
+//   1. `withRet` - decision to process return value. Default is without.
+//   2. `name` - name of the function to call
+//   3. `args1, args2, ...` - arguments for the function. It must be convertable
+//                            to Javascript object. Use `IsTypeConvertable()` to
+//                            inspect your value before passing it into this
+//                            function.
+//
+// By default, the function skip the return value processing and always return
+// as `nil`. However, should `withRet` is set to `true`, this function shall
+// convert the following Javascript values back to Go format in accordance to:
+//   1. Javascript Number --> `float64`
+//   2. Javascript Boolean --> `bool`
+//   3. Javascript Null or Undefined --> `nil`
+//   4. Javascript String --> `string`
+//   5. Javascript Object --> `string` stating "<Javascript Object>"
+//   6. Javascript Function --> `string` stating "<Javascript Function>"
+//   7. Anything else --> `string` in `syscall/js` reporting
+//
+// It shall returns:
+//   1. value (Go format), hestiaError.OK - execution successful with return
+//                                          value.
+//   2. `nil`, hestiaError.OK - execution successful without return value.
+//   3. `nil`, hestiaError.EINVAL - one or more of the given argument in `args`
+//                                  is not convertable (invalid).
+//   4. `nil`, hestiaError.EPROTOTYPE - given query (`name`) is not a Javascript
+//                                      function including its possible absence.
+//   5. `nil`, hestiaError.EPFNOSUPPORT | `96` - operating in a non-WASM CPU.
+func ExecJSFunc(withRet bool, name string, args ...any) (any, hestiaError.Error) {
+	return _execJSFunc(withRet, name, args)
+}
+
 // Get obtains a child element from a given parent element.
 //
 // It accepts the following parameters:
