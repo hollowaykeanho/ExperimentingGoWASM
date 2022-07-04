@@ -102,6 +102,15 @@ type Event struct {
 //
 // The purpose is to serve as a standard approach from Go to Javascript
 // instruction for adding/removing event listener into a Javascript object.
+//
+// For keeping this adapter package sane, **ONLY ONE (1)** EventListener can
+// **ONLY BE ADDED TO ONE (1) ACTIVE OWNER AT A TIME**. If you need to serve
+// multiple common listeners with the same function, have every common
+// EventListener.Functions calls a common Go function instead. The sole reason
+// is to preserve the handler for `RemoveEventListener()` at will.
+//
+// That also being said that it is ultimately your responsibility to keep the
+// EventListener object for memory management.
 type EventListener struct {
 	// Name of the event.
 	Name string

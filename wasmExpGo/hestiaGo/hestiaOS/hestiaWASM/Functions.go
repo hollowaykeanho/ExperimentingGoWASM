@@ -37,6 +37,7 @@ import (
 //                               with `IsObjectOK(...)` function.
 //   4. hestiaError.ENOMEDIUM  - given `event` is unsable. Please check it
 //                               with `IsEventListenerOK(...)` function.
+//   5. hestiaError.EBADE - listener is already attached to an Object.
 func AddEventListener(element *Object, listener *EventListener) hestiaError.Error {
 	return _addEventListener(element, listener)
 }
@@ -215,6 +216,24 @@ func IsPromiseOK(element *Promise) hestiaError.Error {
 //   4. hestiaError.EPFNOSUPPORT | `96` - operating in a non-WASM CPU.
 func IsTypeConvertable(element any) hestiaError.Error {
 	return _isTypeConvertable(element)
+}
+
+// RemoveEventListener is to remove an EventListener from a given hestiaWASM.Object.
+//
+// It accepts the following parameters:
+//   1. `element` - the Object for the EventListener behavior removal.
+//   2. `listener` - the EventListener behavior to remove.
+//
+// It shall returns:
+//   1. hestiaError.OK | `0` - operation successful.
+//   2. hestiaError.EPFNOSUPPORT | `96` - operating in a non-WASM CPU.
+//   3. hestiaError.EOWNERDEAD - given `element` is unsable. Please check it
+//                               with `IsObjectOK(...)` function.
+//   4. hestiaError.ENOMEDIUM  - given `event` is unsable. Please check it
+//                               with `IsEventListenerOK(...)` function.
+//   5. hestiaError.EBADE - listener is not attached to any Object.
+func RemoveEventListener(element *Object, listener *EventListener) hestiaError.Error {
+	return _removeEventListener(element, listener)
 }
 
 // SetHTML applies a given HTML codes into a given element's InnerHTML.

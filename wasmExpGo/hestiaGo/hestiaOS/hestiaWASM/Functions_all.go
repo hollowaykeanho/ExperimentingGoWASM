@@ -74,6 +74,10 @@ func _isTypeConvertable(element any) hestiaError.Error {
 	return hestiaError.EPFNOSUPPORT
 }
 
+func _removeEventListener(element *Object, listener *EventListener) hestiaError.Error {
+	return hestiaError.EPFNOSUPPORT
+}
+
 func _setHTML(element *Object, html *[]byte) hestiaError.Error {
 	return hestiaError.EPFNOSUPPORT
 }

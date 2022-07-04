@@ -51,6 +51,7 @@ const (
 	id_JS_EVENT_TYPE              = "type"
 	id_JS_HTML                    = "innerHTML"
 	id_JS_PROMISE                 = "Promise"
+	id_JS_REMOVE_EVENT_LISTENER   = "removeEventListener"
 )
 
 // RETURN ERROR CODES
@@ -79,6 +80,11 @@ func _addEventListener(element *Object, listener *EventListener) (err hestiaErro
 
 	if IsEventListenerOK(listener) != hestiaError.OK {
 		return hestiaError.ENOMEDIUM
+	}
+
+	// check if listener is already attached
+	if listener.handler != nil {
+		return hestiaError.EBADE
 	}
 
 	// create the Javascript compatible options list
@@ -136,18 +142,18 @@ func _addEventListener(element *Object, listener *EventListener) (err hestiaErro
 		return nil
 	})
 
-	// save function for later release
-	listener.handler = &Object{
-		value:    element.value,
-		function: &handler,
-	}
-
 	// call the JS.addEventListener API
 	element.value.Call(id_JS_ADD_EVENT_LISTENER,
 		listener.Name,
 		handler,
 		options,
 	)
+
+	// save function for later release
+	listener.handler = &Object{
+		value:    element.value,
+		function: &handler,
+	}
 
 	return hestiaError.OK
 }
@@ -244,6 +250,44 @@ func _get(parent *Object, query string) *Object {
 	return &Object{
 		value: &ret,
 	}
+}
+
+func _removeEventListener(element *Object, listener *EventListener) hestiaError.Error {
+	var options map[string]any
+
+	if IsObjectOK(element) != hestiaError.OK {
+		return hestiaError.EOWNERDEAD
+	}
+
+	if IsEventListenerOK(listener) != hestiaError.OK {
+		return hestiaError.ENOMEDIUM
+	}
+
+	// check if listener is already free
+	if listener.handler == nil {
+		return hestiaError.EBADE
+	}
+
+	if listener.handler.function == nil {
+		return hestiaError.EBADE
+	}
+
+	// create the Javascript compatible options list
+	options = map[string]any{
+		id_JS_EVENT_OPTION_CAPTURE: listener.Capture,
+	}
+
+	// call the JS.removeEventListener API
+	element.value.Call(id_JS_REMOVE_EVENT_LISTENER,
+		listener.Name,
+		*(listener.handler.function),
+		options,
+	)
+
+	// release save function
+	listener.handler = nil
+
+	return hestiaError.OK
 }
 
 func _setHTML(element *Object, html *[]byte) hestiaError.Error {
