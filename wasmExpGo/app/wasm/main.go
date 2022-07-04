@@ -22,12 +22,108 @@ package main
 
 import (
 	"fmt"
-	"hestiaGo"
-	"presentoGo"
+
+	"hestiaGo/hestiaError"
+	"hestiaGo/hestiaOS/hestiaKernel"
+	"hestiaGo/hestiaOS/hestiaWASM"
 )
 
+func onCreate(arg any) {
+	fmt.Printf("Initializing wasmExpGo run...\n")
+
+	// setup a simple promise
+	promise := &hestiaWASM.Promise{
+		Name: "myGoFx",
+		Func: func() hestiaError.Error {
+			fmt.Printf("from promised world\n")
+			h2, _ := hestiaWASM.CreateElement("h2")
+
+			html := []byte("Render from Promise!")
+			_ = hestiaWASM.SetHTML(h2, &html)
+
+			body := hestiaWASM.Body()
+			_ = hestiaWASM.Append(body, h2)
+			return hestiaError.OK
+		},
+		Resolve: func() any {
+			fmt.Printf("promise resolved!\n")
+			return "promise resolved!"
+		},
+		Reject: func(hestiaError.Error) any {
+			fmt.Printf("promise rejected!\n")
+			return "promise rejected!"
+		},
+	}
+	hestiaWASM.GoPromise(promise)
+}
+
+func onStart() {
+	// test hestiaWASM basic functions
+	fmt.Printf("[ Track 1] Starting wasmExpGo run...\n")
+
+	fmt.Printf("'69' Convertable? %#v\n",
+		hestiaWASM.IsTypeConvertable(69) == hestiaError.OK)
+
+	x, xerr := hestiaWASM.ExecJSFunc(true, "myGoFx")
+	fmt.Printf("Exec Promise? %#v %#v\n", x, xerr)
+
+	// test HTML I/O
+	fmt.Printf("[ Track 2] create HTML button element...\n")
+	__IOTestHTML()
+}
+
+func __IOTestHTML() {
+	var f *hestiaWASM.EventListener
+
+	body := hestiaWASM.Body()
+
+	// create HTML elements
+	button, _ := hestiaWASM.CreateElement("button")
+	html := []byte("Render WASM Contents")
+	_ = hestiaWASM.SetHTML(button, &html)
+
+	//    Add event listener to collect INPUT
+	f = &hestiaWASM.EventListener{
+		Name: "click",
+		Function: func(e *hestiaWASM.Event) {
+			fmt.Printf("button event called!\n")
+			fmt.Printf("Event data: %#v\n", e)
+
+			fmt.Printf("Internal Go work functions called!\n")
+
+			tag, _ := hestiaWASM.CreateElement("h2")
+			html := []byte("content rendered here!")
+			_ = hestiaWASM.SetHTML(tag, &html)
+			_ = hestiaWASM.Append(body, tag)
+
+			fmt.Printf("removing the listener 1st-time\n")
+			_ = hestiaWASM.RemoveEventListener(button, f)
+			fmt.Printf("removing the listener 2nd-time\n")
+			_ = hestiaWASM.RemoveEventListener(button, f)
+			fmt.Printf("removing the listener 3rd-time\n")
+			_ = hestiaWASM.RemoveEventListener(button, f)
+			fmt.Printf("removing the listener 4th-time\n")
+			_ = hestiaWASM.RemoveEventListener(button, f)
+		},
+		PreventDefault: true,
+	}
+	_ = hestiaWASM.AddEventListener(button, f)
+
+	// render OUTPUT
+	_ = hestiaWASM.Append(body, button)
+}
+
+func onStop() {
+	fmt.Printf("Stopping wasmExpGo run...\n")
+}
+
 func main() {
-	fmt.Printf("Hello World\n")
-	fmt.Printf("Hestia Version: %s\n", hestiaGo.VERSION)
-	fmt.Printf("Presento Version: %s\n", presentoGo.VERSION)
+	app := &hestiaKernel.App{
+		OnCreate:   onCreate,
+		OnStart:    onStart,
+		OnStop:     onStop,
+		ServerMode: true,
+	}
+
+	_ = hestiaKernel.AppRun(app, nil, 3)
 }

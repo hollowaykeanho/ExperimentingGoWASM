@@ -308,15 +308,28 @@ func _setHTML(element *Object, html *[]byte) hestiaError.Error {
 // since it has proper guarding like `nil` object checking.
 
 func _goPromise(promise *Promise) (err hestiaError.Error) {
-	promise.object = Get(Global(), id_JS_PROMISE)
-	__newGenericJSPromiseHandler(promise)
+	var jsFunc js.Func
+
+	// obtain promise object from global
+	if promise.object == nil {
+		promise.object = Get(Global(), id_JS_PROMISE)
+	}
+
+	// generate promise function
+	jsFunc = js.FuncOf(func(this js.Value, args []js.Value) any {
+		handler := __newGenericJSPromiseHandler(promise)
+		return promise.object.value.New(*handler)
+	})
+	promise.object.function = &jsFunc
+
+	// expose Promise function to Javascript
 	Global().value.Set(promise.Name, *(promise.object.function))
 
 	return hestiaError.OK
 }
 
-func __newGenericJSPromiseHandler(promise *Promise) {
-	var jsFunc, handler js.Func
+func __newGenericJSPromiseHandler(promise *Promise) *js.Func {
+	var handler js.Func
 
 	handler = js.FuncOf(func(this js.Value, args []js.Value) any {
 		switch {
@@ -347,11 +360,7 @@ func __newGenericJSPromiseHandler(promise *Promise) {
 		return nil
 	})
 
-	jsFunc = js.FuncOf(func(this js.Value, args []js.Value) any {
-		return promise.object.value.New(handler)
-	})
-
-	promise.object.function = &jsFunc
+	return &handler
 }
 
 func _isEventListenerOK(element *EventListener) hestiaError.Error {

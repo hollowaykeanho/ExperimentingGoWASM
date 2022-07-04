@@ -23,7 +23,7 @@ low implementations due to little efforts. That's why the primary goal is to:
    3. Develop baseline foundation for using GoWASM.
    4. **[ DONE ]** - Develop `<body>` manipulations directly in GoWASM
       (output).
-   5. **[ DOING ]** - Develop `<body>` manipulations directly in GoWASM (input).
+   5. **[ DONE ]** - Develop `<body>` manipulations directly in GoWASM (input).
    6. **[ DOING ]** - Develop `<body>` manipulations directly in GoWASM
       (event-driven).
    7. **[ DONE ]** Explore and conclude the necessity of using
@@ -38,9 +38,9 @@ low implementations due to little efforts. That's why the primary goal is to:
    3. **[ DONE ]** - Develop plain HTML+Javascript pages necessary to bring up
       Go-WASM.
    4. **[ DONE ]** - Power on Go-WASM+HTML+Javascript on Hugo.
-   5. **[ DOING ]** - Deploy Gunzip against Go-WASM to reduce its size with
+   5. **[ DONE ]** - Deploy Gunzip against Go-WASM to reduce its size with
       Monteur.
-   6. Develop necessary foundation for Go-WASM client-side rendering.
+   6. **[ DOING ]** - Develop necessary foundation for Go-WASM client-side rendering.
 3. Develop the necessary CSS/Sass frontend rendering libraries to keep the
    foundation reasonably and visually appealing at minimum.
    1. Analyize (1) and (2) to see exactly where to develop the CSS/Sass
@@ -64,6 +64,21 @@ Here are the list of 3rd-party dependencies used so far:
 2. Go - https://go.dev
 3. Hugo - https://gohugo.io/
 4. GolangCI-Lint - https://golangci-lint.run/
+
+
+
+### About GZip Output Files
+After decent research, it was found that many network CDN and load balancer
+service providers (e.g. CloudFlare) automatically serves the content in
+compressed mode with GZip or Brotil (see
+https://support.cloudflare.com/hc/en-us/articles/200168396-Does-Cloudflare-compress-resources-).
+
+For self-hosting CDN servers like Nginx or Apache, they already have serving
+executions that will automatically compress the content before send
+(see: https://docs.nginx.com/nginx/admin-guide/web-server/compression/)
+
+Hence, there is no need to worry about manual compression.
+
 
 
 
