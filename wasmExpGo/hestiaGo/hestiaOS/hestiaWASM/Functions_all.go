@@ -34,6 +34,10 @@ import (
 //   1. output == unsupported { return hestiaError.EPFNOSUPPORT }
 //   2. output == missing { return `nil` object }
 
+func _addEventListener(element *Object, listener *EventListener) (err hestiaError.Error) {
+	return hestiaError.EPFNOSUPPORT
+}
+
 func _append(parent *Object, child *Object) hestiaError.Error {
 	return hestiaError.EPFNOSUPPORT
 }
@@ -51,6 +55,10 @@ func _get(parent *Object, query string) *Object {
 }
 
 func _goPromise(promise *Promise) hestiaError.Error {
+	return hestiaError.EPFNOSUPPORT
+}
+
+func _isEventListenerOK(element *EventListener) hestiaError.Error {
 	return hestiaError.EPFNOSUPPORT
 }
 

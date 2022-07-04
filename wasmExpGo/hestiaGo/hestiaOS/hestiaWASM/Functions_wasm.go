@@ -32,10 +32,25 @@ import (
 )
 
 const (
-	id_JS_APPEND         = "append"
-	id_JS_CREATE_ELEMENT = "createElement"
-	id_JS_HTML           = "innerHTML"
-	id_JS_PROMISE        = "Promise"
+	id_JS_ADD_EVENT_LISTENER      = "addEventListener"
+	id_JS_APPEND                  = "append"
+	id_JS_CREATE_ELEMENT          = "createElement"
+	id_JS_EVENT_BUBBLES           = "bubbles"
+	id_JS_EVENT_CANCELABLE        = "cancelable"
+	id_JS_EVENT_COMPOSED          = "composed"
+	id_JS_EVENT_CURRENT_TARGET    = "currentTarget"
+	id_JS_EVENT_DEFAULT_PREVENTED = "defaultPrevented"
+	id_JS_EVENT_PHASE             = "eventPhase"
+	id_JS_EVENT_PREVENT_DEFAULT   = "preventDefault"
+	id_JS_EVENT_OPTION_CAPTURE    = "capture"
+	id_JS_EVENT_OPTION_ONCE       = "once"
+	id_JS_EVENT_OPTION_PASSIVE    = "passive"
+	id_JS_EVENT_IS_TRUSTED        = "isTrusted"
+	id_JS_EVENT_TARGET            = "target"
+	id_JS_EVENT_TIMESTAMP         = "timeStamp"
+	id_JS_EVENT_TYPE              = "type"
+	id_JS_HTML                    = "innerHTML"
+	id_JS_PROMISE                 = "Promise"
 )
 
 // RETURN ERROR CODES
@@ -53,6 +68,89 @@ const (
 //   6. if output == bad { return hestiaError.EPROTO }
 //   7. if output == unsupported { return hestiaError.EPROTONOSUPPORT }
 //   7. if output == ok { return hestiaError.OK }
+
+func _addEventListener(element *Object, listener *EventListener) (err hestiaError.Error) {
+	var options map[string]any
+	var handler js.Func
+
+	if IsObjectOK(element) != hestiaError.OK {
+		return hestiaError.EOWNERDEAD
+	}
+
+	if IsEventListenerOK(listener) != hestiaError.OK {
+		return hestiaError.ENOMEDIUM
+	}
+
+	// create the Javascript compatible options list
+	options = map[string]any{
+		id_JS_EVENT_OPTION_CAPTURE: listener.Capture,
+		id_JS_EVENT_OPTION_ONCE:    listener.Once,
+		id_JS_EVENT_OPTION_PASSIVE: listener.Passive,
+	}
+
+	// create the Javascript compatible handler
+	handler = js.FuncOf(func(this js.Value, args []js.Value) any {
+		var obj js.Value
+
+		// prevent default if set
+		if listener.PreventDefault {
+			args[0].Call(id_JS_EVENT_PREVENT_DEFAULT)
+		}
+
+		// convert the event parameters into Go format
+		e := &Event{
+			IsBubble:         args[0].Get(id_JS_EVENT_BUBBLES).Bool(),
+			IsCancellable:    args[0].Get(id_JS_EVENT_CANCELABLE).Bool(),
+			IsComposed:       args[0].Get(id_JS_EVENT_COMPOSED).Bool(),
+			Phase:            EventPhase(args[0].Get(id_JS_EVENT_PHASE).Int()),
+			DefaultPrevented: args[0].Get(id_JS_EVENT_DEFAULT_PREVENTED).Bool(),
+			IsTrusted:        args[0].Get(id_JS_EVENT_IS_TRUSTED).Bool(),
+			Timestamp:        args[0].Get(id_JS_EVENT_TIMESTAMP).Float(),
+			Type:             args[0].Get(id_JS_EVENT_TYPE).String(),
+		}
+
+		if this.Equal(*(element.value)) {
+			e.This = element
+		} else {
+			e.This = &Object{value: &this}
+		}
+
+		obj = args[0].Get(id_JS_EVENT_TARGET)
+		if obj.Equal(*(element.value)) {
+			e.Target = element
+		} else {
+			e.Target = &Object{value: &obj}
+		}
+
+		obj = args[0].Get(id_JS_EVENT_CURRENT_TARGET)
+		if obj.Equal(*(element.value)) {
+			e.CurrentTarget = element
+		} else {
+			e.CurrentTarget = &Object{value: &obj}
+		}
+
+		// execute the listener function
+		go listener.Function(e)
+
+		// return nothing since this is a JS function wrapper.
+		return nil
+	})
+
+	// save function for later release
+	listener.handler = &Object{
+		value:    element.value,
+		function: &handler,
+	}
+
+	// call the JS.addEventListener API
+	element.value.Call(id_JS_ADD_EVENT_LISTENER,
+		listener.Name,
+		handler,
+		options,
+	)
+
+	return hestiaError.OK
+}
 
 func _append(parent *Object, child *Object) hestiaError.Error {
 	if IsObjectOK(parent) != hestiaError.OK {
@@ -210,6 +308,18 @@ func __newGenericJSPromiseHandler(promise *Promise) {
 	})
 
 	promise.object.function = &jsFunc
+}
+
+func _isEventListenerOK(element *EventListener) hestiaError.Error {
+	if element.Name == "" {
+		return hestiaError.EBADF
+	}
+
+	if element.Function == nil {
+		return hestiaError.ENOENT
+	}
+
+	return hestiaError.OK
 }
 
 func _isObjectOK(element *Object) hestiaError.Error {

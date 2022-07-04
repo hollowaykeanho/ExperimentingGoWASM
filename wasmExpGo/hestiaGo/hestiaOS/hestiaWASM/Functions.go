@@ -24,6 +24,23 @@ import (
 	"hestiaGo/hestiaError"
 )
 
+// AddEventListener is to add an EventListener into a given hestiaWASM.Object.
+//
+// It accepts the following parameters:
+//   1. `element` - the Object to receive the EventListener behavior.
+//   2. `listener` - the EventListener behavior for adding into the `element`.
+//
+// It shall returns:
+//   1. hestiaError.OK | `0` - operation successful.
+//   2. hestiaError.EPFNOSUPPORT | `96` - operating in a non-WASM CPU.
+//   3. hestiaError.EOWNERDEAD - given `element` is unsable. Please check it
+//                               with `IsObjectOK(...)` function.
+//   4. hestiaError.ENOMEDIUM  - given `event` is unsable. Please check it
+//                               with `IsEventListenerOK(...)` function.
+func AddEventListener(element *Object, listener *EventListener) hestiaError.Error {
+	return _addEventListener(element, listener)
+}
+
 // Append appends a child element to a parent element using JS `object.append`.
 //
 // It accepts the following parameters:
@@ -121,6 +138,25 @@ func GoPromise(promise *Promise) (err hestiaError.Error) {
 	}
 
 	return _goPromise(promise)
+}
+
+// IsEventListenerOK checks a hestiaWASM.EventListener is a stub or is operable.
+//
+// It accepts the following parameters:
+//   1. `element` - the hestiaWASM.EventListener to inspect
+//
+// It shall returns:
+//   1. hestiaError.OK | `0` - [GOOD] the object is operable.
+//   2. hestiaError.EPFNOSUPPORT | `96` - operating in a non-WASM CPU.
+//   3. hestiaError.EOWNERDEAD - given `element` Event is `nil`.
+//   4. hestiaError.EBADF - given `element` Event.Name is empty (`""`).
+//   5. hestiaError.ENOENT - given `element` Event.Function is `nil`.
+func IsEventListenerOK(element *EventListener) hestiaError.Error {
+	if element == nil {
+		return hestiaError.EOWNERDEAD
+	}
+
+	return _isEventListenerOK(element)
 }
 
 // IsObjectOK checks a hestiaWASM.Object is a stub or is operable.

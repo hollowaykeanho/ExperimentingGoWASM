@@ -24,6 +24,18 @@ import (
 	"hestiaGo/hestiaError"
 )
 
+// EventPhase is the W3C DOM Event Flow representations.
+//
+// More info: https://www.w3.org/TR/DOM-Level-3-Events/#event-flow
+type EventPhase uint8
+
+// EventPhase representations ID
+const (
+	EVENT_PHASE_CAPTURE  EventPhase = 1
+	EVENT_PHASE_TARGET   EventPhase = 2
+	EVENT_PHASE_BUBBLING EventPhase = 3
+)
+
 // Body() returns the DOM `<body>` Object got from Document().
 func Body() *Object {
 	return _body()
@@ -32,6 +44,120 @@ func Body() *Object {
 // Document() returns the DOM Document Object got from Global.
 func Document() *Object {
 	return _document()
+}
+
+// Event is the returning event return value called by Javascript Event.
+//
+// These data were translated back to Go Format for adaptive compliance.
+type Event struct {
+	// IsBubble states the current event trigger dispatch mode.
+	//
+	// This checks against bubble mode which is the default behavior.
+	IsBubble bool
+
+	// IsCancellable states the capability of cancelling this event.
+	IsCancellable bool
+
+	// IsComposed states the even capable of bubbling between shadow DOM.
+	//
+	// `true` means the event can bubble between shadow DOM and regular DOM.
+	IsComposed bool
+
+	// CurrentTarget refers to this event's currently registered target.
+	CurrentTarget *Object
+
+	// DefaultPrevented indicates the `preventDefault()` was called to this event.
+	//
+	// `true` means this event was called after the `event.preventDefault()`
+	// API was called.
+	DefaultPrevented bool
+
+	// Phase indicates the current event phase.
+	//
+	// Refers to EventPhase constants list for each identity.
+	Phase EventPhase
+
+	// IsTrusted indicates the event was initiated by the browser or script.
+	//
+	// This is to distinguish the event call using script like event
+	// creation method.
+	IsTrusted bool
+
+	// Target refers to this event's orignally dispatched.
+	Target *Object
+
+	// This refers to the current object.
+	This *Object
+
+	// Timestamp in milliseconds of the event.
+	//
+	// Refer to browser's specification for definitions.
+	Timestamp float64
+
+	// Type is the case-insensitive name.
+	Type string
+}
+
+// EventListener is the adapter data structure for JS.addEventListener.
+//
+// The purpose is to serve as a standard approach from Go to Javascript
+// instruction for adding/removing event listener into a Javascript object.
+type EventListener struct {
+	// Name of the event.
+	Name string
+
+	// The listenting function to execute.
+	//
+	// This function is wrapped under hestiaWASM protecting function in a
+	// separate goroutine.
+	Function func(*Event)
+
+	// CaptureMode is the decision for "bubble" or "capture" dispatch modes.
+	//
+	// "capture" mode is where the event of the outer parent is triggered
+	// first then towards the deepest child element.
+	//
+	// "bubble" mode is where the event of the deepest child is triggered
+	// first then towards the outest parent element.
+	//
+	// Default (`false`) is "bubble".
+	Capture bool
+
+	// Once is the decision for invoking the Function 1 time.
+	//
+	// As stated in Javascript standards, if Once is set to `true`, the
+	// function shall be triggered 1-time and **SHALL** be removed
+	// automatically.
+	//
+	// Default (`false`) is "always / not once".
+	Once bool
+
+	// Passive is the decision for operating the Function passively.
+	//
+	// This also means that the generated Javascript listening function
+	// **SHALL NOT** opreate active listening functions like
+	// `preventDefault()` and console warning **SHALL** be logged by the
+	// Javascript execution counterpart.
+	//
+	// This is set to `true` automatically for real-time events like
+	// `wheel`, `mousewheel`, `touchstart`, `touchmove`, and etc. Consult
+	// Javascript specification for more info.
+	Passive bool
+
+	// PreventDefault is the decision for preventing default executions.
+	//
+	// Default (`false`) is allow default executions. If set to `true`,
+	// event.PreventDefault() shall be invoked as soon as possible, even
+	// before hestiaWASM.Event Go format parsing.
+	PreventDefault bool
+
+	// Signal is the abort signal use to trigger an abort handling.
+	//
+	// This is for inputting a general abort signal action into the
+	// event listener.
+	// TODO: **Requires Abort investigation needs**
+
+	handler *Object
 }
 
 // Global() returns the DOM global Object.
