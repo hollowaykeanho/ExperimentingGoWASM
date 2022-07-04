@@ -27,6 +27,8 @@ import (
 	"hestiaGo/hestiaError"
 )
 
+type adapterSignalOSChannel chan uint16
+
 func _signalInit(sig *Signal, bufferSize int) hestiaError.Error {
 	if sig == nil {
 		return hestiaError.ENOENT
@@ -58,4 +60,10 @@ func _signalWait(sig *Signal) (value uint16) {
 
 	value = <-sig.channel
 	return value
+}
+
+func _signalSubscribeOS(ch SignalOSChannel) {
+}
+
+func _signalUnsubscribeOS(ch SignalOSChannel) {
 }

@@ -30,6 +30,8 @@ import (
 	"syscall"
 )
 
+type adapterSignalOSChannel chan os.Signal
+
 func _signalInit(sig *Signal, bufferSize int) hestiaError.Error {
 	if sig == nil {
 		return hestiaError.ENOENT
@@ -66,12 +68,7 @@ func _signalWait(sig *Signal) (value uint16) {
 
 	// make a temporary OS-signal channel for its notices
 	chOS = make(chan os.Signal, 1)
-	signal.Notify(chOS, os.Interrupt,
-		syscall.SIGINT,
-		syscall.SIGTERM,
-		syscall.SIGKILL,
-		syscall.SIGSTOP,
-	)
+	SignalSubscribeOS(chOS)
 
 listen:
 	select {
@@ -95,4 +92,17 @@ listen:
 
 done:
 	return value
+}
+
+func _signalSubscribeOS(ch SignalOSChannel) {
+	signal.Notify(chan os.Signal(ch),
+		syscall.SIGINT,
+		syscall.SIGTERM,
+		syscall.SIGKILL,
+		syscall.SIGSTOP,
+	)
+}
+
+func _signalUnsubscribeOS(ch SignalOSChannel) {
+	signal.Stop(ch)
 }

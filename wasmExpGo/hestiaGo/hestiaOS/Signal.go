@@ -24,6 +24,8 @@ import (
 	"hestiaGo/hestiaError"
 )
 
+type SignalOSChannel adapterSignalOSChannel
+
 // Known Signal Values from syscall package
 const (
 	SIGNAL_SIGABRT   = uint16(0x06)
@@ -109,4 +111,14 @@ func SignalWait(sig *Signal) uint16 {
 //   3. `hestiaError.` | `2` = given parameter is `nil`.
 func SignalSend(sig *Signal, data uint16) hestiaError.Error {
 	return _signalSend(sig, data)
+}
+
+// SignalSubscribeOS set a channel to receive signal from the OS.
+func SignalSubscribeOS(ch SignalOSChannel) {
+	_signalSubscribeOS(ch)
+}
+
+// SignalUnsubscribeOS set a channel to stop receive signal from the OS.
+func SignalUnsubscribeOS(ch SignalOSChannel) {
+	_signalUnsubscribeOS(ch)
 }
