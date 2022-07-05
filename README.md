@@ -24,7 +24,7 @@ low implementations due to little efforts. That's why the primary goal is to:
    4. **[ DONE ]** - Develop `<body>` manipulations directly in GoWASM
       (output).
    5. **[ DONE ]** - Develop `<body>` manipulations directly in GoWASM (input).
-   6. **[ DOING ]** - Develop `<body>` manipulations directly in GoWASM
+   6. **[ DONE ]** - Develop `<body>` manipulations directly in GoWASM
       (event-driven).
    7. **[ DONE ]** Explore and conclude the necessity of using
       [TinyGo](https://tinygo.org/).
@@ -43,8 +43,8 @@ low implementations due to little efforts. That's why the primary goal is to:
    6. **[ DOING ]** - Develop necessary foundation for Go-WASM client-side rendering.
 3. Develop the necessary CSS/Sass frontend rendering libraries to keep the
    foundation reasonably and visually appealing at minimum.
-   1. Analyize (1) and (2) to see exactly where to develop the CSS/Sass
-      and why. Make sure it's documentable.
+   1. **[ DOING ]** - Analyize (1) and (2) to see exactly where to develop the
+      CSS/Sass and why. Make sure it's documentable.
    2. Develop the core component to render the page without device screen
       locking.
 4. Use scalable tools that can roll out updates for multiple technologies
@@ -64,6 +64,7 @@ Here are the list of 3rd-party dependencies used so far:
 2. Go - https://go.dev
 3. Hugo - https://gohugo.io/
 4. GolangCI-Lint - https://golangci-lint.run/
+5. TinyGo - https://tinygo.org/docs/guides/webassembly/
 
 
 
@@ -78,6 +79,15 @@ executions that will automatically compress the content before send
 (see: https://docs.nginx.com/nginx/admin-guide/web-server/compression/)
 
 Hence, there is no need to worry about manual compression.
+
+
+
+
+## Critical Issues
+Here are the tracking issues critical to the research success:
+
+1. Tinygo WASM Memory Leak (first detected after implementing Chain kernel
+   example) - https://github.com/tinygo-org/tinygo/issues/1140
 
 
 

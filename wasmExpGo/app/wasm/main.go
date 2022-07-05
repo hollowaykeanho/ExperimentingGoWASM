@@ -69,48 +69,7 @@ func onStart() {
 
 	// test HTML I/O
 	fmt.Printf("[ Track 2] create HTML button element...\n")
-	__IOTestHTML()
-}
-
-func __IOTestHTML() {
-	var f *hestiaWASM.EventListener
-
-	body := hestiaWASM.Body()
-
-	// create HTML elements
-	button, _ := hestiaWASM.CreateElement("button")
-	html := []byte("Render WASM Contents")
-	_ = hestiaWASM.SetHTML(button, &html)
-
-	//    Add event listener to collect INPUT
-	f = &hestiaWASM.EventListener{
-		Name: "click",
-		Function: func(e *hestiaWASM.Event) {
-			fmt.Printf("button event called!\n")
-			fmt.Printf("Event data: %#v\n", e)
-
-			fmt.Printf("Internal Go work functions called!\n")
-
-			tag, _ := hestiaWASM.CreateElement("h2")
-			html := []byte("content rendered here!")
-			_ = hestiaWASM.SetHTML(tag, &html)
-			_ = hestiaWASM.Append(body, tag)
-
-			fmt.Printf("removing the listener 1st-time\n")
-			_ = hestiaWASM.RemoveEventListener(button, f)
-			fmt.Printf("removing the listener 2nd-time\n")
-			_ = hestiaWASM.RemoveEventListener(button, f)
-			fmt.Printf("removing the listener 3rd-time\n")
-			_ = hestiaWASM.RemoveEventListener(button, f)
-			fmt.Printf("removing the listener 4th-time\n")
-			_ = hestiaWASM.RemoveEventListener(button, f)
-		},
-		PreventDefault: true,
-	}
-	_ = hestiaWASM.AddEventListener(button, f)
-
-	// render OUTPUT
-	_ = hestiaWASM.Append(body, button)
+	go uiInit()
 }
 
 func onStop() {

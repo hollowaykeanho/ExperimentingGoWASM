@@ -27,7 +27,7 @@ BuildTags = [
 
 [FMTVariables]
 SourceDir = '{{- .RootDir -}}/wasmExpGo'
-SourcePath = '{{- .RootDir -}}/wasmExpGo/app/wasm/main.go'
+SourcePath = '{{- .RootDir -}}/wasmExpGo/app/wasm/...'
 OutputDir = '{{- .WorkingDir -}}'
 OutputName = 'go-{{- .TargetOS -}}-{{- .TargetCPU -}}{{- .TargetExt -}}'
 # **DO NOT EDIT BELOW** - internal use variables for proper Go compilations
