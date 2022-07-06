@@ -24,11 +24,11 @@ import (
 	"fmt"
 
 	"hestiaGo/hestiaError"
-	"hestiaGo/hestiaOS/hestiaKernel"
+	"hestiaGo/hestiaKernel/hestiaAppKernel"
 	"hestiaGo/hestiaOS/hestiaWASM"
 )
 
-func onCreate(arg any) {
+func onCreate() {
 	fmt.Printf("Initializing wasmExpGo run...\n")
 
 	// setup a simple promise
@@ -77,12 +77,11 @@ func onStop() {
 }
 
 func main() {
-	app := &hestiaKernel.App{
-		OnCreate:   onCreate,
-		OnStart:    onStart,
-		OnStop:     onStop,
-		ServerMode: true,
-	}
+	app := &hestiaAppKernel.Kernel{}
+	hestiaAppKernel.SetFunction(app, hestiaAppKernel.FUNCTION_CREATE, onCreate)
+	hestiaAppKernel.SetFunction(app, hestiaAppKernel.FUNCTION_START, onStart)
+	hestiaAppKernel.SetFunction(app, hestiaAppKernel.FUNCTION_STOP, onStop)
+	hestiaAppKernel.SetServerMode(app, hestiaAppKernel.MODE_SERVER)
 
-	_ = hestiaKernel.AppRun(app, nil, 3)
+	hestiaAppKernel.Run(app, 3)
 }
