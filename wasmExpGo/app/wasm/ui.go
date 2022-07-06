@@ -23,14 +23,14 @@ package main
 import (
 	"fmt"
 
+	"hestiaGo/hestiaKernel/hestiaChainKernel"
 	"hestiaGo/hestiaOS"
-	"hestiaGo/hestiaOS/hestiaKernel"
 	"hestiaGo/hestiaOS/hestiaWASM"
 )
 
 type ui struct {
 	event    *hestiaWASM.Event
-	kernel   *hestiaKernel.Chain
+	kernel   *hestiaChainKernel.Kernel
 	button   *hestiaWASM.Object
 	listener *hestiaWASM.EventListener
 }
@@ -40,12 +40,12 @@ func uiInit() {
 
 	// create the UI controller
 	controller = &ui{
-		kernel: &hestiaKernel.Chain{},
+		kernel: &hestiaChainKernel.Kernel{},
 		listener: &hestiaWASM.EventListener{
 			Name: "click",
 			Function: func(e *hestiaWASM.Event) {
 				controller.event = e
-				_ = hestiaKernel.ChainTrigger(controller.kernel)
+				_ = hestiaChainKernel.Trigger(controller.kernel)
 			},
 			PreventDefault: true,
 		},
@@ -59,7 +59,7 @@ func uiInit() {
 	_ = hestiaWASM.Append(hestiaWASM.Body(), controller.button)
 
 	// start chain server
-	hestiaKernel.ChainStart(controller.kernel, func(arg any) (out any) {
+	hestiaChainKernel.Start(controller.kernel, func(arg any) (out any) {
 		signal, ok := arg.(uint16)
 		if !ok {
 			return nil
@@ -67,7 +67,7 @@ func uiInit() {
 
 		switch signal {
 		case hestiaOS.SIGNAL_SIGCONT:
-			hestiaKernel.ChainSetNext(controller.kernel, _sourceUIChanges)
+			hestiaChainKernel.SetNext(controller.kernel, _sourceUIChanges)
 		case hestiaOS.SIGNAL_SIGSTOP,
 			hestiaOS.SIGNAL_SIGINT,
 			hestiaOS.SIGNAL_SIGTERM,
@@ -86,7 +86,7 @@ func _sourceUIChanges(arg any) any {
 	fmt.Printf("Got event data: %#v\n", controller.event)
 
 	// chain next event
-	hestiaKernel.ChainSetNext(controller.kernel, _renderUIChanges)
+	hestiaChainKernel.SetNext(controller.kernel, _renderUIChanges)
 
 	// end function block
 	return controller
@@ -103,7 +103,7 @@ func _renderUIChanges(arg any) any {
 	_ = hestiaWASM.Append(body, tag)
 
 	// chain next event
-	hestiaKernel.ChainSetNext(controller.kernel, _removeUIFunction)
+	hestiaChainKernel.SetNext(controller.kernel, _removeUIFunction)
 
 	// end function block
 	return controller
@@ -128,7 +128,7 @@ func _removeUIFunction(arg any) any {
 	// chain next event
 	// DONE - no more chaining since UI is dead. Stopping controller as
 	//        well.
-	_ = hestiaKernel.ChainStop(controller.kernel)
+	_ = hestiaChainKernel.Stop(controller.kernel)
 
 	// end function block
 	return controller
