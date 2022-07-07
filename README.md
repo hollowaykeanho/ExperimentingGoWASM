@@ -168,20 +168,37 @@ Here, we look into different devices rendering the same content page:
 | Apple iPhone 7 Plus              | Mobile    | `414px x 736px`               | 3             | https://www.webmobilefirst.com/en/devices/apple-iphone-7-plus/ |
 | Samsung Galaxy Note20 Ultra      | Mobile    | `414px x 883px`               | 3.5           | https://www.webmobilefirst.com/en/devices/samsung-galaxy-note20-ultra/ |
 | Apple iPhone XS Max              | Mobile    | `414px x 896px`               | 3             | https://www.webmobilefirst.com/en/devices/apple-iphone-xs-max/ |
+| A4 (72 DPI)                      | Paper     | `595px x 842px`             | 1             | https://www.a4-size.com/a4-size-in-pixels/ |
+| US Letter (72 DPI)               | Paper     | `612px x 792px`               | 1             | https://papersizes.online/paper-size/letter/pixels/ |
 | Samsung Galaxy Fold (2019)       | Mobile    | `768px x 1076px`              | 2             | https://www.webmobilefirst.com/en/devices/samsung-galaxy-fold/ |
+| A4 (96 DPI)                      | Paper     | `794px x 1123px`             | 1             | https://www.a4-size.com/a4-size-in-pixels/ |
+| US Letter (96 DPI)               | Paper     | `816px x 1056px`              | 1             | https://papersizes.online/paper-size/letter/pixels/ |
+| US Letter (100 DPI)              | Paper     | `850px x 1100px`              | 1             | https://papersizes.online/paper-size/letter/pixels/ |
 | Samsung Galaxy Fold (2020)       | Mobile    | `884px x 1104px`              | 2             | https://www.webmobilefirst.com/en/devices/samsung-galaxy-fold2/ |
+| US Letter (120 DPI)              | Paper     | `1020px x 1320px`             | 1             | https://papersizes.online/paper-size/letter/pixels/ |
 | Amazon Fire 7 (2017)             | Tablet    | `1024px x 600px`              | 1             | http://responsivechecker.net/device/fire-7-2017 |
 | Samsung Galaxy Tab S3 9.7        | Tablet    | `1024px x 768px`              | 2             | http://responsivechecker.net/device/galaxy-tab-s3-9-7 |
 | Apple iPad Mini 4                | Tablet    | `1024px x 768px`              | 2             | http://responsivechecker.net/device/ipad-mini-4 |
 | Microsoft Surface Duo            | Mobile    | `1114px x 705px`              | 2.5           | https://www.webmobilefirst.com/en/devices/microsoft-surface-duo/ |
 | Apple iPad 4                     | Tablet    | `1180px x 820px`              | 2             | https://www.webmobilefirst.com/en/devices/apple-ipad-air-4/ |
+| A4 (150 DPI)                     | Paper     | `1240px x 1754px`             | 1             | https://www.a4-size.com/a4-size-in-pixels/ |
+| US Letter (150 DPI)              | Paper     | `1275px x 1650px`             | 1             | https://papersizes.online/paper-size/letter/pixels/ |
 | Amazon Fire HD 10 (2017)         | Tablet    | `1280px x 800px`              | 2             | http://responsivechecker.net/device/fire-hd-10-2017 |
 | Macbook Air 2020 13"             | Laptop    | `1280px x 800px`              | 2             | https://www.webmobilefirst.com/en/devices/macbook-air/ |
 | iPad Pro                         | Tablet    | `1366px x 1024px`             | 2             | http://responsivechecker.net/device/ipad-pro/ |
 | iPad Pro 12.9"                   | Tablet    | `1366px x 1024px`             | 2             | http://responsivechecker.net/device/ipad-pro-12-9 |
+| US Letter (200 DPI)              | Paper     | `1700px x 2200px`             | 1             | https://papersizes.online/paper-size/letter/pixels/ |
 | Macbook Pro                      | Laptop    | `1728px x 1117px`             | 2             | https://www.webmobilefirst.com/en/devices/apple-macbook-pro-16-2021/ |
 | Samsung Smart TV NEO QLED 4k 55" | TV        | `1920px x 1080px`             | 2             | https://www.webmobilefirst.com/en/devices/samsung-smart-tv-neo-qled-4k-55/ |
 | iMac 24" 2021                    | Desktop   | `2048px x 1152px`             | 2             | https://www.webmobilefirst.com/en/devices/apple-imac-24-inch-2021/ |
+| US Letter (250 DPI)              | Paper     | `2125px x 2750px`             | 1             | https://papersizes.online/paper-size/letter/pixels/ |
+| A4 (300 DPI)                     | Paper     | `2480px x 3508px`             | 1             | https://www.a4-size.com/a4-size-in-pixels/ |
+| US Letter (300 DPI)              | Paper     | `2550px x 3300px`             | 1             | https://papersizes.online/paper-size/letter/pixels/ |
+| A4 (600 DPI)                     | Paper     | `4961px x 7016px`             | 1             | https://www.a4-size.com/a4-size-in-pixels/ |
+| US Letter (600 DPI)              | Paper     | `5100px x 6600px`             | 1             | https://papersizes.online/paper-size/letter/pixels/ |
+| A4 (720 DPI)                     | Paper     | `5953px x 8419px`             | 1             | https://www.a4-size.com/a4-size-in-pixels/ |
+| A4 (1200 DPI)                    | Paper     | `9922px x 14032px`            | 1             | https://www.a4-size.com/a4-size-in-pixels/ |
+| US Letter (1200 DPI)             | Paper     | `10200px x 13200px`           | 1             | https://papersizes.online/paper-size/letter/pixels/ |
 
 Conclusion:
 
@@ -470,4 +487,3 @@ At this point, the development is considered deployed.
 
 ## License
 The repository is licensed under MIT License.
-
