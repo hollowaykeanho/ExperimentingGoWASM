@@ -16,42 +16,42 @@ low implementations due to little efforts. That's why the primary goal is to:
 
 1. Develop the foundational Go library so that the customers (Go web developer)
    to deploy web app.
-   1. **[ DONE ]** - Power on with `ExperimentingGoWASM` Go workspace with
+   1. ☑️ - Power on with `ExperimentingGoWASM` Go workspace with
       `vendor/hestiaGo` and `vendor/presentoGo` packages.
-   2. **[ DONE ]** - Develop Monteur's test, build, package, and release
+   2. ☑️ - Develop Monteur's test, build, package, and release
       recipes for GoWASM.
    3. Develop baseline foundation for using GoWASM.
-   4. **[ DONE ]** - Develop `<body>` manipulations directly in GoWASM
+   4. ☑️ - Develop `<body>` manipulations directly in GoWASM
       (output).
-   5. **[ DONE ]** - Develop `<body>` manipulations directly in GoWASM (input).
-   6. **[ DONE ]** - Develop `<body>` manipulations directly in GoWASM
+   5. ☑️ - Develop `<body>` manipulations directly in GoWASM (input).
+   6. ☑️ - Develop `<body>` manipulations directly in GoWASM
       (event-driven).
-   7. **[ DONE ]** Explore and conclude the necessity of using
+   7. ☑️ Explore and conclude the necessity of using
       [TinyGo](https://tinygo.org/).
 2. Develop client-side rendering capability using [Hugo](https://gohugo.io/) for
    cost reduction between the server sides and the end-user sides.
-   1. **[ DONE ]** - Power on with Presento Theme with NoCSS but rendering
+   1. ☑️ - Power on with Presento Theme with NoCSS but rendering
       capabilities.
-   2. **[ DONE ]** - Develop necessary partial functions to isolate Hugo's risky
+   2. ☑️ - Develop necessary partial functions to isolate Hugo's risky
       functions and also to prevent supply-chain vendor locked-in whenever
       possible.
-   3. **[ DONE ]** - Develop plain HTML+Javascript pages necessary to bring up
+   3. ☑️ - Develop plain HTML+Javascript pages necessary to bring up
       Go-WASM.
-   4. **[ DONE ]** - Power on Go-WASM+HTML+Javascript on Hugo.
-   5. **[ DONE ]** - Deploy Gunzip against Go-WASM to reduce its size with
+   4. ☑️ - Power on Go-WASM+HTML+Javascript on Hugo.
+   5. ☑️ - Deploy Gunzip against Go-WASM to reduce its size with
       Monteur.
-   6. **[ DOING ]** - Develop necessary foundation for Go-WASM client-side rendering.
+   6. ⚙️ - Develop necessary foundation for Go-WASM client-side rendering.
 3. Develop the necessary CSS/Sass frontend rendering libraries to keep the
    foundation reasonably and visually appealing at minimum.
-   1. **[ DONE ]** - Analyize (1) and (2) to see exactly where to develop the
+   1. ☑️ - Analyize (1) and (2) to see exactly where to develop the
       CSS/Sass and why. Make sure it's documentable.
-   2. **[ DOING ]** - Develop the core component to render the page without device
+   2. ⚙️ - Develop the core component to render the page without device
       screen locking.
 4. Use scalable tools that can roll out updates for multiple technologies
    modularly and without much fears.
-   1. **[ DONE ]** - deployed ZORALab's Monteur to manage the repository
+   1. ☑️ - deployed ZORALab's Monteur to manage the repository
       systematically, customizable at scale.
-   2. **[ DONE ]** - deployed Hugo Themes module to manage Hugo specific and
+   2. ☑️ - deployed Hugo Themes module to manage Hugo specific and
       scalable setup.
 
 
@@ -285,12 +285,12 @@ minimal file structure is as follows:
 ```
 .
 ├── app
-│   └── wasm
-│       └── main.go
+│   └── wasm
+│       └── main.go
 ├── go.mod
 ├── hestiaGo
-│   ├── go.mod
-│   └── version.go
+│   ├── go.mod
+│   └── version.go
 └── presentoGo
     ├── go.mod
     └── version.go
