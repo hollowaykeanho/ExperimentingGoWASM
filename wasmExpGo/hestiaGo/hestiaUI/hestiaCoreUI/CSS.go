@@ -58,23 +58,25 @@ func CSSVariables() *hestiaUI.CSSVarList {
 	}
 }
 
-func CSS(variables *hestiaUI.CSSVarList, onlyVariables bool) (out string) {
+func CSS(config *hestiaUI.CSSConfig) (out string) {
 	var i int
 	var v *hestiaUI.CSSVariable
 
 	// prepend variables if requested
-	if variables != nil {
-		for i, v = range *variables {
-			if i != 0 {
-				out += "\n"
+	if config != nil {
+		if config.Variables != nil {
+			for i, v = range *config.Variables {
+				if i != 0 {
+					out += "\n"
+				}
+
+				out += v.Key + ": " + v.Value + ";"
 			}
-
-			out += v.Key + ": " + v.Value + ";"
 		}
-	}
 
-	if onlyVariables {
-		return out
+		if config.OnlyVariables {
+			return out
+		}
 	}
 
 	// render component's CSS

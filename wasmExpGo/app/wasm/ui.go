@@ -26,6 +26,7 @@ import (
 	"hestiaGo/hestiaKernel/hestiaChainKernel"
 	"hestiaGo/hestiaOS"
 	"hestiaGo/hestiaOS/hestiaWASM"
+	"hestiaGo/hestiaUI"
 	"hestiaGo/hestiaUI/hestiaCoreUI"
 )
 
@@ -60,7 +61,11 @@ func uiInit() {
 	_ = hestiaWASM.Append(hestiaWASM.Body(), controller.button)
 
 	// generate and debug CSS
-	css := hestiaCoreUI.CSS(hestiaCoreUI.CSSVariables(), false)
+	css := hestiaCoreUI.CSS(&hestiaUI.CSSConfig{
+		Variables:     hestiaCoreUI.CSSVariables(),
+		OnlyVariables: false,
+		Compress:      false,
+	})
 	fmt.Printf("Core CSS BELOW:\n%s[END]", css)
 
 	// start chain server

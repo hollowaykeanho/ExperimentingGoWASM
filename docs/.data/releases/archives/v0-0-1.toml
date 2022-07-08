@@ -18,7 +18,7 @@ URL = 'v0-0-1/tinygo-wasm_exec.js'
 
 [2]
 Filename = 'tinygo-wasmExpGo.wasm'
-Hash = 'c7286265db724700791025f15256623475b4f98c9f551d8bfd6d2ef2e4c3be3607794c831b9804df878f3afea58f7b96597e61bf415105f1a8d39a7f6b477629'
+Hash = 'df9b4a86b35dda392c1570bbeaf11abd9cd88f496b160cd8afc695b2fe83e234434ec5bf5aa873d1992885260fc411d736d4e1248943ddc62225cb0e312113b4'
 Format = 'Hex'
 URL = 'v0-0-1/tinygo-wasmExpGo.wasm'
 
@@ -27,6 +27,6 @@ URL = 'v0-0-1/tinygo-wasmExpGo.wasm'
 
 [3]
 Filename = 'go-wasmExpGo.wasm'
-Hash = 'e4bdbf55b910daa0d63e7e7e8582f76db5a15584b407bcbd3a7c343ef6ba803ec0afca2c85de8f6d59639d316eafb4d0589ecb2518add3be1c8813194103bf7e'
+Hash = '268777de582aa9ec117e07308b3935d13a94be80b33b8418de39c6e01e760026583c46dc37b9c36e6df9462a51b8c8327e0e20b44a0089238ffb48f2df6bd520'
 Format = 'Hex'
 URL = 'v0-0-1/go-wasmExpGo.wasm'

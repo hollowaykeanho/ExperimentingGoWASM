@@ -27,6 +27,25 @@ type CSSVariable struct {
 
 type CSSVarList []*CSSVariable
 
+// CSSConfig is for CSS generator function to generate a specific CSS codes.
+type CSSConfig struct {
+	// Variables are the list of CSS variables.
+	//
+	// Set it to `nil` allows the function to generate CSS codes without
+	// the CSS variables.
+	Variables *CSSVarList
+
+	// OnlyVariables instruct the function to generate only CSS Variables
+	//
+	// Default is CSS Variables (if provided) and CSS Functions.
+	OnlyVariables bool
+
+	// Compress instruct the function to generate compressed CSS codes.
+	//
+	// Default (`false`) is uncompressed form.
+	Compress bool
+}
+
 // CSS Variables are the naming constant for Key in CSSVariable data structure.
 //
 // All variable names are listed here to ensure all specific UI packages can
