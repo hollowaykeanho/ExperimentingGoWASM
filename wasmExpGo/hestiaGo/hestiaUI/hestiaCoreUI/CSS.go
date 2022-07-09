@@ -95,7 +95,7 @@ func CSS(config *hestiaUI.CSSConfig) (out string) {
 }
 
 html {
-	font-size: 62.5%; // 1.6rem = 16px
+	font-size: 62.5%; /* 1.6rem = 16px */
 
 	height: 100%;
 	height: calc(100vh - calc(100vh - 100%));
@@ -118,7 +118,7 @@ body {
 
 main {
 	z-index: calc(` + hestiaUI.CSS_VALUE_Z_INDEX_MAX + ` -
-		var(` + hestiaUI.CSS_VAR_MAIN_Z_INDEX + `);
+		var(` + hestiaUI.CSS_VAR_MAIN_Z_INDEX + `));
 	padding: var(` + hestiaUI.CSS_VAR_MAIN_PADDING + `);
 	grid-area: ` + hestiaUI.CSS_VALUE_LAYOUT_SEGMENT_CONTENT + `;
 }

@@ -118,6 +118,18 @@ func Get(parent *Object, query string) *Object {
 	return _get(parent, query)
 }
 
+// GetElementByID obtains an element through a given Javascript ID.
+//
+// It accepts the following parameters:
+//   1. `id` - the Javascript ID.
+//
+// It shall returns:
+//   1. `nil` - element is not found.
+//   2. hestiaWASM.Object - a queried child element object with the ID.
+func GetElementByID(id string) *Object {
+	return _getElementByID(id)
+}
+
 // GoPromise registers a given Promise into Javascript function.
 //
 // This function only registers the given Promise into Javascript domain making
@@ -248,4 +260,23 @@ func RemoveEventListener(element *Object, listener *EventListener) hestiaError.E
 //   3. hestiaError.EPFNOSUPPORT | `96` - operating in a non-WASM CPU.
 func SetHTML(element *Object, html *[]byte) hestiaError.Error {
 	return _setHTML(element, html)
+}
+
+// SetStylesheet sets a given CSS stylesheet into the document page.
+//
+// This function either append a new stylesheet (if not found) or update the
+// existing stylesheet automatically. Unlike `SetCSS(...)`, any CSS settings in
+// this function shall affects the entire page.
+//
+// It accepts the following parameters:
+//   1. `id` - the Javascript ID of the stylesheet.
+//   2. `value` - the CSS stylesheet content.
+//
+// It shall returns:
+//   1. hestiaError.OK | `0` - operation successful.
+//   2. hestiaError.EPFNOSUPPORT | `96` - operating in a non-WASM CPU.
+//   3. hestiaError.ENOTNAM | `118` - given filename is empty.
+//   4. hestiaError.ENODATA | `61` - given value is empty.
+func SetStylesheet(id string, value string) hestiaError.Error {
+	return _setStylesheet(id, value)
 }

@@ -174,6 +174,11 @@ func Global() *Object {
 	return _global()
 }
 
+// Head() retruns the DOM `<head>` Object got from Document().
+func Head() *Object {
+	return _head()
+}
+
 // Object is the hestiaWASM adapter to syscall/js.Value object.
 //
 // The purpose is to ensure most of hestiaWASM is built on a stable environment

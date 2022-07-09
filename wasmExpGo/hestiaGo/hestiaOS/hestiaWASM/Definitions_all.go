@@ -45,3 +45,7 @@ func _document() *Object {
 func _global() *Object {
 	return &Object{}
 }
+
+func _head() *Object {
+	return &Object{}
+}

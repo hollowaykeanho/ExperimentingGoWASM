@@ -54,6 +54,10 @@ func _get(parent *Object, query string) *Object {
 	return nil
 }
 
+func _getElementByID(id string) *Object {
+	return nil
+}
+
 func _goPromise(promise *Promise) hestiaError.Error {
 	return hestiaError.EPFNOSUPPORT
 }
@@ -79,5 +83,9 @@ func _removeEventListener(element *Object, listener *EventListener) hestiaError.
 }
 
 func _setHTML(element *Object, html *[]byte) hestiaError.Error {
+	return hestiaError.EPFNOSUPPORT
+}
+
+func _setStylesheet(id string, value string) (err hestiaError.Error) {
 	return hestiaError.EPFNOSUPPORT
 }

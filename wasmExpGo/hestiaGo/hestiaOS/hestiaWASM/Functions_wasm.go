@@ -49,9 +49,21 @@ const (
 	id_JS_EVENT_TARGET            = "target"
 	id_JS_EVENT_TIMESTAMP         = "timeStamp"
 	id_JS_EVENT_TYPE              = "type"
+	id_JS_GET_ELEMENT_BY_ID       = "getElementById"
 	id_JS_HTML                    = "innerHTML"
+	id_JS_ID                      = "id"
 	id_JS_PROMISE                 = "Promise"
 	id_JS_REMOVE_EVENT_LISTENER   = "removeEventListener"
+	id_JS_TAG_NAME                = "tagName"
+	id_JS_TYPE                    = "type"
+)
+
+const (
+	mime_CSS = "text/css"
+)
+
+const (
+	tag_STYLE = "STYLE"
 )
 
 // RETURN ERROR CODES
@@ -252,6 +264,23 @@ func _get(parent *Object, query string) *Object {
 	}
 }
 
+func _getElementByID(id string) *Object {
+	var ret js.Value
+
+	if id == "" {
+		return nil
+	}
+
+	ret = Document().value.Call(id_JS_GET_ELEMENT_BY_ID, id)
+	if ret.IsNull() || ret.IsNaN() || ret.IsUndefined() {
+		return nil
+	}
+
+	return &Object{
+		value: &ret,
+	}
+}
+
 func _removeEventListener(element *Object, listener *EventListener) hestiaError.Error {
 	var options map[string]any
 
@@ -300,6 +329,40 @@ func _setHTML(element *Object, html *[]byte) hestiaError.Error {
 	}
 
 	element.value.Set(id_JS_HTML, string(*html))
+
+	return hestiaError.OK
+}
+
+func _setStylesheet(id string, value string) (err hestiaError.Error) {
+	var element *Object
+
+	if id == "" {
+		return hestiaError.ENOTNAM
+	}
+
+	if value == "" {
+		return hestiaError.ENODATA
+	}
+
+	// attempting to get style element using name
+	element = GetElementByID(id)
+	switch {
+	case element == nil:
+	case element.value.Get(id_JS_TAG_NAME).String() == tag_STYLE:
+	default:
+		element = nil
+	}
+
+	// create element if missing
+	if element == nil {
+		element, _ = CreateElement(tag_STYLE)
+		Append(Head(), element)
+	}
+
+	// set CSS contents
+	element.value.Set(id_JS_TYPE, mime_CSS)
+	element.value.Set(id_JS_ID, id)
+	element.value.Set(id_JS_HTML, value)
 
 	return hestiaError.OK
 }

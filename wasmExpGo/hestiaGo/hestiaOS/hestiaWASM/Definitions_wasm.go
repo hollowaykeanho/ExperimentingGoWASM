@@ -51,3 +51,7 @@ func _global() *Object {
 		value: &ret,
 	}
 }
+
+func _head() *Object {
+	return Get(Document(), "head")
+}
