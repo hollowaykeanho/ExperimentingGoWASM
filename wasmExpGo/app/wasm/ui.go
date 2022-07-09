@@ -66,7 +66,9 @@ func uiInit() {
 		OnlyVariables: false,
 		Compress:      false,
 	})
-	fmt.Printf("Core CSS BELOW:\n%s[END]", css)
+
+	_ = hestiaWASM.SetStylesheet("hestia-css-core", css)
+	_ = hestiaWASM.SetStylesheet("hestia-css-core", css)
 
 	// start chain server
 	hestiaChainKernel.Start(controller.kernel, func(arg any) (out any) {

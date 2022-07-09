@@ -40,12 +40,12 @@ low implementations due to little efforts. That's why the primary goal is to:
    4. ☑️ - Power on Go-WASM+HTML+Javascript on Hugo.
    5. ☑️ - Deploy Gunzip against Go-WASM to reduce its size with
       Monteur.
-   6. ⚙️ - Develop necessary foundation for Go-WASM client-side rendering.
+   6. ☑ - Develop necessary foundation for Go-WASM client-side rendering.
 3. Develop the necessary CSS/Sass frontend rendering libraries to keep the
    foundation reasonably and visually appealing at minimum.
    1. ☑️ - Analyize (1) and (2) to see exactly where to develop the
       CSS/Sass and why. Make sure it's documentable.
-   2. ⚙️ - Develop the core component to render the page without device
+   2. ☑ - Develop the core component to render the page without device
       screen locking.
 4. Use scalable tools that can roll out updates for multiple technologies
    modularly and without much fears.

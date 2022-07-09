@@ -41,8 +41,7 @@ func onCreate() {
 			html := []byte("Render from Promise!")
 			_ = hestiaWASM.SetHTML(h2, &html)
 
-			body := hestiaWASM.Body()
-			_ = hestiaWASM.Append(body, h2)
+			_ = hestiaWASM.Append(hestiaWASM.Body(), h2)
 			return hestiaError.OK
 		},
 		Resolve: func() any {
