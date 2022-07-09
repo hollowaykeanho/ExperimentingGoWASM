@@ -220,6 +220,8 @@ Here are the tracking issues critical to the research success:
 
 1. Tinygo WASM Memory Leak (first detected after implementing Chain kernel
    example) - https://github.com/tinygo-org/tinygo/issues/1140
+2. Go WASI Implementation (first detected near experimentation conclusion)
+   - https://github.com/golang/go/issues/31105
 
 
 
