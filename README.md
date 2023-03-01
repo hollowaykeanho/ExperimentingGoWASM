@@ -1,5 +1,5 @@
 # Holloway's GoWASM Experiments
-![banner](artwork/banner-1200x628.webp)
+![banner](artworks/logo-1200x630.svg)
 
 This is the principle repository for (Holloway) Chew, Kean Ho's experimentation
 to develop a pure Go web application supporting
